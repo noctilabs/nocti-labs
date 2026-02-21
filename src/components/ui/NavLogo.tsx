@@ -8,7 +8,7 @@ export default function NavLogo({ className = '' }: NavLogoProps) {
   return (
     <Link
       href="/"
-      style={{ width: 'clamp(132px, 16vw, 165px)', height: 'clamp(60px, 7.5vw, 75px)', position: 'relative', display: 'block', borderRadius: 3 }}
+      style={{ width: 'clamp(80px, 9vw, 165px)', height: 'clamp(36px, 4vw, 75px)', position: 'relative', display: 'block', borderRadius: 3 }}
       className={`no-underline ${className}`}
     >
       <div style={{ width: '100%', height: '100%', left: 0, top: 0, position: 'absolute', background: 'white', borderRadius: 3 }} />
@@ -24,7 +24,7 @@ export default function NavLogo({ className = '' }: NavLogoProps) {
           display: 'flex',
           flexDirection: 'column',
           color: '#1E1E1E',
-          fontSize: 'clamp(23px, 2.8vw, 28.75px)',
+          fontSize: 'clamp(14px, 1.5vw, 28.75px)',
           fontFamily: 'Neue Haas Grotesk Display Std',
           fontWeight: '700',
           lineHeight: 72,

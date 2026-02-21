@@ -10,9 +10,9 @@ export default function NavContactButton({ className = '' }: NavContactButtonPro
       href="/contact"
       className={`relative inline-flex items-center justify-center bg-white rounded-full text-black font-semibold font-['ABC_Diatype_Mono_Unlicensed_Trial'] leading-[72px] no-underline gap-2 ${className}`}
       style={{
-        width: 'clamp(158px, 20vw, 197.5px)',
-        height: 'clamp(60px, 7.5vw, 75px)',
-        fontSize: 'clamp(14px, 1.75vw, 17.5px)',
+        width: 'clamp(100px, 10vw, 197.5px)',
+        height: 'clamp(36px, 4vw, 75px)',
+        fontSize: 'clamp(10px, 1vw, 17.5px)',
         borderRadius: '184px',
       }}
     >
