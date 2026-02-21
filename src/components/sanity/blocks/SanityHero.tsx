@@ -1,15 +1,9 @@
 import { stegaClean } from 'next-sanity'
 import { urlFor } from '@/sanity/lib/image'
-import NavLogo from '@/components/ui/NavLogo'
-import NavLinks from '@/components/ui/NavLinks'
-import NavContactButton from '@/components/ui/NavContactButton'
+import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
-interface SanityHeroProps {
-  _key: string
-  heading?: string
-  backgroundImage?: { asset?: { _ref: string } }
-  theme?: string
-}
+type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
+type SanityHeroProps = Extract<PageBlock, { _type: 'hero' }>
 
 export default function SanityHero({
   heading,
@@ -44,6 +38,7 @@ export default function SanityHero({
 
   return (
     <section
+      data-nav-theme="dark"
       style={{
         width: '100%',
         aspectRatio: '1445 / 789',
@@ -86,29 +81,6 @@ export default function SanityHero({
         </p>
       </div>
 
-      {/* Navigation bar */}
-      <nav
-        style={{
-          position: 'absolute',
-          top: '5.07%',
-          left: '2.77%',
-          right: '2.77%',
-          display: 'grid',
-          gridTemplateColumns: '1fr auto 1fr',
-          alignItems: 'center',
-          gap: 16,
-        }}
-      >
-        <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <NavLogo />
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <NavLinks />
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <NavContactButton />
-        </div>
-      </nav>
     </section>
   )
 }

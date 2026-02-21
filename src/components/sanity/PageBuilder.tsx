@@ -4,12 +4,9 @@ import SanityServicesShowcase from './blocks/SanityServicesShowcase'
 import SanityProjectsShowcase from './blocks/SanityProjectsShowcase'
 import SanityInsightsGrid from './blocks/SanityInsightsGrid'
 import SanityContactSection from './blocks/SanityContactSection'
+import type { PAGE_QUERYResult } from '../../../sanity.types'
 
-interface Block {
-  _key: string
-  _type: string
-  [key: string]: unknown
-}
+type Block = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
 
 interface PageBuilderProps {
   blocks?: Block[] | null
@@ -21,23 +18,24 @@ export default function PageBuilder({ blocks }: PageBuilderProps) {
   return (
     <main>
       {blocks.map((block) => {
-        switch (block._type) {
+        const { _key, _type } = block
+        switch (_type) {
           case 'hero':
-            return <SanityHero key={block._key} {...(block as React.ComponentProps<typeof SanityHero>)} />
+            return <SanityHero key={_key} {...block} />
           case 'introSection':
-            return <SanityIntroSection key={block._key} {...(block as React.ComponentProps<typeof SanityIntroSection>)} />
+            return <SanityIntroSection key={_key} {...block} />
           case 'servicesShowcase':
-            return <SanityServicesShowcase key={block._key} {...(block as React.ComponentProps<typeof SanityServicesShowcase>)} />
+            return <SanityServicesShowcase key={_key} {...block} />
           case 'projectsShowcase':
-            return <SanityProjectsShowcase key={block._key} {...(block as React.ComponentProps<typeof SanityProjectsShowcase>)} />
+            return <SanityProjectsShowcase key={_key} {...block} />
           case 'insightsGrid':
-            return <SanityInsightsGrid key={block._key} {...(block as React.ComponentProps<typeof SanityInsightsGrid>)} />
+            return <SanityInsightsGrid key={_key} {...block} />
           case 'contactSection':
-            return <SanityContactSection key={block._key} {...(block as React.ComponentProps<typeof SanityContactSection>)} />
+            return <SanityContactSection key={_key} {...block} />
           default:
             return (
-              <div key={block._key} className="py-10 text-center text-muted font-mono text-sm">
-                Unknown block type: {block._type}
+              <div key={_key} className="py-10 text-center text-muted font-mono text-sm">
+                Unknown block type: {_type}
               </div>
             )
         }

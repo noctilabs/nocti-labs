@@ -1,28 +1,15 @@
 import { urlFor } from '@/sanity/lib/image'
+import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
-interface ProjectDoc {
-  _id: string
-  title?: string
-  slug?: { current?: string }
-  client?: string
-  description?: string
-  coverImage?: { asset?: { _ref: string } }
-  tags?: string[]
-  url?: string
-}
-
-interface SanityProjectsShowcaseProps {
-  _key: string
-  heading?: string
-  projects?: ProjectDoc[]
-}
+type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
+type SanityProjectsShowcaseProps = Extract<PageBlock, { _type: 'projectsShowcase' }>
 
 export default function SanityProjectsShowcase({
   heading,
   projects,
 }: SanityProjectsShowcaseProps) {
   return (
-    <section className="bg-black text-white py-20 px-8 md:px-16">
+    <section data-nav-theme="dark" className="bg-black text-white py-20 px-8 md:px-16">
       {heading && (
         <h2 className="font-body text-[48px] font-bold mb-12">{heading}</h2>
       )}

@@ -1,22 +1,9 @@
 import { urlFor } from '@/sanity/lib/image'
 import SanityCta from '@/components/sanity/shared/SanityCta'
+import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
-interface SanityIntroSectionProps {
-  _key: string
-  heading?: string
-  image?: { asset?: { _ref: string } }
-  description?: string
-  badge?: {
-    image?: { asset?: { _ref: string } }
-    text?: string
-  }
-  cta?: {
-    label?: string
-    linkType?: string
-    internalLink?: string
-    externalUrl?: string
-  }
-}
+type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
+type SanityIntroSectionProps = Extract<PageBlock, { _type: 'introSection' }>
 
 export default function SanityIntroSection({
   heading,
@@ -26,7 +13,7 @@ export default function SanityIntroSection({
   cta,
 }: SanityIntroSectionProps) {
   return (
-    <section className="bg-white text-black py-20 px-8 md:px-16">
+    <section data-nav-theme="light" className="bg-white text-black py-20 px-8 md:px-16">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         {/* Left: Image */}
         <div>

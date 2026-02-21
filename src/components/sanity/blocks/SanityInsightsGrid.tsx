@@ -1,28 +1,16 @@
 import Link from 'next/link'
 import { urlFor } from '@/sanity/lib/image'
+import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
-interface BlogPostDoc {
-  _id: string
-  title?: string
-  slug?: { current?: string }
-  coverImage?: { asset?: { _ref: string } }
-  excerpt?: string
-  author?: string
-  publishedAt?: string
-}
-
-interface SanityInsightsGridProps {
-  _key: string
-  heading?: string
-  featuredPosts?: BlogPostDoc[]
-}
+type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
+type SanityInsightsGridProps = Extract<PageBlock, { _type: 'insightsGrid' }>
 
 export default function SanityInsightsGrid({
   heading,
   featuredPosts,
 }: SanityInsightsGridProps) {
   return (
-    <section className="bg-black text-white py-20 px-8 md:px-16">
+    <section data-nav-theme="dark" className="bg-black text-white py-20 px-8 md:px-16">
       {heading && (
         <h2 className="font-body text-[48px] font-bold mb-16">{heading}</h2>
       )}

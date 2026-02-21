@@ -1,19 +1,8 @@
 import ContactForm from './ContactForm'
+import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
-interface OfficeData {
-  _key: string
-  city?: string
-  country?: string
-  address?: string
-}
-
-interface SanityContactSectionProps {
-  _key: string
-  heading?: string
-  email?: string
-  offices?: OfficeData[]
-  formHeading?: string
-}
+type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
+type SanityContactSectionProps = Extract<PageBlock, { _type: 'contactSection' }>
 
 export default function SanityContactSection({
   heading,
@@ -22,7 +11,7 @@ export default function SanityContactSection({
   formHeading,
 }: SanityContactSectionProps) {
   return (
-    <section className="bg-black text-white py-20 px-8 md:px-16">
+    <section data-nav-theme="dark" className="bg-black text-white py-20 px-8 md:px-16">
       {heading && (
         <h2 className="font-body text-[48px] font-bold mb-8">{heading}</h2>
       )}

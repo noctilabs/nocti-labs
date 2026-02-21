@@ -1,25 +1,9 @@
 import { stegaClean } from 'next-sanity'
 import SanityCta from '@/components/sanity/shared/SanityCta'
+import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
-interface ServiceDoc {
-  _id: string
-  title?: string
-  category?: string
-  description?: string
-  items?: string[]
-}
-
-interface SanityServicesShowcaseProps {
-  _key: string
-  heading?: string
-  services?: ServiceDoc[]
-  cta?: {
-    label?: string
-    linkType?: string
-    internalLink?: string
-    externalUrl?: string
-  }
-}
+type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
+type SanityServicesShowcaseProps = Extract<PageBlock, { _type: 'servicesShowcase' }>
 
 export default function SanityServicesShowcase({
   heading,
@@ -27,7 +11,7 @@ export default function SanityServicesShowcase({
   cta,
 }: SanityServicesShowcaseProps) {
   return (
-    <section className="bg-white text-black py-20 px-8 md:px-16">
+    <section data-nav-theme="light" className="bg-white text-black py-20 px-8 md:px-16">
       {heading && (
         <h2 className="font-body text-[40px] font-bold mb-16">{heading}</h2>
       )}
