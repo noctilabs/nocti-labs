@@ -1,0 +1,29 @@
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        black: "#000000",
+        white: "#ffffff",
+        footer: "#e9e8e7",
+        accent: "#00ff11",
+        muted: "#a8a8a8",
+        blue: "#1500ff",
+      },
+      fontFamily: {
+        display: ["'Neue Haas Grotesk Display Std'", "'Helvetica Neue'", "Helvetica", "Arial", "sans-serif"],
+        body: ["'Neue Haas Unica Pro'", "'Helvetica Neue'", "Helvetica", "Arial", "sans-serif"],
+        mono: ["'ABC Diatype Mono'", "'Courier New'", "Courier", "monospace"],
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;
