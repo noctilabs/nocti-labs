@@ -1,6 +1,4 @@
-import NavLogo from '../ui/NavLogo';
-import NavLinks from '../ui/NavLinks';
-import NavContactButton from '../ui/NavContactButton';
+import PersistentNav from '../layout/PersistentNav';
 
 export default function Hero() {
   return (
@@ -47,28 +45,7 @@ export default function Hero() {
       </div>
 
       {/* Navigation bar */}
-      <nav
-        style={{
-          position: 'absolute',
-          top: '5.07%',
-          left: '2.77%',
-          right: '2.77%',
-          display: 'grid',
-          gridTemplateColumns: '1fr auto 1fr',
-          alignItems: 'center',
-          gap: 16,
-        }}
-      >
-        <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <NavLogo />
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <NavLinks />
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <NavContactButton />
-        </div>
-      </nav>
+      <PersistentNav />
     </section>
   );
 }
