@@ -6,7 +6,7 @@ export default function WorkPreview(): React.ReactElement {
   return (
     <section className="bg-black text-white min-h-screen flex flex-col relative" style={{ paddingBottom: '0' }}>
       {/* Full Screen Green Placeholder Section */}
-      <div className="w-full flex-1 flex items-start justify-center relative" style={{ paddingLeft: 'clamp(20px, 5vw, 40px)', paddingRight: 'clamp(20px, 5vw, 40px)', paddingTop: '130px', paddingBottom: '130px' }}>
+      <div className="w-full flex-1 flex items-start justify-center relative" style={{ paddingLeft: 'clamp(20px, 3vw, 40px)', paddingRight: 'clamp(20px, 3vw, 40px)', paddingTop: '136px', paddingBottom: '136px' }}>
         <div
           className="bg-[#00FF17] relative w-full"
           style={{
