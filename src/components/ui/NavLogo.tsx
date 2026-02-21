@@ -1,12 +1,45 @@
 import Link from 'next/link';
 
-export default function NavLogo() {
+interface NavLogoProps {
+  className?: string;
+  theme?: 'light' | 'dark';
+}
+
+export default function NavLogo({ className = '', theme = 'light' }: NavLogoProps) {
+  const isDark = theme === 'dark';
+  const bgColor = isDark ? 'black' : 'white';
+  const textColor = isDark ? 'white' : '#1E1E1E';
+
   return (
     <Link
       href="/"
-      className="relative inline-flex items-center justify-center w-[132px] h-[60px] bg-white rounded-[3px] text-[#1e1e1e] text-[23px] font-bold font-['Neue_Haas_Grotesk_Display_Std'] leading-[72px] no-underline"
+      style={{ width: 'clamp(80px, 9vw, 165px)', height: 'clamp(36px, 4vw, 75px)', position: 'relative', display: 'block', borderRadius: 3 }}
+      className={`no-underline ${className}`}
     >
-      Nocti Labs
+      <div style={{ width: '100%', height: '100%', left: 0, top: 0, position: 'absolute', background: bgColor, borderRadius: 3, transition: 'background-color 0.4s ease-in-out' }} />
+      <div
+        style={{
+          width: '82.5%',
+          height: '63.3%',
+          left: '9.1%',
+          top: '18.3%',
+          position: 'absolute',
+          textAlign: 'center',
+          justifyContent: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          color: textColor,
+          fontSize: 'clamp(12px, 1.2vw, 24px)',
+          fontFamily: "'Neue Haas Grotesk Display Std', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+          fontWeight: '700',
+          lineHeight: '1',
+          wordWrap: 'break-word',
+          overflow: 'hidden',
+          transition: 'color 0.4s ease-in-out',
+        }}
+      >
+        Nocti Labs
+      </div>
     </Link>
   );
 }

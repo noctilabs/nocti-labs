@@ -11,7 +11,7 @@ const services = [
 
 export default function ServicesPreview() {
   return (
-    <section className="bg-white text-black py-20 px-8 md:px-16">
+    <section className="bg-white text-black py-20 px-8 md:px-16" data-nav-theme="light">
       {/* Label */}
       <h2 className="font-body text-[40px] font-bold mb-16">Services</h2>
 
