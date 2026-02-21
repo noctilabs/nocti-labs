@@ -18,7 +18,7 @@ export default function PersistentNav(): React.ReactElement {
         display: 'grid',
         gridTemplateColumns: '1fr auto 1fr',
         alignItems: 'center',
-        gap: '17.76px',
+        gap: '22.2px',
         paddingTop: '0px',
         paddingBottom: '0px',
         zIndex: 50,
