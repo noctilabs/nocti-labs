@@ -14,19 +14,18 @@ export default function Contact() {
     description: '',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     // Form submission logic will be added later
-    console.log('Form submitted:', formData);
   };
 
   return (
-    <section className="bg-black text-white py-20 px-8 md:px-16">
+    <section className="bg-black text-white py-20 px-8 md:px-16" data-nav-theme="dark">
       {/* Headline */}
       <h2 className="font-body text-[48px] font-bold mb-8">Let's talk!</h2>
       <h3 className="font-body text-[48px] font-bold mb-16">Have a project in mind?</h3>

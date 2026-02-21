@@ -1,14 +1,12 @@
-import Navbar from '@/components/layout/Navbar';
+import PersistentNav from '@/components/layout/PersistentNav';
 import Contact from '@/components/sections/Contact';
 import Footer from '@/components/layout/Footer';
 
 export default function ContactPage() {
   return (
-    <main>
-      <Navbar theme="dark" />
-      <div className="pt-20">
-        <Contact />
-      </div>
+    <main style={{ position: 'relative', minHeight: '100vh' }}>
+      <PersistentNav />
+      <Contact />
       <Footer />
     </main>
   );
