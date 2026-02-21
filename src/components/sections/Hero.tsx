@@ -3,6 +3,7 @@ import PersistentNav from '../layout/PersistentNav';
 export default function Hero() {
   return (
     <section
+      data-nav-theme="dark"
       style={{
         width: '100%',
         aspectRatio: '1445 / 789',

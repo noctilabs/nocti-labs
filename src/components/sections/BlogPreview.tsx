@@ -27,7 +27,7 @@ const blogPosts = [
 
 export default function BlogPreview() {
   return (
-    <section className="bg-black text-white py-20 px-8 md:px-16">
+    <section className="bg-black text-white py-20 px-8 md:px-16" data-nav-theme="dark">
       {/* Label */}
       <h2 className="font-body text-[48px] font-bold mb-16">Insights</h2>
 
