@@ -14,7 +14,7 @@ export default async function Home() {
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Home Page Not Found</h1>
           <p className="text-muted">
-            Create a page document in Sanity with slug "home" to get started.
+            Create a page document in Sanity with slug &quot;home&quot; to get started.
           </p>
         </div>
       </main>
