@@ -9,12 +9,19 @@ export default function SanityHero({
   heading,
   backgroundImage,
   theme,
-}: SanityHeroProps) {
+  ...props
+}: SanityHeroProps & { innerBackgroundImage?: any }) {
+  const innerBackgroundImage = (props as any).innerBackgroundImage
   const cleanTheme = stegaClean(theme) || 'blue'
 
   const hasCustomBg = backgroundImage?.asset?._ref
   const bgImageUrl = hasCustomBg
     ? urlFor(backgroundImage).width(1920).url()
+    : undefined
+
+  const hasCustomInnerBg = innerBackgroundImage?.asset?._ref
+  const innerBgImageUrl = hasCustomInnerBg
+    ? urlFor(innerBackgroundImage).width(1920).url()
     : undefined
 
   // Fallback to existing SVG backgrounds for "blue" theme
@@ -55,8 +62,9 @@ export default function SanityHero({
           left: '18.96%',
           top: '25.60%',
           position: 'absolute',
-          backgroundImage:
-            !bgImageUrl && cleanTheme === 'blue'
+          backgroundImage: innerBgImageUrl
+            ? `url(${innerBgImageUrl})`
+            : !bgImageUrl && cleanTheme === 'blue'
               ? 'url(/noctiLabsBackgroundInnerLanding.svg)'
               : undefined,
           backgroundSize: 'cover',

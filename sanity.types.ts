@@ -110,6 +110,18 @@ export type Hero = {
     _type: "image";
   };
   theme?: "blue" | "dark" | "light";
+  innerBackgroundImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
 };
 
 export type Page = {
@@ -431,6 +443,18 @@ export type PAGE_QUERYResult = {
       _type: "image";
     };
     theme?: "blue" | "dark" | "light";
+    innerBackgroundImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
   } | {
     _key: string;
     _type: "insightsGrid";

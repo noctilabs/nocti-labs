@@ -23,13 +23,19 @@ export const heroType = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Blue', value: 'blue' },
+          { title: 'Inner Background Image', value: 'blue' },
           { title: 'Dark', value: 'dark' },
           { title: 'Light', value: 'light' },
         ],
         layout: 'radio',
       },
       initialValue: 'blue',
+    }),
+    defineField({
+      name: 'innerBackgroundImage',
+      type: 'image',
+      options: { hotspot: true },
+      description: 'Optional. Falls back to default SVG if empty. This is the background for the headline panel.',
     }),
   ],
   preview: {
