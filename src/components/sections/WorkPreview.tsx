@@ -32,7 +32,7 @@ export default function WorkPreview(): React.ReactElement {
               <p
                 className="font-mono uppercase font-bold text-[#FF0000] italic"
                 style={{
-                  fontSize: 'clamp(1.5rem, 4vw, 3rem)',
+                  fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
                   lineHeight: 'clamp(2.25rem, 6vw, 4.5rem)',
                   wordBreak: 'break-word',
                 }}
@@ -42,7 +42,7 @@ export default function WorkPreview(): React.ReactElement {
               <p
                 className="font-mono uppercase font-bold text-[#FF0000] italic"
                 style={{
-                  fontSize: 'clamp(1.5rem, 4vw, 3rem)',
+                  fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
                   lineHeight: 'clamp(2.25rem, 6vw, 4.5rem)',
                   wordBreak: 'break-word',
                 }}
@@ -51,38 +51,37 @@ export default function WorkPreview(): React.ReactElement {
               </p>
             </div>
           </div>
-        </div>
-        {/* Project Caption - Overlapping on top */}
-        <div
-          className="absolute bg-white"
-          style={{
-            bottom: 'clamp(20px, 4vw, 41px)',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 10,
-            maxWidth: '90vw',
-            width: 'clamp(250px, 60vw, 605px)',
-            paddingTop: 'clamp(16px, 3vw, 32px)',
-            paddingBottom: 'clamp(16px, 3vw, 32px)',
-            paddingLeft: 'clamp(16px, 3vw, 32px)',
-            paddingRight: 'clamp(16px, 3vw, 32px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <p
-            className="font-mono uppercase text-black opacity-80 text-center font-semibold"
+
+          {/* Project Caption - overlapping the green box */}
+          <div
+            className="absolute bg-white rounded-[3px]"
             style={{
-              fontSize: 'clamp(11px, 2vw, 14px)',
-              lineHeight: '1.4',
+              bottom: 'clamp(20px, 4vw, 41px)',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 10,
+              height: 'clamp(44px, 6vw, 60px)',
+              maxWidth: 'clamp(250px, 60vw, 605px)',
+              width: 'clamp(250px, 40vw, 605px)',
+              paddingTop: 'clamp(16px, 3vw, 32px)',
+              paddingBottom: 'clamp(16px, 3vw, 32px)',
+              paddingLeft: 'clamp(16px, 3vw, 32px)',
+              paddingRight: 'clamp(16px, 3vw, 32px)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
-            Centro, Vintage Fashion Marketplace for the Gen Z
-          </p>
+            <p
+              className="font-mono uppercase text-black opacity-80 text-center font-semibold"
+              style={{
+                fontSize: 'clamp(11px, 2vw, 14px)',
+                lineHeight: '1.4',
+              }}
+            >
+              Centro, Vintage Fashion Marketplace for the Gen Z
+            </p>
+          </div>
         </div>
       </div>
     </section>
