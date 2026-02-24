@@ -4,13 +4,11 @@ import { SITE_SETTINGS_QUERY } from '@/sanity/lib/queries';
 import type { SITE_SETTINGS_QUERYResult } from '../../../sanity.types';
 
 type FooterColumn = NonNullable<NonNullable<SITE_SETTINGS_QUERYResult>['footerColumns']>[number]
-type SocialLink = NonNullable<NonNullable<SITE_SETTINGS_QUERYResult>['socialLinks']>[number]
 
 export default async function Footer() {
   const { data: settings } = await sanityFetch({ query: SITE_SETTINGS_QUERY });
 
   const footerColumns: FooterColumn[] = settings?.footerColumns ?? [];
-  const socialLinks: SocialLink[] = settings?.socialLinks ?? [];
   const companyName: string = settings?.companyName ?? 'Nocti Labs';
 
   return (
@@ -45,7 +43,7 @@ export default async function Footer() {
         {/* Sitemap Grid — driven by Sanity footerColumns */}
         {footerColumns.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-            {footerColumns.map((col, i) => (
+            {footerColumns.map((col) => (
               <div key={col._key}>
                 {col.heading && (
                   <h3 className="font-mono uppercase text-[14px] font-bold mb-6 text-black">
@@ -57,14 +55,6 @@ export default async function Footer() {
                     <li key={link._key}>
                       <Link href={link.href ?? '#'} className="hover:opacity-100 transition">
                         {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                  {/* Append social links to the last column */}
-                  {i === footerColumns.length - 1 && socialLinks.map((social) => (
-                    <li key={social._key}>
-                      <Link href={social.url ?? '#'} className="hover:opacity-100 transition">
-                        {social.platform}
                       </Link>
                     </li>
                   ))}
