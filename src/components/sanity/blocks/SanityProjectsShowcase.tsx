@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
@@ -35,9 +36,10 @@ export default function SanityProjectsShowcase({
             paddingLeft: 'clamp(20px, 3vw, 40px)',
             paddingRight: 'clamp(20px, 3vw, 40px)',
             paddingTop: 'clamp(20px, 2.5vw, 35px)',
+            paddingBottom: '10px',
           }}
         >
-          <h2 className="font-body text-[48px] font-bold">{heading}</h2>
+          <h2 className="font-body text-[48px] font-semibold">{heading}</h2>
         </div>
       )}
       {/* Full Screen Green Placeholder Section */}
@@ -70,9 +72,11 @@ export default function SanityProjectsShowcase({
                   playsInline
                 />
               ) : firstProject.coverImage?.asset?._ref ? (
-                <img
-                  src={urlFor(firstProject.coverImage).width(1400).url()}
+                <Image
+                  src={urlFor(firstProject.coverImage).width(1200).url()}
                   alt={firstProject.title || ''}
+                  width={1200}
+                  height={667}
                   className="w-full h-full object-cover rounded-[3px]"
                 />
               ) : (

@@ -43,7 +43,7 @@ export default function SanityServicesShowcase({
                 color: 'black',
                 fontSize: 'clamp(32px, 6vw, 48px)',
                 fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
-                fontWeight: '700',
+                fontWeight: '500',
                 lineHeight: '1.2',
                 wordWrap: 'break-word',
                 marginBottom: '20px',

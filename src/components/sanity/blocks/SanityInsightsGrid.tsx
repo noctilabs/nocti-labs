@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
@@ -10,55 +11,80 @@ export default function SanityInsightsGrid({
   featuredPosts,
 }: SanityInsightsGridProps) {
   return (
-    <section data-nav-theme="dark" className="bg-black text-white py-20 px-8 md:px-16">
-      {heading && (
-        <h2 className="font-body text-[48px] font-bold mb-16">{heading}</h2>
-      )}
+    <section
+      data-nav-theme="dark"
+      className="bg-black text-white pt-[94px] mb-[40px]"
+      style={{
+        marginLeft: 'clamp(20px, 3vw, 40px)',
+        marginRight: 'clamp(20px, 3vw, 40px)',
+        paddingLeft: '0px',
+        paddingRight: '0px',
+        marginBottom: '40px',
+      }}
+    >
+        {heading && (
+          <h2 
+            className="font-display text-[48px] font-medium leading-[50px] mb-[103px]"
+            style={{ paddingTop: '80px', paddingBottom: '100px' }}
+          >
+            {heading}
+          </h2>
+        )}
 
-      {featuredPosts && featuredPosts.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {featuredPosts.map((post) => (
-            <div key={post._id} className="group cursor-pointer">
-              {/* Cover Image */}
-              {post.coverImage?.asset?._ref ? (
-                <img
-                  src={urlFor(post.coverImage).width(400).height(400).url()}
-                  alt={post.title || ''}
-                  className="w-full aspect-square object-cover rounded-lg mb-6 group-hover:opacity-80 transition"
-                />
-              ) : (
-                <div className="w-full aspect-square bg-gray-800 rounded-lg mb-6 group-hover:opacity-80 transition" />
-              )}
+        {featuredPosts && featuredPosts.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[20px] mb-[40px]">
+            {featuredPosts.map((post) => (
+              <div key={post._id} className="group cursor-pointer flex flex-col">
+                {/* Cover Image */}
+                {post.coverImage?.asset?._ref ? (
+                  <Image
+                    src={urlFor(post.coverImage).width(652).height(442).url()}
+                    alt={post.title || ''}
+                    width={652}
+                    height={442}
+                    className="w-full aspect-[326/221] object-cover mb-[20px] group-hover:opacity-80 transition"
+                  />
+                ) : (
+                  <div className="w-full aspect-[326/221] bg-gray-800 mb-[20px] group-hover:opacity-80 transition" />
+                )}
 
-              {/* Title */}
-              <h3 className="font-body text-[24px] font-bold mb-4 group-hover:opacity-70 transition">
-                {post.title}
-              </h3>
+                {/* Text content */}
+                <div
+                  className="flex flex-col gap-[13px]"
+                  style={{ marginTop: '30px', marginBottom: '30px' }}
+                >
+                  {/* Title */}
+                  <h3 className="font-body text-[24px] font-medium leading-[25px] text-white"
+                    style={{ marginBottom: '10px' }}
+                  >
+                    {post.title}
+                  </h3>
 
-              {/* Excerpt */}
-              {post.excerpt && (
-                <p className="font-body text-[14px] text-white opacity-70 mb-4">
-                  {post.excerpt}
-                </p>
-              )}
+                  {/* Excerpt */}
+                  {post.excerpt && (
+                    <p className="font-body text-[14px] font-normal leading-[16px] text-white">
+                      {post.excerpt}
+                    </p>
+                  )}
 
-              {/* Author */}
-              {post.author && (
-                <p className="font-body text-[14px] text-muted">
-                  {post.author}
-                </p>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+                  {/* Author */}
+                  {post.author && (
+                    <p className="font-body text-[14px] font-normal leading-[16px] text-[#A8A8A8]">
+                      {post.author}
+                    </p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
-      <Link
-        href="/blog"
-        className="font-body text-[24px] text-white hover:opacity-70 transition"
-      >
-        Read our Blog &rarr;
-      </Link>
+        <Link
+          href="/blog"
+          className="font-body text-[24px] font-medium leading-[25px] text-white hover:opacity-70 transition"
+        >
+          Read our Blog →
+        </Link>
     </section>
   )
 }
