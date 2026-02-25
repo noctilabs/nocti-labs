@@ -408,7 +408,7 @@ export type AllSanitySchemaTypes = ContactSection | InsightsGrid | ProjectsShowc
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PAGE_QUERY
-// Query: *[_type == "page" && slug.current == $slug][0]{    _id,    title,    slug,    seo,    pageBuilder[]{      ...,      _type == "servicesShowcase" => {        ...,        services[]->{          _id,          title,          category,          description,          items        }      },      _type == "projectsShowcase" => {        ...,        projects[]->{          _id,          title,          slug,          client,          description,          coverImage,          tags,          url        }      },      _type == "insightsGrid" => {        ...,        featuredPosts[]->{          _id,          title,          slug,          coverImage,          excerpt,          author,          publishedAt        }      }    }  }
+// Query: *[_type == "page" && slug.current == $slug][0]{    _id,    title,    slug,    seo,    pageBuilder[]{      ...,      _type == "servicesShowcase" => {        ...,        services[]->{          _id,          title,          category,          description,          items        }      },      _type == "projectsShowcase" => {        ...,        projects[]->{          _id,          title,          slug,          client,          description,          coverImage,          "coverVideoUrl": coverVideo.asset->url,          tags,          url        }      },      _type == "insightsGrid" => {        ...,        featuredPosts[]->{          _id,          title,          slug,          coverImage,          excerpt,          author,          publishedAt        }      }    }  }
 export type PAGE_QUERYResult = {
   _id: string;
   title: string | null;
@@ -534,6 +534,7 @@ export type PAGE_QUERYResult = {
         crop?: SanityImageCrop;
         _type: "image";
       } | null;
+      coverVideoUrl: null;
       tags: Array<string> | null;
       url: string | null;
     }> | null;
@@ -580,7 +581,7 @@ export type SITE_SETTINGS_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n  *[_type == \"page\" && slug.current == $slug][0]{\n    _id,\n    title,\n    slug,\n    seo,\n    pageBuilder[]{\n      ...,\n      _type == \"servicesShowcase\" => {\n        ...,\n        services[]->{\n          _id,\n          title,\n          category,\n          description,\n          items\n        }\n      },\n      _type == \"projectsShowcase\" => {\n        ...,\n        projects[]->{\n          _id,\n          title,\n          slug,\n          client,\n          description,\n          coverImage,\n          tags,\n          url\n        }\n      },\n      _type == \"insightsGrid\" => {\n        ...,\n        featuredPosts[]->{\n          _id,\n          title,\n          slug,\n          coverImage,\n          excerpt,\n          author,\n          publishedAt\n        }\n      }\n    }\n  }\n": PAGE_QUERYResult;
+    "\n  *[_type == \"page\" && slug.current == $slug][0]{\n    _id,\n    title,\n    slug,\n    seo,\n    pageBuilder[]{\n      ...,\n      _type == \"servicesShowcase\" => {\n        ...,\n        services[]->{\n          _id,\n          title,\n          category,\n          description,\n          items\n        }\n      },\n      _type == \"projectsShowcase\" => {\n        ...,\n        projects[]->{\n          _id,\n          title,\n          slug,\n          client,\n          description,\n          coverImage,\n          \"coverVideoUrl\": coverVideo.asset->url,\n          tags,\n          url\n        }\n      },\n      _type == \"insightsGrid\" => {\n        ...,\n        featuredPosts[]->{\n          _id,\n          title,\n          slug,\n          coverImage,\n          excerpt,\n          author,\n          publishedAt\n        }\n      }\n    }\n  }\n": PAGE_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0]{\n    _id,\n    companyName,\n    email,\n    offices,\n    socialLinks,\n    footerColumns\n  }\n": SITE_SETTINGS_QUERYResult;
   }
 }

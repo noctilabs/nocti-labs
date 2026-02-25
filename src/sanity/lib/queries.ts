@@ -27,6 +27,7 @@ export const PAGE_QUERY = defineQuery(/* groq */ `
           client,
           description,
           coverImage,
+          "coverVideoUrl": coverVideo.asset->url,
           tags,
           url
         }

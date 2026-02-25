@@ -10,6 +10,18 @@ export default function SanityProjectsShowcase({
   heading,
   projects,
 }: SanityProjectsShowcaseProps) {
+  type ProjectsShowcaseProjectWithVideo = {
+    coverVideoUrl?: string
+    coverImage?: {
+      asset?: {
+        _ref?: string
+      }
+    }
+    title?: string
+    client?: string
+  }
+  const firstProject = projects?.[0] as ProjectsShowcaseProjectWithVideo | undefined
+
   return (
     <section
       className="bg-white text-black flex flex-col relative"
@@ -34,58 +46,70 @@ export default function SanityProjectsShowcase({
         style={{
           paddingLeft: 'clamp(20px, 3vw, 40px)',
           paddingRight: 'clamp(20px, 3vw, 40px)',
-          paddingTop: 'clamp(30px, 5vw, 60px)',
+          paddingTop: '10px',
           paddingBottom: 'clamp(80px, 10vw, 136px)',
           minHeight: heading ? 'auto' : '100vh',
         }}
       >
         <div
-          className="bg-[#00FF17] relative w-full"
+          className="relative w-full"
           style={{
             aspectRatio: '1200/667',
-            paddingLeft: 'clamp(20px, 3vw, 40px)',
-            paddingRight: 'clamp(20px, 3vw, 40px)',
             borderRadius: '3px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
           }}
         >
-          {projects && projects.length > 0 ? (
+          {firstProject ? (
             <>
-              {/* Display first project's cover image if available */}
-              {projects[0]?.coverImage?.asset?._ref ? (
+              {firstProject.coverVideoUrl ? (
+                <video
+                  src={firstProject.coverVideoUrl}
+                  className="w-full h-full object-cover rounded-[3px]"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                />
+              ) : firstProject.coverImage?.asset?._ref ? (
                 <img
-                  src={urlFor(projects[0].coverImage).width(1400).url()}
-                  alt={projects[0]?.title || ''}
+                  src={urlFor(firstProject.coverImage).width(1400).url()}
+                  alt={firstProject.title || ''}
                   className="w-full h-full object-cover rounded-[3px]"
                 />
               ) : (
                 <div
+                  className="bg-[#00FF17] w-full h-full rounded-[3px]"
                   style={{
-                    width: '100%',
-                    maxWidth: '614px',
                     display: 'flex',
-                    flexDirection: 'column',
-                    gap: 'clamp(0px, 2vw, 20px)',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingLeft: 'clamp(20px, 3vw, 40px)',
+                    paddingRight: 'clamp(20px, 3vw, 40px)',
                   }}
                 >
-                  <div className="text-center">
-                    <p
-                      className="font-mono uppercase font-bold text-[#FF0000] italic"
-                      style={{
-                        fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-                        lineHeight: 'clamp(2.25rem, 6vw, 4.5rem)',
-                        wordBreak: 'break-word',
-                      }}
-                    >
-                      PROJECTS SHOWCASE
-                    </p>
+                  <div
+                    style={{
+                      width: '100%',
+                      maxWidth: '614px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 'clamp(0px, 2vw, 20px)',
+                    }}
+                  >
+                    <div className="text-center">
+                      <p
+                        className="font-mono uppercase font-bold text-[#FF0000] italic"
+                        style={{
+                          fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+                          lineHeight: 'clamp(2.25rem, 6vw, 4.5rem)',
+                          wordBreak: 'break-word',
+                        }}
+                      >
+                        PROJECTS SHOWCASE
+                      </p>
+                    </div>
                   </div>
                 </div>
               )}
-
-              {/* Project Caption - overlapping the green box */}
               <div
                 className="absolute bg-white rounded-[3px]"
                 style={{
@@ -112,42 +136,53 @@ export default function SanityProjectsShowcase({
                     lineHeight: '1.4',
                   }}
                 >
-                  {projects[0]?.client && `${projects[0].client}, `}
-                  {projects[0]?.title}
+                  {firstProject.client && `${firstProject.client}, `}
+                  {firstProject.title}
                 </p>
               </div>
             </>
           ) : (
             <div
+              className="bg-[#00FF17] w-full h-full rounded-[3px]"
               style={{
-                width: '100%',
-                maxWidth: '614px',
                 display: 'flex',
-                flexDirection: 'column',
-                gap: 'clamp(0px, 2vw, 20px)',
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingLeft: 'clamp(20px, 3vw, 40px)',
+                paddingRight: 'clamp(20px, 3vw, 40px)',
               }}
             >
-              <div className="text-center">
-                <p
-                  className="font-mono uppercase font-bold text-[#FF0000] italic"
-                  style={{
-                    fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-                    lineHeight: 'clamp(2.25rem, 6vw, 4.5rem)',
-                    wordBreak: 'break-word',
-                  }}
-                >
-                  PROJECTS FULL SCREEN
-                </p>
-                <p
-                  className="font-mono uppercase font-bold text-[#FF0000] italic"
-                  style={{
-                    fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-                    lineHeight: 'clamp(2.25rem, 6vw, 4.5rem)',
-                    wordBreak: 'break-word',
-                  }}
-                >
-                  ANIMATION / VIDEO
-                </p>
+              <div
+                style={{
+                  width: '100%',
+                  maxWidth: '614px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'clamp(0px, 2vw, 20px)',
+                }}
+              >
+                <div className="text-center">
+                  <p
+                    className="font-mono uppercase font-bold text-[#FF0000] italic"
+                    style={{
+                      fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+                      lineHeight: 'clamp(2.25rem, 6vw, 4.5rem)',
+                      wordBreak: 'break-word',
+                    }}
+                  >
+                    PROJECTS FULL SCREEN
+                  </p>
+                  <p
+                    className="font-mono uppercase font-bold text-[#FF0000] italic"
+                    style={{
+                      fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
+                      lineHeight: 'clamp(2.25rem, 6vw, 4.5rem)',
+                      wordBreak: 'break-word',
+                    }}
+                  >
+                    ANIMATION / VIDEO
+                  </p>
+                </div>
               </div>
             </div>
           )}

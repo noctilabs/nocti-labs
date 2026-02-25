@@ -33,6 +33,14 @@ export const projectType = defineType({
       options: { hotspot: true },
     }),
     defineField({
+      name: 'coverVideo',
+      title: 'Cover Video',
+      type: 'file',
+      options: {
+        accept: 'video/*',
+      },
+    }),
+    defineField({
       name: 'tags',
       type: 'array',
       of: [defineArrayMember({ type: 'string' })],
