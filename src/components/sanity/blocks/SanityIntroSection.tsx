@@ -26,19 +26,25 @@ export default function SanityIntroSection({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white relative py-20 min-h-screen flex flex-col justify-center"
+      className="bg-black text-white relative py-20 min-h-screen flex flex-col justify-start"
       style={{
-        paddingLeft: 0,
-        paddingRight: 0,
+        paddingLeft: SECTION_INSET,
+        paddingRight: SECTION_INSET,
         paddingTop: 0,
-        marginLeft: '30px',
-        marginRight: '30px',
+        marginLeft: 0,
+        marginRight: 0,
       }}
     >
       {/* Heading - Top Left (aligned with header inset via section margin) */}
       {heading && (
-        <div className="max-w-3xl mb-12" style={{ marginTop: '100px', marginBottom: '50px' }}>
-          <h2 className="font-body font-bold leading-tight" style={{ marginTop: 0, marginBottom: 0, fontSize: HEADING_FONT_SIZE }}>
+        <div
+          className="max-w-3xl mb-12"
+          style={{ marginTop: '50px', marginBottom: '30px' }}
+        >
+          <h2
+            className="font-body font-bold leading-tight"
+            style={{ marginTop: 0, marginBottom: 0, fontSize: HEADING_FONT_SIZE }}
+          >
             {heading}
           </h2>
         </div>
@@ -66,7 +72,7 @@ export default function SanityIntroSection({
       )}
 
       {/* Image - Center (aligned via section margin) */}
-      <div>
+      <div style={{ marginBottom: '30px' }}>
         {image?.asset?._ref ? (
           <Image
             src={urlFor(image).width(1400).url()}
@@ -83,7 +89,7 @@ export default function SanityIntroSection({
       {/* Description - Below Image (aligned via section margin) */}
       {description && (
         <div className="pb-[30px]">
-          <p className="font-body leading-relaxed max-w-[1036px] mb-8 pl-0 pr-10 pt-10 pb-5" style={{ fontSize: DESCRIPTION_FONT_SIZE, marginRight: 0 }}>
+          <p className="font-body leading-relaxed mb-8 pl-0 pt-10 pb-5" style={{ fontSize: DESCRIPTION_FONT_SIZE, marginRight: 120 }}>
             {description}
           </p>
         </div>

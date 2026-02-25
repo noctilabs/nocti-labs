@@ -102,8 +102,8 @@ export default function PersistentNav(): React.ReactElement {
   }, []);
 
   const navStyle: React.CSSProperties = {
-    position: 'absolute',
-    top: '35px',
+    position: 'fixed',
+    top: 'clamp(20px, 2.5vw, 35px)',
     left: 'clamp(20px, 3vw, 40px)',
     right: 'clamp(20px, 3vw, 40px)',
     display: 'grid',
@@ -114,7 +114,7 @@ export default function PersistentNav(): React.ReactElement {
   };
 
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, height: 'calc(35px + clamp(36px, 4vw, 75px))', zIndex: 1000, pointerEvents: 'none' }}>
+    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000, pointerEvents: 'none', height: '100vh' }}>
       {/* Light nav — clipped to show only over dark sections (white nav on black backgrounds) */}
       <nav ref={lightNavRef} data-cursor-element-id="cursor-el-126" style={{ ...navStyle, pointerEvents: 'auto', clipPath: 'inset(0 0 100% 0)' }}>
         <NavLogo className="justify-self-start" theme="light" />

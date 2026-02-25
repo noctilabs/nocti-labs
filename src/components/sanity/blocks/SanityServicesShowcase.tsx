@@ -1,6 +1,6 @@
 'use client'
 
-import { stegaClean } from 'next-sanity'
+import { useState } from 'react'
 import SanityCta from '@/components/sanity/shared/SanityCta'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
@@ -12,42 +12,119 @@ export default function SanityServicesShowcase({
   services,
   cta,
 }: SanityServicesShowcaseProps) {
+  const [expandedId, setExpandedId] = useState<string | null>(null)
+
+  const toggleService = (id: string) => {
+    setExpandedId(expandedId === id ? null : id)
+  }
   return (
-    <section data-nav-theme="light" className="bg-white text-black py-20 px-8 md:px-16">
-      {heading && (
-        <h2 className="font-body text-[40px] font-bold mb-16">{heading}</h2>
-      )}
+    <section
+      data-nav-theme="light"
+      className="bg-white text-black flex flex-col relative"
+      style={{ paddingBottom: '0' }}
+      suppressHydrationWarning
+    >
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          position: 'relative',
+          paddingLeft: '40px',
+          paddingRight: '40px',
+          paddingTop: 'clamp(20px, 3vw, 50px)',
+          paddingBottom: '0px',
+        }}
+      >
+        <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+          {/* Main Title */}
+          {heading && (
+            <div
+              style={{
+                color: 'black',
+                fontSize: 'clamp(32px, 6vw, 48px)',
+                fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
+                fontWeight: '700',
+                lineHeight: '1.2',
+                wordWrap: 'break-word',
+                marginBottom: '20px',
+              }}
+            >
+              {heading}
+            </div>
+          )}
 
-      {services && services.length > 0 && (
-        <div className="space-y-px">
-          {services.map((service) => {
-            const category = stegaClean(service.category)
-            return (
-              <div key={service._id}>
-                <div className="py-8">
-                  <div className="flex items-baseline justify-between gap-4">
-                    <span className="text-[48px] md:text-[53px] font-body font-bold hover:opacity-70 transition cursor-pointer">
-                      {service.title}
-                    </span>
-                    {category && (
-                      <span className="font-mono text-[12px] uppercase text-muted">
-                        {category}
-                      </span>
-                    )}
-                  </div>
-                </div>
-                <div className="h-px bg-black opacity-20" />
+          {/* Services Content */}
+          {services && services.length > 0 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(60px, 10vw, 120px)' }}>
+              {/* Service Categories - Accordion */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
+                {services.map((service) => {
+                  const isExpanded = expandedId === service._id
+                  return (
+                    <div key={service._id} style={{ borderBottom: '1px solid black' }}>
+                      {/* Service Title - Clickable */}
+                      <div
+                        onClick={() => toggleService(service._id)}
+                        style={{
+                          color: 'black',
+                          fontSize: 'clamp(32px, 5vw, 48px)',
+                          fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
+                          fontWeight: '500',
+                          lineHeight: '1.2',
+                          wordWrap: 'break-word',
+                          paddingTop: 'clamp(20px, 3vw, 40px)',
+                          paddingBottom: 'clamp(20px, 3vw, 40px)',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          transition: 'opacity 0.3s ease',
+                          userSelect: 'none',
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+                      >
+                        <span>{service.title}</span>
+                        <span style={{ fontSize: 'clamp(20px, 3vw, 32px)' }}>
+                          {isExpanded ? '−' : '▼'}
+                        </span>
+                      </div>
+
+                      {/* Service Items/Description - Collapsible */}
+                      {isExpanded && service.items && service.items.length > 0 && (
+                        <div
+                          style={{
+                            color: 'black',
+                            fontSize: 'clamp(24px, 3.5vw, 32px)',
+                            fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
+                            fontWeight: '500',
+                            lineHeight: '1.3',
+                            wordWrap: 'break-word',
+                            whiteSpace: 'pre-wrap',
+                            paddingBottom: 'clamp(20px, 3vw, 40px)',
+                            paddingLeft: 'clamp(20px, 3vw, 40px)',
+                            paddingRight: 'clamp(20px, 3vw, 40px)',
+                            animation: 'slideDown 0.3s ease',
+                          }}
+                        >
+                          {service.items.join('\n')}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
               </div>
-            )
-          })}
-        </div>
-      )}
 
-      {cta && (
-        <div className="mt-16 pt-8 border-t border-black border-opacity-20">
-          <SanityCta {...cta} className="text-black" />
+              {/* CTA */}
+              {cta && (
+                <div style={{ marginTop: '0px', marginBottom: '40px', fontWeight: 600 }}>
+                  <SanityCta {...cta} className="text-black" />
+                </div>
+              )}
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </section>
   )
 }
