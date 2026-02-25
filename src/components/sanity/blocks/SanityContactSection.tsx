@@ -11,29 +11,51 @@ export default function SanityContactSection({
   formHeading,
 }: SanityContactSectionProps) {
   return (
-    <section data-nav-theme="dark" className="bg-black text-white py-20 px-8 md:px-16">
-      {heading && (
-        <h2 className="font-body text-[48px] font-bold mb-8">{heading}</h2>
-      )}
-      {formHeading && (
-        <h3 className="font-body text-[48px] font-bold mb-16">
-          {formHeading}
-        </h3>
-      )}
+    <section
+      data-nav-theme="dark"
+      style={{
+        background: 'black',
+        color: 'white',
+        paddingTop: '100px',
+        paddingBottom: '80px',
+        paddingLeft: '40px',
+        paddingRight: '40px',
+      }}
+    >
+      {/* Two-column layout: left (Lets talk + offices) | right (form) */}
+      <div className="grid grid-cols-1 lg:grid-cols-[788fr_442fr] gap-[20px]">
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        {/* Form (client component) */}
-        <ContactForm />
-
-        {/* Right Side - Offices */}
+        {/* LEFT COLUMN */}
         <div>
-          <h4 className="font-body text-[48px] font-bold mb-12">Our Offices</h4>
+          {/* "Lets talk!" + email — side by side in two halves */}
+          <div className="grid grid-cols-2 gap-[20px]">
+            {heading && (
+              <h2 className="font-body text-[48px] font-medium leading-[50px] text-white">
+                {heading}
+              </h2>
+            )}
+            {email && (
+              <p className="font-body text-[24px] font-medium leading-[25px] text-white flex items-center">
+                {email}
+              </p>
+            )}
+          </div>
 
-          <div className="space-y-12">
-            {offices &&
-              offices.map((office) => (
-                <div key={office._key}>
-                  <p className="font-body text-[18px] whitespace-pre-line">
+          {/* "Our Offices" + addresses — side by side in two halves */}
+          <div
+            className="grid grid-cols-2 gap-[20px]"
+            style={{ marginTop: '100px', marginBottom: '100px' }}
+          >
+            <h3 className="font-body text-[48px] font-medium leading-[50px] text-white">
+              Our Offices
+            </h3>
+            <div>
+              {offices && offices.map((office) => (
+                <div key={office._key} className="mb-[25px] last:mb-0">
+                  <p
+                    className="font-body text-[24px] font-medium leading-[25px] text-white"
+                    style={{ paddingTop: '10px', paddingBottom: '20px' }}
+                  >
                     {office.city}, {office.country}
                     {office.address && (
                       <>
@@ -44,14 +66,20 @@ export default function SanityContactSection({
                   </p>
                 </div>
               ))}
-
-            {email && (
-              <div>
-                <p className="font-body text-[24px] text-accent">{email}</p>
-              </div>
-            )}
+            </div>
           </div>
         </div>
+
+        {/* RIGHT COLUMN — form */}
+        <div>
+          {formHeading && (
+            <h2 className="font-body text-[48px] font-medium leading-[50px] text-white mb-[23px]">
+              {formHeading}
+            </h2>
+          )}
+          <ContactForm />
+        </div>
+
       </div>
     </section>
   )

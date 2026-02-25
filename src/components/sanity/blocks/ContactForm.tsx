@@ -21,106 +21,126 @@ export default function ContactForm() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log('Form submitted:', formData)
   }
 
-  const inputClasses =
-    'w-full bg-transparent border-b border-white text-white placeholder-gray-500 font-body text-[16px] pb-4 focus:outline-none focus:border-accent transition'
+  const labelClasses = 'font-body text-[14px] font-normal leading-[16px] text-[#D9D9D9]'
+  const inputClasses = 'w-full bg-transparent border-b border-white text-white font-body text-[14px] leading-[16px] pt-0 pb-[10px] focus:outline-none placeholder-transparent'
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
-      <div>
-        <input
-          type="text"
-          name="firstName"
-          placeholder="First Name*"
-          value={formData.firstName}
-          onChange={handleChange}
-          className={inputClasses}
-          required
-        />
+    <form onSubmit={handleSubmit}>
+      {/* Row 1: First Name + Last Name */}
+      <div className="grid grid-cols-2 gap-[20px] mb-[38px]">
+        <div>
+          <label className={labelClasses}>First Name *</label>
+          <input
+            type="text"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            className={inputClasses}
+            required
+          />
+        </div>
+        <div>
+          <label className={labelClasses}>Last Name *</label>
+          <input
+            type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            className={inputClasses}
+            required
+          />
+        </div>
       </div>
-      <div>
-        <input
-          type="text"
-          name="lastName"
-          placeholder="Last Name*"
-          value={formData.lastName}
-          onChange={handleChange}
-          className={inputClasses}
-          required
-        />
+
+      {/* Row 2: Work Email + Company Name */}
+      <div className="grid grid-cols-2 gap-[20px] mb-[38px]">
+        <div>
+          <label className={labelClasses}>Work Email *</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className={inputClasses}
+            required
+          />
+        </div>
+        <div>
+          <label className={labelClasses}>Company Name *</label>
+          <input
+            type="text"
+            name="company"
+            value={formData.company}
+            onChange={handleChange}
+            className={inputClasses}
+            required
+          />
+        </div>
       </div>
-      <div>
-        <input
-          type="email"
-          name="email"
-          placeholder="Work Email*"
-          value={formData.email}
-          onChange={handleChange}
-          className={inputClasses}
-          required
-        />
+
+      {/* Row 3: Current E-Commerce Platform + Country / Region */}
+      <div className="grid grid-cols-2 gap-[20px] mb-[38px]">
+        <div>
+          <label className={labelClasses}>Current E-Commerce Platform</label>
+          <input
+            type="text"
+            name="platform"
+            value={formData.platform}
+            onChange={handleChange}
+            className={inputClasses}
+          />
+        </div>
+        <div>
+          <label className={labelClasses}>Country / Region *</label>
+          <input
+            type="text"
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+            className={inputClasses}
+            required
+          />
+        </div>
       </div>
-      <div>
-        <input
-          type="text"
-          name="company"
-          placeholder="Company Name*"
-          value={formData.company}
-          onChange={handleChange}
-          className={inputClasses}
-          required
-        />
+
+      {/* Row 4: Phone Number (left only) */}
+      <div className="grid grid-cols-2 gap-[20px] mb-[27px]">
+        <div>
+          <label className={labelClasses}>Phone Number</label>
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            className={inputClasses}
+          />
+        </div>
       </div>
-      <div>
-        <input
-          type="text"
-          name="country"
-          placeholder="Country/Region*"
-          value={formData.country}
-          onChange={handleChange}
-          className={inputClasses}
-          required
-        />
-      </div>
-      <div>
-        <input
-          type="text"
-          name="platform"
-          placeholder="Current E-Commerce Platform"
-          value={formData.platform}
-          onChange={handleChange}
-          className={inputClasses}
-        />
-      </div>
-      <div>
-        <input
-          type="tel"
-          name="phone"
-          placeholder="Phone Number"
-          value={formData.phone}
-          onChange={handleChange}
-          className={inputClasses}
-        />
-      </div>
-      <div>
+
+      {/* Project Description */}
+      <div className="mb-[15px]">
+        <label className={`${labelClasses} text-white block mb-[10px]`}>Project Description</label>
         <textarea
           name="description"
-          placeholder="Project Description"
           value={formData.description}
           onChange={handleChange}
-          className={`${inputClasses} resize-none`}
-          rows={4}
+          className="w-full bg-[#D9D9D9] text-black font-body text-[14px] leading-[16px] rounded-[10px] p-3 focus:outline-none resize-none"
+          rows={5}
         />
       </div>
+
+      {/* Submit Button */}
       <button
         type="submit"
-        className="bg-white text-black px-8 py-3 rounded-full font-mono uppercase text-[14px] font-bold hover:opacity-80 transition mt-8"
+        className="bg-white text-black font-mono text-[14px] font-medium rounded-[10px] hover:opacity-80 transition"
+        style={{ width: '100.66px', height: '37.15px' }}
       >
-        Send Message
+        Submit
       </button>
     </form>
   )

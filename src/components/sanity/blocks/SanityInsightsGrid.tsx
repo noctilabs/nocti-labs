@@ -32,7 +32,10 @@ export default function SanityInsightsGrid({
         )}
 
         {featuredPosts && featuredPosts.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[20px] mb-[40px]">
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[20px] mb-[40px]"
+            style={{ paddingBottom: '40px' }}
+          >
             {featuredPosts.map((post) => (
               <div key={post._id} className="group cursor-pointer flex flex-col">
                 {/* Cover Image */}
