@@ -35,7 +35,10 @@ export default function SanityContactSection({
               </h2>
             )}
             {email && (
-              <p className="font-body text-[24px] font-medium leading-[25px] text-white flex items-center">
+              <p
+                className="font-body text-[24px] font-medium leading-[25px] text-white flex items-center"
+                style={{ marginTop: '20px', marginBottom: '0px' }}
+              >
                 {email}
               </p>
             )}
