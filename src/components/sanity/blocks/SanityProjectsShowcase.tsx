@@ -13,7 +13,7 @@ export default function SanityProjectsShowcase({
   return (
     <section
       className="bg-white text-black flex flex-col relative"
-      data-nav-theme="dark"
+      data-nav-theme="light"
       style={{ paddingBottom: '0', minHeight: '100vh' }}
       suppressHydrationWarning
     >
