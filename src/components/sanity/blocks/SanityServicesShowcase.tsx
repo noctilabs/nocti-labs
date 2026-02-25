@@ -1,3 +1,5 @@
+'use client'
+
 import { stegaClean } from 'next-sanity'
 import SanityCta from '@/components/sanity/shared/SanityCta'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
