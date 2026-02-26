@@ -58,8 +58,9 @@ export default function SanityServicesShowcase({
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(60px, 10vw, 120px)' }}>
               {/* Service Categories - Accordion */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
-                {services.map((service) => {
+                {services.map((service, index) => {
                   const isExpanded = expandedId === service._id
+                  const isFirstItem = index === 0
                   return (
                     <div key={service._id}>
                       {/* Service Title - Clickable */}
@@ -72,17 +73,17 @@ export default function SanityServicesShowcase({
                           fontWeight: '500',
                           lineHeight: '1.2',
                           wordWrap: 'break-word',
-                          paddingTop: 'clamp(20px, 3vw, 40px)',
-                          paddingBottom: 'clamp(20px, 3vw, 40px)',
+                          paddingTop: 'clamp(10px, 2vw, 24px)',
+                          paddingBottom: 'clamp(10px, 2vw, 24px)',
                           cursor: 'pointer',
                           display: 'flex',
                           justifyContent: 'space-between',
                           alignItems: 'center',
                           transition: 'opacity 0.3s ease',
                           userSelect: 'none',
-                          borderTop: '1px solid black',
+                          borderTop: isFirstItem ? '2px solid black' : 'none',
                           borderRight: 'none',
-                          borderBottom: 'none',
+                          borderBottom: '2px solid black',
                           borderLeft: 'none',
                         }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}

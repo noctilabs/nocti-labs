@@ -33,7 +33,7 @@ export default function SanityIntroSection({
         paddingTop: 0,
         marginLeft: 0,
         marginRight: 0,
-        marginBottom: 40,
+        marginBottom: 0,
       }}
     >
       {/* Heading - Top Left (aligned with header inset via section margin) */}
@@ -89,7 +89,7 @@ export default function SanityIntroSection({
 
       {/* Description - Below Image (aligned via section margin) */}
       {description && (
-        <div className="pb-[30px]">
+        <div className="pb-[20px]">
           <p className="font-body leading-relaxed mb-8 pl-0 pt-10 pb-5" style={{ fontSize: DESCRIPTION_FONT_SIZE, marginRight: 120 }}>
             {description}
           </p>
@@ -98,7 +98,7 @@ export default function SanityIntroSection({
 
       {/* CTA - Bottom Right */}
       {cta && (
-        <div className="mt-12 flex justify-end">
+        <div className="mt-8 pb-8 flex justify-end" style={{ marginBottom: '40px' }}>
           <SanityCta {...cta} className="text-white" />
         </div>
       )}
