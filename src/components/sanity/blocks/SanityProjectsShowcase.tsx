@@ -27,7 +27,7 @@ export default function SanityProjectsShowcase({
     <section
       className="bg-white text-black flex flex-col relative"
       data-nav-theme="light"
-      style={{ paddingBottom: '0', minHeight: '100vh' }}
+      style={{ paddingBottom: '0' }}
       suppressHydrationWarning
     >
       {heading && (
@@ -44,7 +44,7 @@ export default function SanityProjectsShowcase({
       )}
       {/* Full Screen Green Placeholder Section */}
       <div
-        className="w-full flex-1 flex items-start justify-center relative"
+        className="w-full flex items-start justify-center relative"
         style={{
           paddingLeft: 'clamp(20px, 3vw, 40px)',
           paddingRight: 'clamp(20px, 3vw, 40px)',

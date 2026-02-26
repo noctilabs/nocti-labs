@@ -4,9 +4,9 @@ import React from 'react';
 
 export default function WorkPreview(): React.ReactElement {
   return (
-    <section className="bg-black text-white min-h-screen flex flex-col relative" data-nav-theme="dark" style={{ paddingBottom: '0' }}>
+    <section className="bg-black text-white flex flex-col relative" data-nav-theme="dark" style={{ paddingBottom: '0' }}>
       {/* Full Screen Green Placeholder Section */}
-      <div className="w-full flex-1 flex items-start justify-center relative" style={{ paddingLeft: 'clamp(20px, 3vw, 40px)', paddingRight: 'clamp(20px, 3vw, 40px)', paddingTop: 'calc(clamp(20px, 2.5vw, 35px) + clamp(36px, 4vw, 75px) + 30px)', paddingBottom: 'clamp(80px, 10vw, 136px)' }}>
+      <div className="w-full flex items-start justify-center relative" style={{ paddingLeft: 'clamp(20px, 3vw, 40px)', paddingRight: 'clamp(20px, 3vw, 40px)', paddingTop: 'calc(clamp(20px, 2.5vw, 35px) + clamp(36px, 4vw, 75px) + 30px)', paddingBottom: '0' }}>
         <div
           className="bg-[#00FF17] relative w-full"
           style={{

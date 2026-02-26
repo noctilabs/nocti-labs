@@ -4,9 +4,7 @@ import Footer from '@/components/layout/Footer';
 export default function WorkPage() {
   return (
     <main style={{ position: 'relative' }}>
-      <section style={{ position: 'relative', width: '100%' }}>
-        <WorkPreview />
-      </section>
+      <WorkPreview />
       <Footer />
     </main>
   );

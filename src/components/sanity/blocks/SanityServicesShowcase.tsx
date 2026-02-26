@@ -29,8 +29,8 @@ export default function SanityServicesShowcase({
           width: '100%',
           height: '100%',
           position: 'relative',
-          paddingLeft: '40px',
-          paddingRight: '40px',
+          paddingLeft: 'clamp(20px, 3vw, 40px)',
+          paddingRight: 'clamp(20px, 3vw, 40px)',
           paddingTop: 'clamp(20px, 3vw, 50px)',
           paddingBottom: '0px',
         }}
@@ -41,12 +41,12 @@ export default function SanityServicesShowcase({
             <div
               style={{
                 color: 'black',
-                fontSize: 'clamp(32px, 6vw, 48px)',
+                fontSize: 'clamp(32px, 4vw, 48px)',
                 fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
                 fontWeight: '500',
                 lineHeight: '1.2',
                 wordWrap: 'break-word',
-                marginBottom: '80px',
+                marginBottom: 'clamp(40px, 5vw, 80px)',
               }}
             >
               {heading}
@@ -55,7 +55,7 @@ export default function SanityServicesShowcase({
 
           {/* Services Content */}
           {services && services.length > 0 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(60px, 10vw, 120px)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(40px, 5vw, 80px)' }}>
               {/* Service Categories - Accordion */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
                 {services.map((service, index) => {
@@ -68,13 +68,13 @@ export default function SanityServicesShowcase({
                         onClick={() => toggleService(service._id)}
                         style={{
                           color: 'black',
-                          fontSize: 'clamp(32px, 5vw, 48px)',
+                          fontSize: 'clamp(32px, 4vw, 48px)',
                           fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
                           fontWeight: '500',
                           lineHeight: '1.2',
                           wordWrap: 'break-word',
-                          paddingTop: 'clamp(10px, 2vw, 24px)',
-                          paddingBottom: 'clamp(10px, 2vw, 24px)',
+                          paddingTop: '12px',
+                          paddingBottom: '12px',
                           cursor: 'pointer',
                           display: 'flex',
                           justifyContent: 'space-between',
@@ -83,7 +83,7 @@ export default function SanityServicesShowcase({
                           userSelect: 'none',
                           borderTop: isFirstItem ? '2px solid black' : 'none',
                           borderRight: 'none',
-                          borderBottom: '2px solid black',
+                          borderBottom: isExpanded ? 'none' : '2px solid black',
                           borderLeft: 'none',
                         }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
@@ -106,9 +106,10 @@ export default function SanityServicesShowcase({
                             lineHeight: '1.3',
                             wordWrap: 'break-word',
                             whiteSpace: 'pre-wrap',
-                            paddingBottom: 'clamp(20px, 3vw, 40px)',
+                            paddingBottom: '12px',
                             paddingLeft: 'clamp(20px, 3vw, 40px)',
                             paddingRight: 'clamp(20px, 3vw, 40px)',
+                            borderBottom: '2px solid black',
                             animation: 'slideDown 0.3s ease',
                           }}
                         >
@@ -122,7 +123,7 @@ export default function SanityServicesShowcase({
 
               {/* CTA */}
               {cta && (
-                <div style={{ marginTop: '0px', marginBottom: '40px', fontWeight: 600 }}>
+                <div style={{ marginTop: '0px', marginBottom: 'clamp(20px, 3vw, 40px)', fontWeight: 600 }}>
                   <SanityCta {...cta} className="text-black" />
                 </div>
               )}
