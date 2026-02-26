@@ -1,6 +1,7 @@
 import { sanityFetch } from '@/sanity/lib/live';
 import { PAGE_QUERY } from '@/sanity/lib/queries';
 import PageBuilder from '@/components/sanity/PageBuilder';
+import Footer from '@/components/layout/Footer';
 
 export default async function Home() {
   const { data: page } = await sanityFetch({
@@ -21,5 +22,10 @@ export default async function Home() {
     );
   }
 
-  return <PageBuilder blocks={page.pageBuilder} />;
+  return (
+    <>
+      <PageBuilder blocks={page.pageBuilder} />
+      <Footer />
+    </>
+  );
 }

@@ -55,7 +55,7 @@ export default function SanityContactSection({
             <h3 className="font-body text-[48px] font-medium leading-[50px] text-white">
               Our Offices
             </h3>
-            <div style={{ marginTop: '30px' }}>
+            <div style={{ marginTop: '30px', marginRight: '40px' }}>
               {offices && offices.map((office) => {
                 const locationLine = [office.city, office.state, office.country].filter(Boolean).join(', ');
                 const hasAddressParts = office.address || office.stateAbbr || office.zip;

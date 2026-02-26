@@ -12,63 +12,83 @@ export default async function Footer() {
   const companyName: string = settings?.companyName ?? 'Nocti Labs';
 
   return (
-    <footer className="bg-footer text-black relative overflow-hidden">
-      {/* Large Background Text */}
-      <div className="absolute bottom-0 right-0 text-[280px] font-display font-bold opacity-10 leading-none pointer-events-none">
-        {companyName}
-      </div>
-
-      <div className="relative z-10 px-8 py-16">
-        {/* Top Navigation Strip */}
-        <div className="flex items-center justify-between mb-16 pb-8 border-b border-black border-opacity-20">
-          <Link href="/" className="bg-black text-white px-6 py-2 rounded-full text-[16px] font-display font-bold">
-            {companyName}
-          </Link>
-
-          <div className="hidden md:flex font-mono uppercase text-[14px] gap-8 text-black">
-            <Link href="/work">Work</Link>
-            <Link href="/services">Services</Link>
-            <Link href="/about">About</Link>
-            <Link href="/blog">Blog</Link>
-          </div>
-
-          <Link
-            href="/contact"
-            className="bg-black text-white px-6 py-2 rounded-full font-mono uppercase text-[14px] font-bold"
-          >
-            Contact Us →
-          </Link>
-        </div>
-
-        {/* Sitemap Grid — driven by Sanity footerColumns */}
+    <footer 
+      className="text-black relative min-h-[400px] w-full"
+      style={{ 
+        backgroundColor: '#e9e8e7',
+        transform: 'none',
+        overflow: 'visible',
+        paddingBottom: '40px',
+      }}
+    >
+      <div 
+        className="relative z-10"
+        style={{
+          paddingLeft: 'clamp(20px, 3vw, 40px)',
+          paddingRight: 'clamp(20px, 3vw, 40px)',
+          paddingTop: '100px',
+        }}
+      >
+        {/* Footer Columns Grid - 5 columns layout */}
         {footerColumns.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-            {footerColumns.map((col) => (
-              <div key={col._key}>
-                {col.heading && (
-                  <h3 className="font-mono uppercase text-[14px] font-bold mb-6 text-black">
-                    {col.heading}
-                  </h3>
-                )}
-                <ul className="space-y-3 font-mono text-[12px] uppercase text-black opacity-70">
-                  {col.links?.map((link) => (
-                    <li key={link._key}>
-                      <Link href={link.href ?? '#'} className="hover:opacity-100 transition">
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <div
+            className="mb-[100px] mt-[50px]"
+            style={{ display: 'grid', gridTemplateColumns: '2fr 2fr 1fr 1fr 1fr', gap: '0 18px' }}
+          >
+            {footerColumns.map((col) => {
+              const hasLinks = col.links && col.links.length > 0;
+
+              return (
+                <div key={col._key}>
+                  {col.heading && (
+                    <>
+                      {hasLinks ? (
+                        <h3 className="font-mono uppercase text-[14px] font-bold leading-[18px] mb-0 text-black">
+                          {col.heading}
+                        </h3>
+                      ) : (
+                        <Link 
+                          href={col.heading === 'BLOG' ? '/blog' : col.heading === 'ABOUT' ? '/about' : '#'}
+                          className="font-mono uppercase text-[14px] font-bold leading-[18px] mb-0 text-black hover:opacity-70 transition block"
+                        >
+                          {col.heading}
+                        </Link>
+                      )}
+                    </>
+                  )}
+                  {col.links && col.links.length > 0 && (
+                    <ul className="mt-0 font-mono text-[14px] font-normal leading-[18px] uppercase text-black">
+                      {col.links.map((link) => (
+                        <li key={link._key} className="mb-0 leading-[18px]">
+                          <Link href={link.href ?? '#'} className="hover:opacity-70 transition">
+                            {link.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
-
-        {/* Bottom Info */}
-        <div className="border-t border-black border-opacity-20 pt-8 font-mono text-[12px] text-black opacity-60">
-          <p>© 2026 {companyName}. All rights reserved.</p>
-        </div>
       </div>
+
+      {/* Large Centered Logo - Full Width */}
+      <h2 
+        className="font-display font-semibold text-black text-center mb-0 block w-full"
+        style={{
+          fontSize: 'clamp(80px, 18vw, 9999px)',
+          lineHeight: '1',
+          transform: 'none',
+          marginTop: '200px',
+          paddingLeft: 0,
+          paddingRight: 0,
+          letterSpacing: '-0.02em',
+        }}
+      >
+        {companyName}
+      </h2>
     </footer>
   );
 }
