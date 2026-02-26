@@ -116,7 +116,7 @@ export default function PersistentNav(): React.ReactElement {
   return (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000, pointerEvents: 'none', height: '100vh' }}>
       {/* Light nav — clipped to show only over dark sections (white nav on black backgrounds) */}
-      <nav ref={lightNavRef} data-cursor-element-id="cursor-el-126" style={{ ...navStyle, pointerEvents: 'auto', clipPath: 'inset(0 0 100% 0)' }}>
+      <nav ref={lightNavRef} style={{ ...navStyle, pointerEvents: 'auto', clipPath: 'inset(0 0 100% 0)' }}>
         <NavLogo className="justify-self-start" theme="light" />
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <NavLinks theme="light" />
