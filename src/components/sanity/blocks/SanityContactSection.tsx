@@ -23,10 +23,13 @@ export default function SanityContactSection({
       }}
     >
       {/* Two-column layout: left (Lets talk + offices) | right (form) */}
-      <div className="grid grid-cols-1 lg:grid-cols-[788fr_442fr] gap-[20px]">
+      <div
+        className="grid grid-cols-1 lg:grid-cols-[788fr_442fr] gap-[20px]"
+        style={{ marginRight: '100px' }}
+      >
 
         {/* LEFT COLUMN */}
-        <div>
+        <div style={{ marginRight: '40px' }}>
           {/* "Lets talk!" + email — side by side in two halves */}
           <div className="grid grid-cols-2 gap-[20px]">
             {heading && (
@@ -37,7 +40,7 @@ export default function SanityContactSection({
             {email && (
               <p
                 className="font-body text-[24px] font-medium leading-[25px] text-white flex items-center"
-                style={{ marginTop: '20px', marginBottom: '0px' }}
+                style={{ marginTop: '30px', marginBottom: '0px' }}
               >
                 {email}
               </p>
@@ -52,23 +55,30 @@ export default function SanityContactSection({
             <h3 className="font-body text-[48px] font-medium leading-[50px] text-white">
               Our Offices
             </h3>
-            <div>
-              {offices && offices.map((office) => (
-                <div key={office._key} className="mb-[25px] last:mb-0">
-                  <p
-                    className="font-body text-[24px] font-medium leading-[25px] text-white"
-                    style={{ paddingTop: '10px', paddingBottom: '20px' }}
-                  >
-                    {office.city}, {office.country}
-                    {office.address && (
-                      <>
-                        <br />
-                        {office.address}
-                      </>
-                    )}
-                  </p>
-                </div>
-              ))}
+            <div style={{ marginTop: '30px' }}>
+              {offices && offices.map((office) => {
+                const locationLine = [office.city, office.state, office.country].filter(Boolean).join(', ');
+                const hasAddressParts = office.address || office.stateAbbr || office.zip;
+                const addressLine = hasAddressParts
+                  ? [office.address, office.city && (office.stateAbbr || office.zip) ? `${office.city}, ${[office.stateAbbr, office.zip].filter(Boolean).join(' ')}` : null].filter(Boolean).join(', ')
+                  : '';
+                return (
+                  <div key={office._key} className="mb-[25px] last:mb-0">
+                    <p
+                      className="font-body text-[24px] font-medium leading-[25px] text-white"
+                      style={{ paddingTop: '10px', paddingBottom: '20px' }}
+                    >
+                      {locationLine}
+                      {addressLine && (
+                        <>
+                          <br />
+                          {addressLine}
+                        </>
+                      )}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -76,7 +86,7 @@ export default function SanityContactSection({
         {/* RIGHT COLUMN — form */}
         <div>
           {formHeading && (
-            <h2 className="font-body text-[48px] font-medium leading-[50px] text-white mb-[23px]">
+            <h2 className="font-body text-[48px] font-medium leading-[50px] text-white mb-[23px]" style={{ paddingBottom: '20px' }}>
               {formHeading}
             </h2>
           )}

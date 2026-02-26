@@ -26,13 +26,14 @@ export default function SanityIntroSection({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white relative py-20 min-h-screen flex flex-col justify-start"
+      className="bg-black text-white relative py-20 flex flex-col justify-start"
       style={{
         paddingLeft: SECTION_INSET,
         paddingRight: SECTION_INSET,
         paddingTop: 0,
         marginLeft: 0,
         marginRight: 0,
+        marginBottom: 40,
       }}
     >
       {/* Heading - Top Left (aligned with header inset via section margin) */}

@@ -46,7 +46,7 @@ export default function SanityServicesShowcase({
                 fontWeight: '500',
                 lineHeight: '1.2',
                 wordWrap: 'break-word',
-                marginBottom: '20px',
+                marginBottom: '80px',
               }}
             >
               {heading}
@@ -61,7 +61,7 @@ export default function SanityServicesShowcase({
                 {services.map((service) => {
                   const isExpanded = expandedId === service._id
                   return (
-                    <div key={service._id} style={{ borderBottom: '1px solid black' }}>
+                    <div key={service._id}>
                       {/* Service Title - Clickable */}
                       <div
                         onClick={() => toggleService(service._id)}
@@ -80,6 +80,10 @@ export default function SanityServicesShowcase({
                           alignItems: 'center',
                           transition: 'opacity 0.3s ease',
                           userSelect: 'none',
+                          borderTop: '1px solid black',
+                          borderRight: 'none',
+                          borderBottom: 'none',
+                          borderLeft: 'none',
                         }}
                         onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
                         onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}

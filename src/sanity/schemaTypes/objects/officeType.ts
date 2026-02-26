@@ -13,6 +13,12 @@ export const officeType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'state',
+      type: 'string',
+      title: 'State / Region',
+      description: 'e.g. California',
+    }),
+    defineField({
       name: 'country',
       type: 'string',
       validation: (rule) => rule.required(),
@@ -20,14 +26,29 @@ export const officeType = defineType({
     defineField({
       name: 'address',
       type: 'string',
+      title: 'Street address',
+      description: 'e.g. 970 N Broadway #103',
+    }),
+    defineField({
+      name: 'stateAbbr',
+      type: 'string',
+      title: 'State abbreviation',
+      description: 'e.g. CA',
+    }),
+    defineField({
+      name: 'zip',
+      type: 'string',
+      title: 'ZIP / Postal code',
+      description: 'e.g. 90012',
     }),
   ],
   preview: {
-    select: { city: 'city', country: 'country' },
-    prepare({ city, country }) {
+    select: { city: 'city', state: 'state', country: 'country' },
+    prepare({ city, state, country }) {
+      const parts = [city, state, country].filter(Boolean);
       return {
-        title: `${city || ''}, ${country || ''}`,
-      }
+        title: parts.join(', ') || 'Office',
+      };
     },
   },
 })

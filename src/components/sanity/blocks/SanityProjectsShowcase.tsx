@@ -131,6 +131,7 @@ export default function SanityProjectsShowcase({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 16px 32px rgba(0,0,0,0.12), 0 24px 48px rgba(0,0,0,0.08)',
                 }}
               >
                 <p
