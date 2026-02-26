@@ -1,5 +1,3 @@
-import PersistentNav from '../layout/PersistentNav';
-
 export default function Hero() {
   return (
     <section
@@ -44,9 +42,6 @@ export default function Hero() {
           Commerce and Technology Studio for the AI era
         </p>
       </div>
-
-      {/* Navigation bar */}
-      <PersistentNav />
     </section>
   );
 }

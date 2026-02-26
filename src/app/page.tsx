@@ -1,19 +1,31 @@
-import Hero from '@/components/sections/Hero';
-import ServicesPreview from '@/components/sections/ServicesPreview';
-import WorkPreview from '@/components/sections/WorkPreview';
-import BlogPreview from '@/components/sections/BlogPreview';
-import Contact from '@/components/sections/Contact';
+import { sanityFetch } from '@/sanity/lib/live';
+import { PAGE_QUERY } from '@/sanity/lib/queries';
+import PageBuilder from '@/components/sanity/PageBuilder';
 import Footer from '@/components/layout/Footer';
 
-export default function Home() {
+export default async function Home() {
+  const { data: page } = await sanityFetch({
+    query: PAGE_QUERY,
+    params: { slug: 'home' },
+  });
+
+  if (!page) {
+    return (
+      <main className="flex items-center justify-center py-20">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Home Page Not Found</h1>
+          <p className="text-muted">
+            Create a page document in Sanity with slug &quot;home&quot; to get started.
+          </p>
+        </div>
+      </main>
+    );
+  }
+
   return (
-    <main>
-      <Hero />
-      <ServicesPreview />
-      <WorkPreview />
-      <BlogPreview />
-      <Contact />
+    <>
+      <PageBuilder blocks={page.pageBuilder} />
       <Footer />
-    </main>
+    </>
   );
 }
