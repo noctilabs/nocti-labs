@@ -33,7 +33,7 @@ export const serviceType = defineType({
       name: 'items',
       title: 'Service Items',
       type: 'array',
-      of: [defineArrayMember({ type: 'string' })],
+      of: [defineArrayMember({ type: 'cta' })],
     }),
   ],
   preview: {
