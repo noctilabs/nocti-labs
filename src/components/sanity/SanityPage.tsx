@@ -1,6 +1,7 @@
 import { sanityFetch } from "../../sanity/lib/live";
 import { PAGE_QUERY } from "../../sanity/lib/queries";
 import PageBuilder from "./PageBuilder";
+import PageNotFound from "@/components/ui/PageNotFound";
 
 type SanityPageProps = {
   slug: string;
@@ -13,17 +14,7 @@ export default async function SanityPage({ slug }: SanityPageProps) {
   });
 
   if (!page) {
-    return (
-      <main className="flex items-center justify-center py-20">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Home Page Not Found</h1>
-          <p className="text-muted">
-            Create a page document in Sanity with slug &quot;home&quot; to get
-            started.
-          </p>
-        </div>
-      </main>
-    );
+    return <PageNotFound />;
   }
 
   return <PageBuilder blocks={page.pageBuilder} />;
