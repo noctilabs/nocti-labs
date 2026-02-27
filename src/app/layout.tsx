@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { SanityLive } from '@/sanity/lib/live';
 import NavWrapper from '@/components/layout/NavWrapper';
+import Footer from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
   title: 'Nocti Labs - Commerce and Technology Studio for the AI era',
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body>
         <NavWrapper />
         {children}
+        <Footer />
         <SanityLive />
       </body>
     </html>
