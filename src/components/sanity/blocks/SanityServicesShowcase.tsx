@@ -1,136 +1,201 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import SanityCta from '@/components/sanity/shared/SanityCta'
-import type { PAGE_QUERYResult } from '../../../../sanity.types'
+import { useState } from "react";
+import SanityCta from "@/components/sanity/shared/SanityCta";
+import type { PAGE_QUERYResult } from "../../../../sanity.types";
 
-type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
-type SanityServicesShowcaseProps = Extract<PageBlock, { _type: 'servicesShowcase' }>
+type PageBlock = NonNullable<
+  NonNullable<PAGE_QUERYResult>["pageBuilder"]
+>[number];
+type SanityServicesShowcaseProps = Extract<
+  PageBlock,
+  { _type: "servicesShowcase" }
+>;
+
+function ChevronIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      width="15"
+      height="9"
+      viewBox="0 0 15.36 10.32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <line
+        x2="11.68"
+        transform="matrix(0.657 0.754 -0.657 0.754 0 1.51)"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <line
+        x2="11.68"
+        transform="matrix(0.657 -0.754 0.657 0.754 7.68 10.32)"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
 
 export default function SanityServicesShowcase({
   heading,
   services,
   cta,
 }: SanityServicesShowcaseProps) {
-  const [expandedId, setExpandedId] = useState<string | null>(null)
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const toggleService = (id: string) => {
-    setExpandedId(expandedId === id ? null : id)
-  }
+    setExpandedId(expandedId === id ? null : id);
+  };
+
   return (
     <section
-      data-nav-theme="light"
-      className="bg-white text-black flex flex-col relative"
-      style={{ paddingBottom: '0' }}
+      data-nav-theme="dark"
+      className="bg-black text-white flex flex-col relative"
       suppressHydrationWarning
     >
       <div
         style={{
-          width: '100%',
-          height: '100%',
-          position: 'relative',
-          paddingLeft: 'clamp(20px, 3vw, 40px)',
-          paddingRight: 'clamp(20px, 3vw, 40px)',
-          paddingTop: 'clamp(20px, 3vw, 50px)',
-          paddingBottom: '0px',
+          width: "100%",
+          position: "relative",
+          paddingLeft: "clamp(20px, 3vw, 40px)",
+          paddingRight: "clamp(20px, 3vw, 40px)",
+          paddingTop: "clamp(40px, 5vw, 80px)",
+          paddingBottom: "clamp(40px, 5vw, 80px)",
         }}
       >
-        <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-          {/* Main Title */}
-          {heading && (
-            <div
-              style={{
-                color: 'black',
-                fontSize: 'clamp(32px, 4vw, 48px)',
-                fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
-                fontWeight: '500',
-                lineHeight: '1.2',
-                wordWrap: 'break-word',
-                marginBottom: 'clamp(40px, 5vw, 80px)',
-              }}
-            >
-              {heading}
-            </div>
-          )}
+        {/* Heading */}
+        {heading && (
+          <h2
+            style={{
+              fontSize: "clamp(32px, 3.3vw, 48px)",
+              fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
+              fontWeight: "500",
+              lineHeight: "50px",
+              marginBottom: "clamp(40px, 5.4vw, 78px)",
+            }}
+          >
+            {heading}
+          </h2>
+        )}
 
-          {/* Services Content */}
-          {services && services.length > 0 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(40px, 5vw, 80px)' }}>
-              {/* Service Categories - Accordion */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
-                {services.map((service, index) => {
-                  const isExpanded = expandedId === service._id
-                  const isFirstItem = index === 0
-                  return (
-                    <div key={service._id}>
-                      {/* Service Title - Clickable */}
+        {/* Services Accordion */}
+        {services && services.length > 0 && (
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            {services.map((service, index) => {
+              const isExpanded = expandedId === service._id;
+              const isFirst = index === 0;
+
+              return (
+                <div key={service._id}>
+                  {/* Accordion Header */}
+                  <div
+                    onClick={() => toggleService(service._id)}
+                    style={{
+                      fontSize: "clamp(32px, 3.3vw, 48px)",
+                      fontFamily:
+                        '"Neue Haas Unica Pro", system-ui, sans-serif',
+                      fontWeight: "500",
+                      lineHeight: "50px",
+                      paddingTop: "clamp(12px, 1.1vw, 16px)",
+                      paddingBottom: "clamp(12px, 1.1vw, 16px)",
+                      cursor: "pointer",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      transition: "opacity 0.3s ease",
+                      userSelect: "none",
+                      borderTop: isFirst ? "1px solid white" : "none",
+                      borderBottom: "1px solid white",
+                    }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.opacity = "0.7")
+                    }
+                    onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+                  >
+                    <span>{service.title}</span>
+                    <span
+                      style={{
+                        marginRight: "clamp(60px, 7.8vw, 113px)",
+                        transition: "transform 0.3s ease",
+                        transform: isExpanded
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <ChevronIcon />
+                    </span>
+                  </div>
+
+                  {/* Expanded Content: Two Column Layout */}
+                  {isExpanded && (
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "41fr 59fr",
+                        gap: "clamp(40px, 9.6vw, 139px)",
+                        paddingTop: "clamp(20px, 2.6vw, 38px)",
+                        paddingBottom: "clamp(20px, 3vw, 40px)",
+                        borderBottom: "1px solid white",
+                        animation: "slideDown 0.3s ease",
+                      }}
+                    >
+                      {/* Left Column: Description */}
                       <div
-                        onClick={() => toggleService(service._id)}
                         style={{
-                          color: 'black',
-                          fontSize: 'clamp(32px, 4vw, 48px)',
-                          fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
-                          fontWeight: '500',
-                          lineHeight: '1.2',
-                          wordWrap: 'break-word',
-                          paddingTop: '12px',
-                          paddingBottom: '12px',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          transition: 'opacity 0.3s ease',
-                          userSelect: 'none',
-                          borderTop: isFirstItem ? '2px solid black' : 'none',
-                          borderRight: 'none',
-                          borderBottom: isExpanded ? 'none' : '2px solid black',
-                          borderLeft: 'none',
+                          fontSize: "clamp(16px, 1.66vw, 24px)",
+                          fontFamily:
+                            '"Neue Haas Unica Pro", system-ui, sans-serif',
+                          fontWeight: "400",
+                          lineHeight: "29px",
+                          color: "white",
                         }}
-                        onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
                       >
-                        <span>{service.title}</span>
-                        <span style={{ fontSize: 'clamp(20px, 3vw, 32px)' }}>
-                          {isExpanded ? '−' : '▼'}
-                        </span>
+                        {service.description}
                       </div>
 
-                      {/* Service Items/Description - Collapsible */}
-                      {isExpanded && service.items && service.items.length > 0 && (
-                        <div
-                          style={{
-                            color: 'black',
-                            fontSize: 'clamp(24px, 3.5vw, 32px)',
-                            fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
-                            fontWeight: '500',
-                            lineHeight: '1.3',
-                            wordWrap: 'break-word',
-                            whiteSpace: 'pre-wrap',
-                            paddingBottom: '12px',
-                            paddingLeft: 'clamp(20px, 3vw, 40px)',
-                            paddingRight: 'clamp(20px, 3vw, 40px)',
-                            borderBottom: '2px solid black',
-                            animation: 'slideDown 0.3s ease',
-                          }}
-                        >
-                          {service.items.join('\n')}
-                        </div>
-                      )}
+                      {/* Right Column: Service Items */}
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "clamp(20px, 2vw, 29px)",
+                          paddingRight: "clamp(60px, 7.8vw, 113px)",
+                        }}
+                      >
+                        {service.items &&
+                          service.items.map((item) => (
+                            <div key={item._key}>
+                              <SanityCta
+                                {...item}
+                                className="text-white text-[clamp(16px,1.66vw,24px)] font-normal w-full flex justify-between"
+                              />
+                            </div>
+                          ))}
+                      </div>
                     </div>
-                  )
-                })}
-              </div>
-
-              {/* CTA */}
-              {cta && (
-                <div style={{ marginTop: '0px', marginBottom: 'clamp(20px, 3vw, 40px)', fontWeight: 600 }}>
-                  <SanityCta {...cta} className="text-black" />
+                  )}
                 </div>
-              )}
-            </div>
-          )}
-        </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* CTA */}
+        {cta && (
+          <div
+            style={{
+              marginTop: "clamp(80px, 8.4vw, 122px)",
+              fontWeight: 500,
+            }}
+          >
+            <SanityCta {...cta} className="text-white" />
+          </div>
+        )}
       </div>
     </section>
-  )
+  );
 }

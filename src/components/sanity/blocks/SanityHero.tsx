@@ -51,6 +51,7 @@ export default function SanityHero({
         aspectRatio: '1445 / 789',
         position: 'relative',
         overflow: 'hidden',
+        marginTop: 'calc(-1 * var(--nav-offset))',
         ...bgStyle,
       }}
     >

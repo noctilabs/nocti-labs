@@ -1,15 +1,19 @@
 @import "tailwindcss";
 
 :root {
+  --nav-offset: clamp(76px, 7vw, 100px);
   --color-black: #000000;
   --color-white: #ffffff;
   --color-footer: #e9e8e7;
   --color-accent: #00ff11;
   --color-muted: #a8a8a8;
   --color-blue: #1500ff;
-  --font-display: 'Neue Haas Grotesk Display Std', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-body: 'Neue Haas Unica Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-mono: 'ABC Diatype Mono', 'Courier New', Courier, monospace;
+  --font-display:
+    "Neue Haas Grotesk Display Std", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  --font-body:
+    "Neue Haas Unica Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "ABC Diatype Mono", "Courier New", Courier, monospace;
 }
 
 * {
