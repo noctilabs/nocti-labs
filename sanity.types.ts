@@ -285,6 +285,16 @@ export type Project = {
     crop?: SanityImageCrop;
     _type: "image";
   };
+  coverVideo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+    };
+    media?: unknown;
+    _type: "file";
+  };
   tags?: Array<string>;
   url?: string;
 };
@@ -298,14 +308,19 @@ export type Service = {
   title?: string;
   category?: "technology" | "design";
   description?: string;
-  items?: Array<string>;
+  items?: Array<{
+    _key: string;
+  } & Cta>;
 };
 
 export type Office = {
   _type: "office";
   city?: string;
+  state?: string;
   country?: string;
   address?: string;
+  stateAbbr?: string;
+  zip?: string;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -534,7 +549,7 @@ export type PAGE_QUERYResult = {
         crop?: SanityImageCrop;
         _type: "image";
       } | null;
-      coverVideoUrl: null;
+      coverVideoUrl: string | null;
       tags: Array<string> | null;
       url: string | null;
     }> | null;
@@ -547,7 +562,9 @@ export type PAGE_QUERYResult = {
       title: string | null;
       category: "design" | "technology" | null;
       description: string | null;
-      items: Array<string> | null;
+      items: Array<{
+        _key: string;
+      } & Cta> | null;
     }> | null;
     cta?: Cta;
   }> | null;
