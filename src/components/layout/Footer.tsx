@@ -12,9 +12,10 @@ export default async function Footer() {
   const companyName: string = settings?.companyName ?? 'Nocti Labs';
 
   return (
-    <footer 
+    <footer
+      data-nav-theme="light"
       className="text-black relative min-h-[400px] w-full"
-      style={{ 
+      style={{
         backgroundColor: '#e9e8e7',
         transform: 'none',
         overflow: 'visible',
