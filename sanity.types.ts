@@ -94,6 +94,58 @@ export type IntroSection = {
   cta?: Cta;
 };
 
+export type AboutSection = {
+  _type: "aboutSection";
+  heading?: string;
+  description?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
+export type MissionSection = {
+  _type: "missionSection";
+  heading?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  principles?: Array<{
+    _key: string;
+    title?: string;
+    description?: string;
+    icon?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  }>;
+};
+
 export type Hero = {
   _type: "hero";
   heading?: string;
@@ -144,7 +196,11 @@ export type Page = {
     _key: string;
   } & InsightsGrid | {
     _key: string;
-  } & ContactSection>;
+  } & ContactSection | {
+    _key: string;
+  } & MissionSection | {
+    _key: string;
+  } & AboutSection>;
   seo?: {
     title?: string;
     description?: string;
@@ -419,7 +475,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = ContactSection | InsightsGrid | ProjectsShowcase | ServicesShowcase | IntroSection | Hero | Page | Cta | SanityImageCrop | SanityImageHotspot | Slug | SiteSettings | BlogPost | Project | Service | Office | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = ContactSection | InsightsGrid | ProjectsShowcase | ServicesShowcase | IntroSection | Hero | MissionSection | AboutSection | Page | Cta | SanityImageCrop | SanityImageHotspot | Slug | SiteSettings | BlogPost | Project | Service | Office | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PAGE_QUERY
@@ -567,6 +623,56 @@ export type PAGE_QUERYResult = {
       } & Cta> | null;
     }> | null;
     cta?: Cta;
+  } | {
+    _key: string;
+    _type: "missionSection";
+    heading?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    principles?: Array<{
+      _key: string;
+      title?: string;
+      description?: string;
+      icon?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+    }>;
+  } | {
+    _key: string;
+    _type: "aboutSection";
+    heading?: string;
+    description?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
   }> | null;
 } | null;
 // Variable: SITE_SETTINGS_QUERY

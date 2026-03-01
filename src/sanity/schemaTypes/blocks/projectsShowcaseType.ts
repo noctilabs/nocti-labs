@@ -21,6 +21,20 @@ export const projectsShowcaseType = defineType({
         }),
       ],
     }),
+    defineField({
+      name: 'backgroundColor',
+      title: 'Background Color',
+      type: 'string',
+      description: 'Hex color for the page background (e.g., #ffffff)',
+      validation: (rule) => rule.regex(/^#[0-9A-F]{6}$/i).error('Must be a valid hex color'),
+    }),
+    defineField({
+      name: 'headingColor',
+      title: 'Heading Color',
+      type: 'string',
+      description: 'Hex color for the heading text (e.g., #000000)',
+      validation: (rule) => rule.regex(/^#[0-9A-F]{6}$/i).error('Must be a valid hex color'),
+    }),
   ],
   preview: {
     select: { title: 'heading' },

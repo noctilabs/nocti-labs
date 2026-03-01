@@ -18,6 +18,8 @@ import { servicesShowcaseType } from './blocks/servicesShowcaseType'
 import { projectsShowcaseType } from './blocks/projectsShowcaseType'
 import { insightsGridType } from './blocks/insightsGridType'
 import { contactSectionType } from './blocks/contactSectionType'
+import { missionSectionType } from './blocks/missionSectionType'
+import { aboutSectionType } from './blocks/aboutSectionType'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -37,5 +39,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     projectsShowcaseType,
     insightsGridType,
     contactSectionType,
+    missionSectionType,
+    aboutSectionType,
   ],
 }

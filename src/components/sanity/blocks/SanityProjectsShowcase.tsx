@@ -2,14 +2,21 @@
 
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
+import { getNavTheme } from '@/lib/colorUtils'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
-type SanityProjectsShowcaseProps = Extract<PageBlock, { _type: 'projectsShowcase' }>
+type BaseProjectsShowcase = Extract<PageBlock, { _type: 'projectsShowcase' }>
+type SanityProjectsShowcaseProps = BaseProjectsShowcase & {
+  backgroundColor?: string
+  headingColor?: string
+}
 
 export default function SanityProjectsShowcase({
   heading,
   projects,
+  backgroundColor,
+  headingColor,
 }: SanityProjectsShowcaseProps) {
   type ProjectsShowcaseProjectWithVideo = {
     coverVideoUrl?: string
@@ -22,12 +29,13 @@ export default function SanityProjectsShowcase({
     client?: string
   }
   const firstProject = projects?.[0] as ProjectsShowcaseProjectWithVideo | undefined
+  const navTheme = getNavTheme(backgroundColor)
 
   return (
     <section
-      className="bg-white text-black flex flex-col relative"
-      data-nav-theme="light"
-      style={{ paddingBottom: '0' }}
+      className="text-black flex flex-col relative"
+      data-nav-theme={navTheme}
+      style={{ backgroundColor: backgroundColor || '#ffffff', paddingBottom: '0' }}
       suppressHydrationWarning
     >
       {heading && (
@@ -39,7 +47,12 @@ export default function SanityProjectsShowcase({
             paddingBottom: '10px',
           }}
         >
-          <h2 className="font-body text-[48px] font-semibold">{heading}</h2>
+          <h2 
+            className="font-body text-[48px] font-semibold"
+            style={{ color: headingColor || '#000000' }}
+          >
+            {heading}
+          </h2>
         </div>
       )}
       {/* Full Screen Green Placeholder Section */}
@@ -48,7 +61,7 @@ export default function SanityProjectsShowcase({
         style={{
           paddingLeft: 'clamp(20px, 3vw, 40px)',
           paddingRight: 'clamp(20px, 3vw, 40px)',
-          paddingTop: '10px',
+          paddingTop: 'clamp(20px, 3vw, 40px)',
           paddingBottom: 'clamp(80px, 10vw, 136px)',
           minHeight: heading ? 'auto' : '100vh',
         }}
