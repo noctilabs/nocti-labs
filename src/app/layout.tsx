@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { SanityLive } from "@/sanity/lib/live";
 import NavWrapper from "@/components/layout/NavWrapper";
-import Footer from "@/components/layout/Footer";
+import ScrollToTop from "@/components/layout/ScrollToTop";
 
 export const metadata: Metadata = {
   title: "Nocti Labs - Commerce and Technology Studio for the AI era",
@@ -18,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <ScrollToTop />
         <NavWrapper />
         {children}
         <SanityLive />
