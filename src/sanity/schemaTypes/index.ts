@@ -10,6 +10,7 @@ import { projectType } from './documents/projectType'
 import { blogPostType } from './documents/blogPostType'
 import { siteSettingsType } from './documents/siteSettingsType'
 import { pageType } from './documents/pageType'
+import { contactMessageType } from './documents/contactMessageType'
 
 // Blocks
 import { heroType } from './blocks/heroType'
@@ -32,6 +33,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     blogPostType,
     siteSettingsType,
     pageType,
+    contactMessageType,
     // Blocks
     heroType,
     introSectionType,
