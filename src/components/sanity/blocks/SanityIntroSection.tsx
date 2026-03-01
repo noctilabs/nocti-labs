@@ -40,7 +40,7 @@ export default function SanityIntroSection({
       {heading && (
         <div
           className="max-w-3xl mb-12"
-          style={{ marginTop: '50px', marginBottom: '30px' }}
+          style={{ marginTop: '50px', marginBottom: '40px' }}
         >
           <h2
             className="font-body font-bold leading-tight"
@@ -73,8 +73,8 @@ export default function SanityIntroSection({
       )}
 
       {/* Image - Center (aligned via section margin) */}
-      <div style={{ marginBottom: '30px' }}>
-        {image?.asset?._ref ? (
+      {image?.asset?._ref && (
+        <div style={{ marginBottom: '30px' }}>
           <Image
             src={urlFor(image).width(1400).url()}
             alt=""
@@ -82,10 +82,8 @@ export default function SanityIntroSection({
             height={787}
             className="w-full aspect-video object-cover rounded-lg mb-16 my-12"
           />
-        ) : (
-          <div className="w-full h-[400px] aspect-video bg-gray-800 rounded-lg mb-16 my-12" />
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Description - Below Image (aligned via section margin) */}
       {description && (
