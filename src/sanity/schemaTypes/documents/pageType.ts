@@ -29,6 +29,8 @@ export const pageType = defineType({
         defineArrayMember({ type: 'projectsShowcase' }),
         defineArrayMember({ type: 'insightsGrid' }),
         defineArrayMember({ type: 'contactSection' }),
+        defineArrayMember({ type: 'missionSection' }),
+        defineArrayMember({ type: 'aboutSection' }),
       ],
     }),
     defineField({

@@ -25,7 +25,7 @@ export default function SanityInsightsGrid({
         {heading && (
           <h2 
             className="font-display text-[48px] font-medium leading-[50px] mb-[103px]"
-            style={{ paddingTop: '80px', paddingBottom: '100px' }}
+            style={{ paddingTop: '40px', paddingBottom: '100px' }}
           >
             {heading}
           </h2>
