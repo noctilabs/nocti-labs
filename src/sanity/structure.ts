@@ -1,5 +1,5 @@
 import type { StructureResolver } from 'sanity/structure'
-import { CogIcon, DocumentIcon, BulbOutlineIcon, CaseIcon, DocumentTextIcon } from '@sanity/icons'
+import { CogIcon, DocumentIcon, BulbOutlineIcon, CaseIcon, DocumentTextIcon, EnvelopeIcon } from '@sanity/icons'
 
 const SINGLETONS = ['siteSettings']
 
@@ -30,10 +30,15 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem('project').title('Projects').icon(CaseIcon),
       S.documentTypeListItem('blogPost').title('Blog Posts').icon(DocumentTextIcon),
 
+      S.divider(),
+
+      // Inbox
+      S.documentTypeListItem('contactMessage').title('Contact Messages').icon(EnvelopeIcon),
+
       // Remaining types (filtered)
       ...S.documentTypeListItems().filter(
         (listItem) =>
           !SINGLETONS.includes(listItem.getId() as string) &&
-          !['page', 'service', 'project', 'blogPost'].includes(listItem.getId() as string)
+          !['page', 'service', 'project', 'blogPost', 'contactMessage'].includes(listItem.getId() as string)
       ),
     ])

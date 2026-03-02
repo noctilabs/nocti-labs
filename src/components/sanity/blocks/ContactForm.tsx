@@ -159,10 +159,36 @@ export default function ContactForm(): React.ReactElement {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>): void => {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    setSubmitting(true);
+    setSubmitError(false);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) throw new Error('Failed');
+      setSubmitted(true);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
+
+  if (submitted) {
+    return (
+      <p className="font-body text-[14px] text-white">
+        Thanks! We&apos;ll be in touch soon.
+      </p>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -268,17 +294,25 @@ export default function ContactForm(): React.ReactElement {
       </div>
 
       {/* Submit — 100.66×37.15, cornerRadius 10 */}
-      <button
-        type="submit"
-        className="bg-white text-black font-mono text-[14px] font-semibold hover:opacity-80 transition"
-        style={{
-          width: SIZES.submitWidth,
-          height: SIZES.submitHeight,
-          borderRadius: SIZES.borderRadius,
-        }}
-      >
-        Submit
-      </button>
+      <div style={{ marginBottom: submitError ? 8 : 0 }}>
+        {submitError && (
+          <p className="font-body text-[12px] text-red-400 mb-2">
+            Something went wrong. Please try again.
+          </p>
+        )}
+        <button
+          type="submit"
+          disabled={submitting}
+          className="bg-white text-black font-mono text-[14px] font-semibold hover:opacity-80 transition disabled:opacity-50"
+          style={{
+            width: SIZES.submitWidth,
+            height: SIZES.submitHeight,
+            borderRadius: SIZES.borderRadius,
+          }}
+        >
+          {submitting ? '...' : 'Submit'}
+        </button>
+      </div>
     </form>
   );
 }
