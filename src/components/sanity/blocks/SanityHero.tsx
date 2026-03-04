@@ -48,6 +48,8 @@ export default function SanityHero({
       data-nav-theme="dark"
       style={{
         width: '100%',
+        minHeight: 'clamp(400px, 54.6vh, 789px)',
+        maxHeight: 'clamp(789px, 100vh, 1200px)',
         aspectRatio: '1445 / 789',
         position: 'relative',
         overflow: 'hidden',
@@ -79,12 +81,13 @@ export default function SanityHero({
           className={textColor}
           style={{
             width: '74.5%',
-            fontSize: 'clamp(24px, 3.32vw, 48px)',
+            maxWidth: '673px',
+            fontSize: 'clamp(1.5rem, 3.32vw, 3rem)',
             fontFamily: '"Neue Haas Unica Pro", "Neue Haas Unica Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif',
             fontWeight: 500,
             fontStyle: 'normal',
             fontSynthesis: 'none',
-            lineHeight: 'clamp(25px, 3.47vw, 50px)',
+            lineHeight: 'clamp(1.5625rem, 3.47vw, 3.125rem)',
             letterSpacing: '0',
             textAlign: 'center',
             WebkitFontSmoothing: 'antialiased',
