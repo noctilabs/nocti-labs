@@ -27,7 +27,7 @@ export default function SanityAboutSection({
           <h1
             style={{
               fontSize: 'clamp(32px, 3.3vw, 48px)',
-              fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
+              fontFamily: 'var(--font-body), system-ui, sans-serif',
               fontWeight: '500',
               lineHeight: '50px',
               marginBottom: 'clamp(20px, 2.4vw, 35px)',
@@ -42,7 +42,7 @@ export default function SanityAboutSection({
           <p
             style={{
               fontSize: 'clamp(20px, 2.2vw, 32px)',
-              fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
+              fontFamily: 'var(--font-body), system-ui, sans-serif',
               fontWeight: '500',
               lineHeight: 'clamp(28px, 2.6vw, 37px)',
               color: 'white',

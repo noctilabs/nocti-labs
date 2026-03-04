@@ -25,7 +25,7 @@ export default function NavLinks({ theme = 'light' }: NavLinksProps) {
           style={{ 
             width: 'clamp(40px, 4.62vw, 63px)', 
             fontSize: 'clamp(10px, 1.03vw, 14px)', 
-            fontFamily: '"ABC Diatype Mono Unlicensed Trial", "ABC Diatype Mono Unlicensed Trial Medium", "Courier New", Courier, monospace',
+            fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
             fontWeight: '500',
             fontStyle: 'normal',
             fontSynthesis: 'none',
@@ -47,7 +47,7 @@ export default function NavLinks({ theme = 'light' }: NavLinksProps) {
           style={{ 
             width: 'clamp(60px, 6.99vw, 95.477px)', 
             fontSize: 'clamp(10px, 1.03vw, 14px)', 
-            fontFamily: '"ABC Diatype Mono Unlicensed Trial", "ABC Diatype Mono Unlicensed Trial Medium", "Courier New", Courier, monospace',
+            fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
             fontWeight: '500',
             fontStyle: 'normal',
             fontSynthesis: 'none',
@@ -69,7 +69,7 @@ export default function NavLinks({ theme = 'light' }: NavLinksProps) {
           style={{ 
             width: 'clamp(45px, 5.2vw, 71px)', 
             fontSize: 'clamp(10px, 1.03vw, 14px)', 
-            fontFamily: '"ABC Diatype Mono Unlicensed Trial", "ABC Diatype Mono Unlicensed Trial Medium", "Courier New", Courier, monospace',
+            fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
             fontWeight: '500',
             fontStyle: 'normal',
             fontSynthesis: 'none',
@@ -91,7 +91,7 @@ export default function NavLinks({ theme = 'light' }: NavLinksProps) {
           style={{ 
             width: 'clamp(40px, 5.18vw, 70.655px)', 
             fontSize: 'clamp(10px, 1.03vw, 14px)', 
-            fontFamily: '"ABC Diatype Mono Unlicensed Trial", "ABC Diatype Mono Unlicensed Trial Medium", "Courier New", Courier, monospace',
+            fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
             fontWeight: '500',
             fontStyle: 'normal',
             fontSynthesis: 'none',

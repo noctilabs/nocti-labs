@@ -40,7 +40,7 @@ export default function NavContactButton({ className = '', theme = 'light' }: Na
           width: 'clamp(60px, 7.33vw, 100px)',
           height: 'clamp(20px, 2.9vw, 34.771px)',
           fontSize: 'clamp(10px, 1.03vw, 14px)',
-          fontFamily: '"ABC Diatype Mono Unlicensed Trial", "ABC Diatype Mono Unlicensed Trial Medium", "Courier New", Courier, monospace',
+          fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
           fontWeight: '500',
           fontStyle: 'normal',
           fontSynthesis: 'none',

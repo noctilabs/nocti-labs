@@ -45,7 +45,7 @@ export default function SanityMissionSection({
           <h2
             style={{
               fontSize: "clamp(32px, 3.3vw, 48px)",
-              fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
+              fontFamily: 'var(--font-body), system-ui, sans-serif',
               fontWeight: "500",
               lineHeight: "50px",
               marginTop: "0px",
@@ -112,7 +112,7 @@ export default function SanityMissionSection({
                   <h3
                     style={{
                       fontSize: "clamp(20px, 1.66vw, 24px)",
-                      fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
+                      fontFamily: 'var(--font-body), system-ui, sans-serif',
                       fontWeight: "500",
                       lineHeight: "25px",
                       marginBottom: "clamp(13px, 1vw, 13px)",
@@ -127,7 +127,7 @@ export default function SanityMissionSection({
                   <p
                     style={{
                       fontSize: "clamp(14px, 0.97vw, 14px)",
-                      fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
+                      fontFamily: 'var(--font-body), system-ui, sans-serif',
                       fontWeight: "400",
                       lineHeight: "16px",
                       color: "white",

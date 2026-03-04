@@ -41,7 +41,7 @@ export default function NavLogo({ className = '', theme = 'light' }: NavLogoProp
           justifyContent: 'center',
           color: textColor,
           fontSize: 'clamp(14px, 1.68vw, 23px)',
-          fontFamily: '"Neue Haas Grotesk Display Std", "NeueHaasGroteskDisp Std Md", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          fontFamily: 'var(--font-display), "Helvetica Neue", Helvetica, Arial, sans-serif',
           fontWeight: '500',
           fontStyle: 'normal',
           fontSynthesis: 'none',

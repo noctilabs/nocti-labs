@@ -70,7 +70,7 @@ export default function SanityServicesShowcase({
           <h2
             style={{
               fontSize: "clamp(32px, 3.3vw, 48px)",
-              fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
+              fontFamily: 'var(--font-body), system-ui, sans-serif',
               fontWeight: "500",
               lineHeight: "50px",
               marginBottom: "clamp(40px, 5.4vw, 78px)",
@@ -95,7 +95,7 @@ export default function SanityServicesShowcase({
                     style={{
                       fontSize: "clamp(32px, 3.3vw, 48px)",
                       fontFamily:
-                        '"Neue Haas Unica Pro", system-ui, sans-serif',
+                        'var(--font-body), system-ui, sans-serif',
                       fontWeight: "500",
                       lineHeight: "50px",
                       paddingTop: "clamp(12px, 1.1vw, 16px)",
@@ -148,7 +148,7 @@ export default function SanityServicesShowcase({
                         style={{
                           fontSize: "clamp(16px, 1.66vw, 24px)",
                           fontFamily:
-                            '"Neue Haas Unica Pro", system-ui, sans-serif',
+                            'var(--font-body), system-ui, sans-serif',
                           fontWeight: "400",
                           lineHeight: "29px",
                           color: "white",

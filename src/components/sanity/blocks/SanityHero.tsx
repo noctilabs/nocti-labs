@@ -9,9 +9,8 @@ export default function SanityHero({
   heading,
   backgroundImage,
   theme,
-  ...props
-}: SanityHeroProps & { innerBackgroundImage?: any }) {
-  const innerBackgroundImage = (props as any).innerBackgroundImage
+  innerBackgroundImage,
+}: SanityHeroProps) {
   const cleanTheme = stegaClean(theme) || 'blue'
 
   const hasCustomBg = backgroundImage?.asset?._ref
@@ -81,19 +80,20 @@ export default function SanityHero({
           className={textColor}
           style={{
             width: '74.5%',
-            maxWidth: '673px',
-            fontSize: 'clamp(1.5rem, 3.32vw, 3rem)',
-            fontFamily: '"Neue Haas Unica Pro", "Neue Haas Unica Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif',
+            fontSize: 'clamp(1.5rem, 3.32vw, 100vw)',
+            fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
             fontWeight: 500,
             fontStyle: 'normal',
             fontSynthesis: 'none',
-            lineHeight: 'clamp(1.5625rem, 3.47vw, 3.125rem)',
+            lineHeight: '1.042',
             letterSpacing: '0',
             textAlign: 'center',
             WebkitFontSmoothing: 'antialiased',
             MozOsxFontSmoothing: 'grayscale',
             fontFeatureSettings: 'normal',
             textRendering: 'optimizeLegibility',
+            margin: 0,
+            padding: 0,
           }}
         >
           {heading || 'Commerce and Technology Studio for the AI era'}
