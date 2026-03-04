@@ -80,10 +80,17 @@ export default function SanityHero({
           style={{
             width: '74.5%',
             fontSize: 'clamp(24px, 3.32vw, 48px)',
-            fontFamily: 'var(--font-body)',
+            fontFamily: '"Neue Haas Unica Pro", "Neue Haas Unica Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif',
             fontWeight: 500,
-            lineHeight: 1.04,
+            fontStyle: 'normal',
+            fontSynthesis: 'none',
+            lineHeight: 'clamp(25px, 3.47vw, 50px)',
+            letterSpacing: '0',
             textAlign: 'center',
+            WebkitFontSmoothing: 'antialiased',
+            MozOsxFontSmoothing: 'grayscale',
+            fontFeatureSettings: 'normal',
+            textRendering: 'optimizeLegibility',
           }}
         >
           {heading || 'Commerce and Technology Studio for the AI era'}
