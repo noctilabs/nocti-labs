@@ -8,34 +8,30 @@ interface NavLogoProps {
 export default function NavLogo({ className = '', theme = 'light' }: NavLogoProps) {
   const isDark = theme === 'dark';
   const bgColor = isDark ? 'black' : 'white';
-  const textColor = isDark ? 'white' : '#1E1E1E';
+  const textColor = isDark ? 'white' : '#1e1e1e';
 
   return (
     <Link
       href="/"
-      style={{ width: 'clamp(80px, 9vw, 165px)', height: 'clamp(36px, 4vw, 75px)', position: 'relative', display: 'block', borderRadius: 3 }}
+      style={{ width: 'clamp(80px, 9.67vw, 132px)', height: 'clamp(36px, 4.4vw, 60px)', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 3, flexShrink: 0, minWidth: 0, paddingLeft: 'clamp(9px, 9.09%, 12px)', paddingRight: 'clamp(9px, 9.09%, 12px)' }}
       className={`no-underline ${className}`}
     >
-      <div style={{ width: '100%', height: '100%', left: 0, top: 0, position: 'absolute', background: bgColor, borderRadius: 3, transition: 'background-color 0.4s ease-in-out' }} />
+      <div style={{ width: '100%', height: '100%', left: 0, top: 0, position: 'absolute', background: bgColor, borderRadius: 3, transition: 'background-color 0.4s ease-in-out', zIndex: 0 }} />
       <div
         style={{
-          width: '82.5%',
-          height: '63.3%',
-          left: '9.1%',
-          top: '18.3%',
-          position: 'absolute',
+          position: 'relative',
+          zIndex: 1,
           textAlign: 'center',
-          justifyContent: 'center',
           display: 'flex',
-          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
           color: textColor,
-          fontSize: 'clamp(12px, 1.2vw, 24px)',
+          fontSize: 'clamp(14px, 1.68vw, 23px)',
           fontFamily: "'Neue Haas Grotesk Display Std', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-          fontWeight: '700',
+          fontWeight: '500',
           lineHeight: '1',
-          wordWrap: 'break-word',
-          overflow: 'hidden',
           transition: 'color 0.4s ease-in-out',
+          whiteSpace: 'nowrap',
         }}
       >
         Nocti Labs

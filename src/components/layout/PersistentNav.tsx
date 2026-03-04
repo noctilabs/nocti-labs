@@ -107,10 +107,12 @@ export default function PersistentNav(): React.ReactElement {
     left: 'clamp(20px, 3vw, 40px)',
     right: 'clamp(20px, 3vw, 40px)',
     display: 'grid',
-    gridTemplateColumns: '1fr auto 1fr',
+    gridTemplateColumns: 'minmax(0, 1fr) auto minmax(0, 1fr)',
     alignItems: 'center',
-    gap: 'clamp(10px, 1.5vw, 22.2px)',
+    gap: 'clamp(8px, 1vw, 297px)',
     zIndex: 1000,
+    minWidth: 0, // Allow grid to shrink below content size
+    overflow: 'visible',
   };
 
   return (
