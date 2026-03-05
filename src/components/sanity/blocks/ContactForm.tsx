@@ -2,13 +2,6 @@
 
 import { useState } from 'react';
 
-/**
- * Figma node 2032:5 — form fields.
- * Each field group is 26.83px tall (label 16px + gap + 1px line).
- * Row step 38.39px at 1445px viewport. Column gap 20px.
- * All spacing proportional via vw.
- */
-
 interface FloatingFieldProps {
   name: string;
   value: string;
@@ -16,9 +9,10 @@ interface FloatingFieldProps {
   label: string;
   required?: boolean;
   type?: string;
-  inputStyle?: React.CSSProperties;
   isTextarea?: boolean;
 }
+
+const fieldTextClass = "text-[0.97rem] font-body font-normal not-italic leading-[1.143] tracking-[0]";
 
 function FloatingField({
   name,
@@ -27,28 +21,15 @@ function FloatingField({
   label,
   required = false,
   type = 'text',
-  inputStyle,
   isTextarea = false,
 }: FloatingFieldProps): React.ReactElement {
   const [focused, setFocused] = useState(false);
   const floated = focused || value.length > 0;
-  const fontStyle: React.CSSProperties = {
-    fontSize: '0.97rem',
-    fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-    fontWeight: 400,
-    fontStyle: 'normal',
-    lineHeight: '1.143',
-    letterSpacing: '0',
-  };
-  const labelStyle: React.CSSProperties = {
-    ...fontStyle,
-    display: 'block',
-    color: floated ? '#d9d9d9' : '#d9d9d9',
-  };
+
   if (isTextarea) {
     return (
-      <div style={{ marginBottom: '0.8rem' }}>
-        <label htmlFor={name} style={labelStyle}>
+      <div className="mb-[0.8rem]">
+        <label htmlFor={name} className={`${fieldTextClass} block text-[#d9d9d9]`}>
           {label}
         </label>
         <textarea
@@ -58,35 +39,17 @@ function FloatingField({
           onChange={onChange}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          className="w-full bg-[#D9D9D9] text-black focus:outline-none resize-none"
-          style={{
-            height: '9.47rem',
-            borderRadius: '0.69rem',
-            padding: '0.83rem',
-            marginTop: '1.21rem',
-            ...fontStyle,
-            ...inputStyle,
-          }}
+          className={`w-full bg-[#D9D9D9] text-black focus:outline-none resize-none h-[9.47rem] rounded-[0.69rem] p-[0.83rem] mt-[1.21rem] ${fieldTextClass}`}
         />
       </div>
     );
   }
+
   return (
-    <div
-      style={{
-        marginBottom: '0.8rem',
-        position: 'relative',
-        borderBottom: '1px solid white',
-        paddingBottom: '0.75rem',
-      }}
-    >
+    <div className="mb-[0.8rem] relative border-b border-white pb-[0.75rem]">
       <label
         htmlFor={name}
-        style={{
-          ...labelStyle,
-          opacity: floated ? 0 : 1,
-          transition: 'opacity 0.15s',
-        }}
+        className={`${fieldTextClass} block text-[#d9d9d9] transition-opacity duration-150 ${floated ? 'opacity-0' : 'opacity-100'}`}
       >
         {label}
       </label>
@@ -98,19 +61,7 @@ function FloatingField({
         onChange={onChange}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className="bg-transparent text-white focus:outline-none"
-        style={{
-          ...fontStyle,
-          ...inputStyle,
-          color: 'white',
-          border: 'none',
-          padding: 0,
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-        }}
+        className={`bg-transparent text-white focus:outline-none ${fieldTextClass} absolute inset-0 w-full h-full border-none p-0`}
         required={required}
       />
     </div>
@@ -161,15 +112,7 @@ export default function ContactForm(): React.ReactElement {
 
   if (submitted) {
     return (
-      <p
-        className="text-white"
-        style={{
-          fontSize: '0.97rem',
-          fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-          fontWeight: 400,
-          lineHeight: '1.143',
-        }}
-      >
+      <p className={`text-white ${fieldTextClass}`}>
         Thanks! We&apos;ll be in touch soon.
       </p>
     );
@@ -178,10 +121,7 @@ export default function ContactForm(): React.ReactElement {
   return (
     <form onSubmit={handleSubmit}>
       {/* Row 1: First Name + Last Name */}
-      <div
-        className="grid grid-cols-2"
-        style={{ gap: '1.38rem' }}
-      >
+      <div className="grid grid-cols-2 gap-[1.38rem]">
         <FloatingField
           name="firstName"
           value={formData.firstName}
@@ -199,10 +139,7 @@ export default function ContactForm(): React.ReactElement {
       </div>
 
       {/* Row 2: Work Email + Company Name */}
-      <div
-        className="grid grid-cols-2"
-        style={{ gap: '1.38rem' }}
-      >
+      <div className="grid grid-cols-2 gap-[1.38rem]">
         <FloatingField
           name="email"
           value={formData.email}
@@ -221,10 +158,7 @@ export default function ContactForm(): React.ReactElement {
       </div>
 
       {/* Row 3: Current E-Commerce Platform + Country / Region */}
-      <div
-        className="grid grid-cols-2"
-        style={{ gap: '1.38rem' }}
-      >
+      <div className="grid grid-cols-2 gap-[1.38rem]">
         <FloatingField
           name="platform"
           value={formData.platform}
@@ -241,10 +175,7 @@ export default function ContactForm(): React.ReactElement {
       </div>
 
       {/* Row 4: Phone Number */}
-      <div
-        className="grid grid-cols-2"
-        style={{ gap: '1.38rem' }}
-      >
+      <div className="grid grid-cols-2 gap-[1.38rem]">
         <FloatingField
           name="phone"
           value={formData.phone}
@@ -255,64 +186,29 @@ export default function ContactForm(): React.ReactElement {
       </div>
 
       {/* Project Description */}
-      <div style={{ marginTop: '1.21rem', marginBottom: '1.31rem' }}>
-        <label
-          className="block text-white"
-          style={{
-            fontSize: '0.97rem',
-            fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-            fontWeight: 400,
-            lineHeight: '1.143',
-          }}
-        >
+      <div className="mt-[1.21rem] mb-[1.31rem]">
+        <label className={`block text-white ${fieldTextClass}`}>
           Project Description
         </label>
         <textarea
           name="description"
           value={formData.description}
           onChange={handleChange}
-          className="w-full bg-[#D9D9D9] text-black focus:outline-none resize-none"
-          style={{
-            height: '9.47rem',
-            borderRadius: '0.69rem',
-            padding: '0.83rem',
-            marginTop: '1.21rem',
-            fontSize: '0.97rem',
-            fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-            fontWeight: 400,
-            lineHeight: '1.143',
-          }}
+          className={`w-full bg-[#D9D9D9] text-black focus:outline-none resize-none h-[9.47rem] rounded-[0.69rem] p-[0.83rem] mt-[1.21rem] ${fieldTextClass}`}
         />
       </div>
 
-      {/* Submit — 100.66×37.15, cornerRadius 10 */}
-      <div style={{ marginBottom: submitError ? 8 : 0 }}>
+      {/* Submit */}
+      <div className={submitError ? 'mb-2' : ''}>
         {submitError && (
-          <p
-            className="text-red-400 mb-2"
-            style={{
-              fontSize: '0.83rem',
-              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-              fontWeight: 400,
-              lineHeight: '1.143',
-            }}
-          >
+          <p className={`text-red-400 mb-2 text-[0.83rem] font-body font-normal leading-[1.143]`}>
             Something went wrong. Please try again.
           </p>
         )}
         <button
           type="submit"
           disabled={submitting}
-          className="bg-white text-black hover:opacity-80 transition disabled:opacity-50"
-          style={{
-            width: '6.97rem',
-            height: '2.57rem',
-            borderRadius: '0.69rem',
-            fontSize: '0.97rem',
-            fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
-            fontWeight: 500,
-            lineHeight: '1.143',
-          }}
+          className="bg-white text-black hover:opacity-80 transition disabled:opacity-50 w-[6.97rem] h-[2.57rem] rounded-[0.69rem] text-[0.97rem] font-mono font-medium leading-[1.143]"
         >
           {submitting ? '...' : 'Submit'}
         </button>

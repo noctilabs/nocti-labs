@@ -33,30 +33,16 @@ export default function SanityProjectsShowcase({
 
   return (
     <section
-      className="text-black flex flex-col relative"
+      className="text-black flex flex-col relative pb-0"
       data-nav-theme={navTheme}
-      style={{ backgroundColor: backgroundColor || '#ffffff', paddingBottom: '0' }}
+      style={{ backgroundColor: backgroundColor || '#ffffff' }}
       suppressHydrationWarning
     >
       {heading && (
-        <div
-          style={{
-            paddingLeft: '3rem',
-            paddingRight: '3rem',
-            paddingTop: '2.84rem',
-            paddingBottom: '0.97rem',
-          }}
-        >
+        <div className="px-[3rem] pt-[2.84rem] pb-[0.97rem]">
           <h2
-            style={{
-              color: headingColor || '#000000',
-              fontSize: '3.32rem',
-              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-              fontWeight: 500,
-              fontStyle: 'normal',
-              lineHeight: '1.042',
-              letterSpacing: '0',
-            }}
+            className="text-[3.32rem] font-body font-medium not-italic leading-[1.042] tracking-[0]"
+            style={{ color: headingColor || '#000000' }}
           >
             {heading}
           </h2>
@@ -64,22 +50,9 @@ export default function SanityProjectsShowcase({
       )}
       {/* Full Screen Green Placeholder Section */}
       <div
-        className="w-full flex items-start justify-center relative"
-        style={{
-          paddingLeft: '3rem',
-          paddingRight: '3rem',
-          paddingTop: heading ? '0' : '3rem',
-          paddingBottom: '10rem',
-          minHeight: heading ? 'auto' : '100vh',
-        }}
+        className={`w-full flex items-start justify-center relative px-[3rem] pb-[10rem] ${heading ? 'pt-0' : 'pt-[3rem] min-h-screen'}`}
       >
-        <div
-          className="relative w-full"
-          style={{
-            aspectRatio: '1200/667',
-            borderRadius: '3px',
-          }}
-        >
+        <div className="relative w-full aspect-[1200/667] rounded-[3px]">
           {firstProject ? (
             <>
               {firstProject.coverVideoUrl ? (
@@ -100,114 +73,31 @@ export default function SanityProjectsShowcase({
                   className="w-full h-full object-cover rounded-[3px]"
                 />
               ) : (
-                <div
-                  className="bg-[#00FF17] w-full h-full rounded-[3px]"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    paddingLeft: '3rem',
-                    paddingRight: '3rem',
-                  }}
-                >
-                  <div
-                    style={{
-                      width: '100%',
-                      maxWidth: '614px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '2rem',
-                    }}
-                  >
+                <div className="bg-[#00FF17] w-full h-full rounded-[3px] flex items-center justify-center px-[3rem]">
+                  <div className="w-full max-w-[614px] flex flex-col gap-8">
                     <div className="text-center">
-                      <p
-                        className="font-mono uppercase font-bold text-[#FF0000] italic"
-                        style={{
-                          fontSize: '4rem',
-                          lineHeight: '6rem',
-                          wordBreak: 'break-word',
-                        }}
-                      >
+                      <p className="font-mono uppercase font-bold text-[#FF0000] italic text-[4rem] leading-[6rem] break-words">
                         PROJECTS SHOWCASE
                       </p>
                     </div>
                   </div>
                 </div>
               )}
-              <div
-                className="absolute bg-white"
-                style={{
-                  bottom: '6.99rem',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  zIndex: 10,
-                  height: '4.15rem',
-                  width: '41.87rem',
-                  borderRadius: '3px',
-                  paddingLeft: '0.76rem',
-                  paddingRight: '0.76rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.1)',
-                }}
-              >
-                <p
-                  style={{
-                    fontSize: '0.97rem',
-                    fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
-                    fontWeight: 400,
-                    fontStyle: 'normal',
-                    lineHeight: '1.286',
-                    letterSpacing: '0',
-                    textAlign: 'center',
-                    color: '#000000',
-                  }}
-                >
+              <div className="absolute bg-white bottom-[6.99rem] left-1/2 -translate-x-1/2 z-10 h-[4.15rem] w-[41.87rem] rounded-[3px] px-[0.76rem] flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.15),0_2px_4px_rgba(0,0,0,0.1)]">
+                <p className="text-[0.97rem] font-mono font-normal not-italic leading-[1.286] tracking-[0] text-center text-black">
                   {firstProject.client && `${firstProject.client}, `}
                   {firstProject.title}
                 </p>
               </div>
             </>
           ) : (
-            <div
-              className="bg-[#00FF17] w-full h-full rounded-[3px]"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingLeft: '3rem',
-                paddingRight: '3rem',
-              }}
-            >
-              <div
-                style={{
-                  width: '100%',
-                  maxWidth: '614px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '2rem',
-                }}
-              >
+            <div className="bg-[#00FF17] w-full h-full rounded-[3px] flex items-center justify-center px-[3rem]">
+              <div className="w-full max-w-[614px] flex flex-col gap-8">
                 <div className="text-center">
-                  <p
-                    className="font-mono uppercase font-bold text-[#FF0000] italic"
-                    style={{
-                      fontSize: '4rem',
-                      lineHeight: '6rem',
-                      wordBreak: 'break-word',
-                    }}
-                  >
+                  <p className="font-mono uppercase font-bold text-[#FF0000] italic text-[4rem] leading-[6rem] break-words">
                     PROJECTS FULL SCREEN
                   </p>
-                  <p
-                    className="font-mono uppercase font-bold text-[#FF0000] italic"
-                    style={{
-                      fontSize: '4rem',
-                      lineHeight: '6rem',
-                      wordBreak: 'break-word',
-                    }}
-                  >
+                  <p className="font-mono uppercase font-bold text-[#FF0000] italic text-[4rem] leading-[6rem] break-words">
                     ANIMATION / VIDEO
                   </p>
                 </div>

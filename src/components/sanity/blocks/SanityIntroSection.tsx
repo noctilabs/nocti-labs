@@ -8,16 +8,6 @@ import type { PAGE_QUERYResult } from '../../../../sanity.types'
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
 type SanityIntroSectionProps = Extract<PageBlock, { _type: 'introSection' }>
 
-/** Horizontal inset matching PersistentNav (3rem) for flush alignment on resize. */
-const SECTION_INSET = '3rem';
-
-/** Fluid type scales proportionally with viewport, matching Figma ratios at 1445px. */
-const HEADING_FONT_SIZE = '3.32rem';
-const HEADING_LINE_HEIGHT = '1.042';
-const DESCRIPTION_FONT_SIZE = '2.21rem';
-const DESCRIPTION_LINE_HEIGHT = '1.156';
-const BADGE_FONT_SIZE = '1.25rem';
-
 export default function SanityIntroSection({
   heading,
   image,
@@ -28,41 +18,20 @@ export default function SanityIntroSection({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white relative py-20 flex flex-col justify-start"
-      style={{
-        paddingLeft: SECTION_INSET,
-        paddingRight: SECTION_INSET,
-        paddingTop: 0,
-        marginLeft: 0,
-        marginRight: 0,
-        marginBottom: 0,
-      }}
+      className="bg-black text-white relative py-20 flex flex-col justify-start px-[3rem] pt-0 ml-0 mr-0 mb-0"
     >
-      {/* Heading - Top Left (aligned with header inset via section margin) */}
+      {/* Heading - Top Left */}
       {heading && (
-        <div
-          style={{ marginTop: '50px', marginBottom: '40px', width: '38.55rem' }}
-        >
-          <h2
-            style={{
-              marginTop: 0,
-              marginBottom: 0,
-              fontSize: HEADING_FONT_SIZE,
-              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-              fontWeight: 500,
-              fontStyle: 'normal',
-              lineHeight: HEADING_LINE_HEIGHT,
-              letterSpacing: '0',
-            }}
-          >
+        <div className="mt-[50px] mb-[40px] max-w-[38.55rem] w-full">
+          <h2 className="m-0 text-[3.32rem] font-body font-medium not-italic leading-[1.042] tracking-[0]">
             {heading}
           </h2>
         </div>
       )}
 
-      {/* Badge - Top Right (same inset as header) */}
+      {/* Badge - Top Right */}
       {badge && (
-        <div className="absolute top-20 flex items-center gap-3" style={{ right: SECTION_INSET }}>
+        <div className="absolute top-20 flex items-center gap-3 right-[3rem]">
           {badge.image?.asset?._ref && (
             <div className="w-12 h-12 rounded-full overflow-hidden bg-white flex items-center justify-center relative">
               <Image
@@ -74,16 +43,16 @@ export default function SanityIntroSection({
             </div>
           )}
           {badge.text && (
-            <span className="font-body text-white" style={{ fontSize: BADGE_FONT_SIZE }}>
+            <span className="font-body text-white text-[1.25rem]">
               {badge.text}
             </span>
           )}
         </div>
       )}
 
-      {/* Image - Center (aligned via section margin) */}
+      {/* Image - Center */}
       {image?.asset?._ref && (
-        <div style={{ marginBottom: '30px' }}>
+        <div className="mb-[30px]">
           <Image
             src={urlFor(image).width(1400).url()}
             alt=""
@@ -96,20 +65,8 @@ export default function SanityIntroSection({
 
       {/* Description - Below Image */}
       {description && (
-        <div style={{ paddingBottom: '20px', maxWidth: '94.42%' }}>
-          <p
-            style={{
-              fontSize: DESCRIPTION_FONT_SIZE,
-              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-              fontWeight: 500,
-              fontStyle: 'normal',
-              lineHeight: DESCRIPTION_LINE_HEIGHT,
-              letterSpacing: '0',
-              paddingTop: '40px',
-              paddingBottom: '20px',
-              margin: 0,
-            }}
-          >
+        <div className="pb-[20px] max-w-[94.42%]">
+          <p className="text-[2.21rem] font-body font-medium not-italic leading-[1.156] tracking-[0] pt-[40px] pb-[20px] m-0">
             {description}
           </p>
         </div>
@@ -117,7 +74,7 @@ export default function SanityIntroSection({
 
       {/* CTA - Bottom Right */}
       {cta && (
-        <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '20px', paddingBottom: '40px', fontWeight: 500, lineHeight: '1.042' }}>
+        <div className="flex justify-end pt-[20px] pb-[40px] font-medium leading-[1.042]">
           <SanityCta {...cta} className="text-white" />
         </div>
       )}

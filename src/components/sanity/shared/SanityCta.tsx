@@ -29,15 +29,7 @@ export default function SanityCta({
   return (
     <Link
       href={href}
-      className={`hover:opacity-70 transition inline-flex items-center gap-2 ${className}`}
-      style={{
-        fontSize: '1.66rem',
-        fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-        fontWeight: 'inherit',
-        fontStyle: 'normal',
-        lineHeight: 'inherit',
-        letterSpacing: '0',
-      }}
+      className={`hover:opacity-70 transition inline-flex items-center gap-2 text-[1.66rem] font-body font-[inherit] not-italic leading-[inherit] tracking-[0] ${className}`}
       {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
     >
       {label} <span aria-hidden="true">&rarr;</span>

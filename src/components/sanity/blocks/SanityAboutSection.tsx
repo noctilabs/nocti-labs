@@ -15,46 +15,17 @@ export default function SanityAboutSection({
       data-nav-theme="dark"
       className="bg-black text-white relative"
     >
-      <div
-        style={{
-          paddingLeft: '3rem',
-          paddingRight: '3rem',
-          paddingTop: '4.74rem',
-        }}
-      >
+      <div className="px-[3rem] pt-[4.74rem]">
         {/* Heading */}
         {heading && (
-          <h1
-            style={{
-              fontSize: '3.32rem',
-              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-              fontWeight: 500,
-              fontStyle: 'normal',
-              lineHeight: '1.042',
-              letterSpacing: '0',
-              marginBottom: '3.94rem',
-              color: 'white',
-            }}
-          >
+          <h1 className="text-[3.32rem] font-body font-medium not-italic leading-[1.042] tracking-[0] mb-[3.94rem] text-white">
             {heading}
           </h1>
         )}
 
         {/* Description */}
         {description && (
-          <p
-            style={{
-              fontSize: '2.21rem',
-              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-              fontWeight: 500,
-              fontStyle: 'normal',
-              lineHeight: '1.156',
-              letterSpacing: '0',
-              color: 'white',
-              maxWidth: '94.44rem',
-              marginBottom: '5.54rem',
-            }}
-          >
+          <p className="text-[2.21rem] font-body font-medium not-italic leading-[1.156] tracking-[0] text-white max-w-[94.44rem] mb-[5.54rem]">
             {description}
           </p>
         )}
@@ -62,30 +33,16 @@ export default function SanityAboutSection({
 
       {/* Full-width Image */}
       {image?.asset?._ref && (
-        <div
-          style={{
-            paddingLeft: '3rem',
-            paddingRight: '3rem',
-            paddingBottom: '1.385rem',
-          }}
-        >
-        <div
-          style={{
-            width: '100%',
-            height: '26.64rem',
-            position: 'relative',
-            borderRadius: '3px',
-            overflow: 'hidden',
-          }}
-        >
-          <Image
-            src={urlFor(image).width(1440).url()}
-            alt={heading ?? ''}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
+        <div className="px-[3rem] pb-[1.385rem]">
+          <div className="w-full h-[26.64rem] relative rounded-[3px] overflow-hidden">
+            <Image
+              src={urlFor(image).width(1440).url()}
+              alt={heading ?? ''}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
         </div>
       )}
     </section>

@@ -55,36 +55,17 @@ export default function SanityServicesShowcase({
       className="bg-black text-white flex flex-col relative"
       suppressHydrationWarning
     >
-      <div
-        style={{
-          width: "100%",
-          position: "relative",
-          paddingLeft: "3rem",
-          paddingRight: "3rem",
-          paddingTop: "5rem",
-          paddingBottom: "5rem",
-        }}
-      >
+      <div className="w-full relative px-[3rem] py-[5rem]">
         {/* Heading */}
         {heading && (
-          <h2
-            style={{
-              fontSize: "3.32rem",
-              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-              fontWeight: 500,
-              fontStyle: "normal",
-              lineHeight: "1.042",
-              letterSpacing: "0",
-              marginBottom: "5.4rem",
-            }}
-          >
+          <h2 className="text-[3.32rem] font-body font-medium not-italic leading-[1.042] tracking-[0] mb-[5.4rem]">
             {heading}
           </h2>
         )}
 
         {/* Services Accordion */}
         {services && services.length > 0 && (
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="flex flex-col">
             {services.map((service, index) => {
               const isExpanded = expandedId === service._id;
               const isFirst = index === 0;
@@ -94,40 +75,11 @@ export default function SanityServicesShowcase({
                   {/* Accordion Header */}
                   <div
                     onClick={() => toggleService(service._id)}
-                    style={{
-                      fontSize: "3.32rem",
-                      fontFamily:
-                        'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-                      fontWeight: 500,
-                      lineHeight: "1.042",
-                      letterSpacing: "0",
-                      paddingTop: "1.1rem",
-                      paddingBottom: "1.1rem",
-                      cursor: "pointer",
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      transition: "opacity 0.3s ease",
-                      userSelect: "none",
-                      borderTop: isFirst ? "1px solid white" : "none",
-                      borderBottom: "1px solid white",
-                    }}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.opacity = "0.7")
-                    }
-                    onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+                    className={`text-[3.32rem] font-body font-medium leading-[1.042] tracking-[0] py-[1.1rem] cursor-pointer flex justify-between items-center transition-opacity duration-300 ease-in-out select-none border-b border-white hover:opacity-70 ${isFirst ? 'border-t' : ''}`}
                   >
                     <span>{service.title}</span>
                     <span
-                      style={{
-                        marginRight: "7.8rem",
-                        transition: "transform 0.3s ease",
-                        transform: isExpanded
-                          ? "rotate(180deg)"
-                          : "rotate(0deg)",
-                        display: "flex",
-                        alignItems: "center",
-                      }}
+                      className={`mr-[7.8rem] transition-transform duration-300 ease-in-out flex items-center ${isExpanded ? 'rotate-180' : 'rotate-0'}`}
                     >
                       <ChevronIcon />
                     </span>
@@ -135,47 +87,14 @@ export default function SanityServicesShowcase({
 
                   {/* Expanded Content: Two Column Layout */}
                   {isExpanded && (
-                    <div
-                      style={{
-                        display: "grid",
-                        gridTemplateColumns: "41fr 59fr",
-                        gap: "9.6rem",
-                        paddingTop: "2.6rem",
-                        paddingBottom: "3rem",
-                        borderBottom: "1px solid white",
-                        animation: "slideDown 0.3s ease",
-                      }}
-                    >
+                    <div className="grid grid-cols-[41fr_59fr] gap-[9.6rem] pt-[2.6rem] pb-[3rem] border-b border-white animate-[slideDown_0.3s_ease]">
                       {/* Left Column: Description */}
-                      <div
-                        style={{
-                          fontSize: "1.66rem",
-                          fontFamily:
-                            'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-                          fontWeight: 400,
-                          fontStyle: "normal",
-                          lineHeight: "1.208",
-                          letterSpacing: "0",
-                          color: "white",
-                        }}
-                      >
+                      <div className="text-[1.66rem] font-body font-normal not-italic leading-[1.208] tracking-[0] text-white">
                         {service.description}
                       </div>
 
                       {/* Right Column: Service Items */}
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "2rem",
-                          paddingRight: "7.8rem",
-                          fontSize: "1.66rem",
-                          fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-                          fontWeight: 400,
-                          lineHeight: "1.208",
-                          letterSpacing: "0",
-                        }}
-                      >
+                      <div className="flex flex-col gap-8 pr-[7.8rem] text-[1.66rem] font-body font-normal leading-[1.208] tracking-[0]">
                         {service.items &&
                           service.items.map((item) => (
                             <div key={item._key}>
@@ -196,13 +115,7 @@ export default function SanityServicesShowcase({
 
         {/* CTA */}
         {cta && (
-          <div
-            style={{
-              marginTop: "8.4rem",
-              fontWeight: 500,
-              lineHeight: "1.042",
-            }}
-          >
+          <div className="mt-[8.4rem] font-medium leading-[1.042]">
             <SanityCta {...cta} className="text-white" />
           </div>
         )}

@@ -13,39 +13,16 @@ export default function SanityInsightsGrid({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white"
-      style={{
-        paddingTop: '2.34rem',
-        marginLeft: '3rem',
-        marginRight: '3rem',
-        marginBottom: '3rem',
-      }}
+      className="bg-black text-white pt-[2.34rem] mx-[3rem] mb-[3rem]"
     >
         {heading && (
-          <h2
-            style={{
-              fontSize: '3.32rem',
-              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-              fontWeight: 500,
-              fontStyle: 'normal',
-              lineHeight: '1.042',
-              letterSpacing: '0',
-              paddingTop: '0',
-              paddingBottom: '7.11rem',
-            }}
-          >
+          <h2 className="text-[3.32rem] font-body font-medium not-italic leading-[1.042] tracking-[0] pt-0 pb-[7.11rem]">
             {heading}
           </h2>
         )}
 
         {featuredPosts && featuredPosts.length > 0 && (
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
-            style={{
-              gap: '1.42rem',
-              paddingBottom: '3rem',
-            }}
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1.42rem] pb-[3rem]">
             {featuredPosts.map((post) => (
               <div key={post._id} className="group cursor-pointer flex flex-col">
                 {/* Cover Image */}
@@ -63,59 +40,22 @@ export default function SanityInsightsGrid({
                 )}
 
                 {/* Text content */}
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '1.38rem',
-                    marginTop: '1.38rem',
-                  }}
-                >
+                <div className="flex flex-col gap-[1.38rem] mt-[1.38rem]">
                   {/* Title */}
-                  <h3
-                    style={{
-                      fontSize: '1.66rem',
-                      fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-                      fontWeight: 500,
-                      fontStyle: 'normal',
-                      lineHeight: '1.042',
-                      letterSpacing: '0',
-                      color: 'white',
-                    }}
-                  >
+                  <h3 className="text-[1.66rem] font-body font-medium not-italic leading-[1.042] tracking-[0] text-white">
                     {post.title}
                   </h3>
 
                   {/* Excerpt */}
                   {post.excerpt && (
-                    <p
-                      style={{
-                        fontSize: '0.97rem',
-                        fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-                        fontWeight: 400,
-                        fontStyle: 'normal',
-                        lineHeight: '1.143',
-                        letterSpacing: '0',
-                        color: 'white',
-                      }}
-                    >
+                    <p className="text-[0.97rem] font-body font-normal not-italic leading-[1.143] tracking-[0] text-white">
                       {post.excerpt}
                     </p>
                   )}
 
                   {/* Author */}
                   {post.author && (
-                    <p
-                      style={{
-                        fontSize: '0.97rem',
-                        fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-                        fontWeight: 400,
-                        fontStyle: 'normal',
-                        lineHeight: '1.143',
-                        letterSpacing: '0',
-                        color: '#a8a8a8',
-                      }}
-                    >
+                    <p className="text-[0.97rem] font-body font-normal not-italic leading-[1.143] tracking-[0] text-muted">
                       {post.author}
                     </p>
                   )}
@@ -127,17 +67,7 @@ export default function SanityInsightsGrid({
 
         <Link
           href="/blog"
-          className="text-white hover:opacity-70 transition inline-block"
-          style={{
-            fontSize: '1.66rem',
-            fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-            fontWeight: 500,
-            fontStyle: 'normal',
-            lineHeight: '1.042',
-            letterSpacing: '0',
-            paddingTop: '2.81rem',
-            paddingBottom: '2.59rem',
-          }}
+          className="text-white hover:opacity-70 transition inline-block text-[1.66rem] font-body font-medium not-italic leading-[1.042] tracking-[0] pt-[2.81rem] pb-[2.59rem]"
         >
           Read our Blog →
         </Link>

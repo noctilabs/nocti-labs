@@ -4,23 +4,8 @@ import type { PAGE_QUERYResult } from '../../../../sanity.types'
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
 type SanityContactSectionProps = Extract<PageBlock, { _type: 'contactSection' }>
 
-const TITLE_STYLE: React.CSSProperties = {
-  fontSize: '3.32rem',
-  fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-  fontWeight: 500,
-  fontStyle: 'normal',
-  lineHeight: '1.042',
-  letterSpacing: '0',
-}
-
-const CTA_STYLE: React.CSSProperties = {
-  fontSize: '1.66rem',
-  fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-  fontWeight: 500,
-  fontStyle: 'normal',
-  lineHeight: '1.042',
-  letterSpacing: '0',
-}
+const titleClass = "text-[3.32rem] font-body font-medium not-italic leading-[1.042] tracking-[0]";
+const ctaClass = "text-[1.66rem] font-body font-medium not-italic leading-[1.042] tracking-[0]";
 
 export default function SanityContactSection({
   heading,
@@ -31,61 +16,32 @@ export default function SanityContactSection({
   return (
     <section
       data-nav-theme="dark"
-      style={{
-        background: 'black',
-        color: 'white',
-        paddingTop: '9.48rem',
-        paddingBottom: '8.34rem',
-        paddingLeft: '3rem',
-        paddingRight: '10.73rem',
-      }}
+      className="bg-black text-white pt-[9.48rem] pb-[8.34rem] pl-[3rem] pr-[10.73rem]"
     >
-      <div
-        className="grid grid-cols-1 lg:grid-cols-[673fr_442fr]"
-        style={{ gap: '9.34rem' }}
-      >
+      <div className="grid grid-cols-1 lg:grid-cols-[673fr_442fr] gap-[9.34rem]">
 
         {/* LEFT COLUMN */}
         <div>
           {/* "Lets talk!" + email — side by side */}
-          <div style={{ display: 'flex', alignItems: 'start', gap: '1.38rem' }}>
+          <div className="flex items-start gap-[1.38rem]">
             {heading && (
-              <h2 style={{ ...TITLE_STYLE, flex: 1, margin: 0 }}>
+              <h2 className={`${titleClass} flex-1 m-0`}>
                 {heading}
               </h2>
             )}
             {email && (
-              <p
-                style={{
-                  ...CTA_STYLE,
-                  flex: 1,
-                  margin: 0,
-                  paddingTop: '1.59rem',
-                  color: 'white',
-                }}
-              >
+              <p className={`${ctaClass} flex-1 m-0 pt-[1.59rem] text-white`}>
                 {email}
               </p>
             )}
           </div>
 
           {/* "Our Offices" + addresses — side by side */}
-          <div
-            className="grid grid-cols-2"
-            style={{
-              gap: '1.38rem',
-              marginTop: '18.75rem',
-            }}
-          >
-            <h3 style={TITLE_STYLE}>
+          <div className="grid grid-cols-2 gap-[1.38rem] mt-[18.75rem]">
+            <h3 className={titleClass}>
               Our Offices
             </h3>
-            <div
-              style={{
-                paddingTop: '1.63rem',
-                width: '22.7rem',
-              }}
-            >
+            <div className="pt-[1.63rem] w-[22.7rem]">
               {offices && offices.map((office, index) => {
                 const locationLine = [office.city, office.state, office.country].filter(Boolean).join(', ');
                 const hasAddressParts = office.address || office.stateAbbr || office.zip;
@@ -95,11 +51,9 @@ export default function SanityContactSection({
                 return (
                   <div
                     key={office._key}
-                    style={{
-                      marginTop: index > 0 ? '1.73rem' : 0,
-                    }}
+                    className={index > 0 ? 'mt-[1.73rem]' : ''}
                   >
-                    <p style={{ ...CTA_STYLE, color: 'white' }}>
+                    <p className={`${ctaClass} text-white`}>
                       {locationLine}
                       {addressLine && (
                         <>
@@ -118,7 +72,7 @@ export default function SanityContactSection({
         {/* RIGHT COLUMN — form */}
         <div>
           {formHeading && (
-            <h2 style={{ ...TITLE_STYLE, paddingBottom: '1.58rem' }}>
+            <h2 className={`${titleClass} pb-[1.58rem]`}>
               {formHeading}
             </h2>
           )}

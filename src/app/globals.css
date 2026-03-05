@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@config "../../tailwind.config.ts";
 
 :root {
   --nav-offset: 6.25rem;
@@ -14,10 +15,12 @@
   --font-mono-fallback: "Courier New", Courier, monospace;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 }
 
 html {
@@ -41,6 +44,13 @@ body {
 
 *::-webkit-scrollbar {
   display: none; /* Chrome/Safari/Opera */
+}
+
+/* Shared font rendering utility for nav components */
+.text-crisp {
+  font-synthesis: none;
+  font-feature-settings: normal;
+  text-rendering: optimizeLegibility;
 }
 
 /* Prevent browser autofill from adding white background */

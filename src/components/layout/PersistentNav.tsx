@@ -61,28 +61,22 @@ export default function PersistentNav(): React.ReactElement {
       const hasLightOverlap = lightOverlapBottom > lightOverlapTop;
 
       if (hasDarkOverlap && !hasLightOverlap) {
-        // Only dark sections - show light nav fully
         lightNav.style.clipPath = 'inset(0 0 0 0)';
         darkNav.style.clipPath = 'inset(0 0 100% 0)';
       } else if (hasLightOverlap && !hasDarkOverlap) {
-        // Only light sections - show dark nav fully
         lightNav.style.clipPath = 'inset(0 0 100% 0)';
         darkNav.style.clipPath = 'inset(0 0 0 0)';
       } else if (hasDarkOverlap && hasLightOverlap) {
-        // Both sections - need to clip both navs
-        // Light nav shows over dark sections
         const darkTopPct = ((darkOverlapTop - navBarTop) / navHeight) * 100;
         const darkBottomPct = ((navBarBottom - darkOverlapBottom) / navHeight) * 100;
         const lightNavClip = `inset(${Math.max(0, darkTopPct).toFixed(2)}% 0 ${Math.max(0, darkBottomPct).toFixed(2)}% 0)`;
         lightNav.style.clipPath = lightNavClip;
 
-        // Dark nav shows over light sections
         const lightTopPct = ((lightOverlapTop - navBarTop) / navHeight) * 100;
         const lightBottomPct = ((navBarBottom - lightOverlapBottom) / navHeight) * 100;
         const darkNavClip = `inset(${Math.max(0, lightTopPct).toFixed(2)}% 0 ${Math.max(0, lightBottomPct).toFixed(2)}% 0)`;
         darkNav.style.clipPath = darkNavClip;
       } else {
-        // No sections detected - default to dark nav (black nav on white/default backgrounds)
         lightNav.style.clipPath = 'inset(0 0 100% 0)';
         darkNav.style.clipPath = 'inset(0 0 0 0)';
       }
@@ -101,35 +95,23 @@ export default function PersistentNav(): React.ReactElement {
     };
   }, []);
 
-  const navStyle: React.CSSProperties = {
-    position: 'fixed',
-    top: '3rem',
-    left: '3rem',
-    right: '3rem',
-    display: 'grid',
-    gridTemplateColumns: 'minmax(0, 1fr) auto minmax(0, 1fr)',
-    alignItems: 'center',
-    gap: '1rem',
-    zIndex: 1000,
-    minWidth: 0, // Allow grid to shrink below content size
-    overflow: 'visible',
-  };
+  const navClass = "fixed top-[2.5rem] left-[2.5rem] right-[2.5rem] grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 z-[1000] min-w-0 overflow-visible pointer-events-auto";
 
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000, pointerEvents: 'none', height: '100vh' }}>
-      {/* Light nav — clipped to show only over dark sections (white nav on black backgrounds) */}
-      <nav ref={lightNavRef} style={{ ...navStyle, pointerEvents: 'auto', clipPath: 'inset(0 0 100% 0)' }}>
+    <div className="fixed inset-x-0 top-0 z-[1000] pointer-events-none h-screen">
+      {/* Light nav — clipped to show only over dark sections */}
+      <nav ref={lightNavRef} className={navClass} style={{ clipPath: 'inset(0 0 100% 0)' }}>
         <NavLogo className="justify-self-start" theme="light" />
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div className="flex justify-center">
           <NavLinks theme="light" />
         </div>
         <NavContactButton className="justify-self-end" theme="light" />
       </nav>
 
-      {/* Dark nav — visible by default, clipped to hide over dark sections (black nav on white backgrounds) */}
-      <nav ref={darkNavRef} style={{ ...navStyle, pointerEvents: 'auto' }}>
+      {/* Dark nav — visible by default, clipped to hide over dark sections */}
+      <nav ref={darkNavRef} className={navClass}>
         <NavLogo className="justify-self-start" theme="dark" />
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div className="flex justify-center">
           <NavLinks theme="dark" />
         </div>
         <NavContactButton className="justify-self-end" theme="dark" />

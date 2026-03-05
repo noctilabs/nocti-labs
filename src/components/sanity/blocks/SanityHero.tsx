@@ -23,7 +23,7 @@ export default function SanityHero({
     ? urlFor(innerBackgroundImage).width(1920).url()
     : undefined
 
-  // Fallback to existing SVG backgrounds for "blue" theme
+  // Background must stay inline due to dynamic URL/theme logic
   const bgStyle: React.CSSProperties = bgImageUrl
     ? {
         backgroundImage: `url(${bgImageUrl})`,
@@ -42,62 +42,34 @@ export default function SanityHero({
 
   const textColor = cleanTheme === 'light' ? 'text-black' : 'text-white'
 
+  // Inner panel background must stay inline due to dynamic URL
+  const innerBgStyle: React.CSSProperties = {
+    backgroundImage: innerBgImageUrl
+      ? `url(${innerBgImageUrl})`
+      : !bgImageUrl && cleanTheme === 'blue'
+        ? 'url(/noctiLabsBackgroundInnerLanding.svg)'
+        : undefined,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }
+
   return (
     <section
       data-nav-theme="dark"
-      style={{
-        width: '100%',
-        height: '100vh',
-        position: 'relative',
-        overflow: 'hidden',
-        marginTop: 'calc(-1 * var(--nav-offset))',
-        ...bgStyle,
-      }}
+      className="w-full h-screen relative overflow-hidden mt-[calc(-1*var(--nav-offset))]"
+      style={bgStyle}
     >
       {/* Inner headline panel */}
       <div
-        style={{
-          width: '62.56%',
-          aspectRatio: '903 / 385',
-          left: '18.96%',
-          top: '25.60%',
-          position: 'absolute',
-          backgroundImage: innerBgImageUrl
-            ? `url(${innerBgImageUrl})`
-            : !bgImageUrl && cleanTheme === 'blue'
-              ? 'url(/noctiLabsBackgroundInnerLanding.svg)'
-              : undefined,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
+        className="w-[62.56%] aspect-[903/385] left-[18.96%] top-[25.60%] absolute flex items-center justify-center"
+        style={innerBgStyle}
       >
         <p
-          className={textColor}
-          style={{
-            width: '74.5%',
-            fontSize: '3.32rem',
-            fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
-            fontWeight: 500,
-            fontStyle: 'normal',
-            fontSynthesis: 'none',
-            lineHeight: '1.042',
-            letterSpacing: '0',
-            textAlign: 'center',
-            WebkitFontSmoothing: 'antialiased',
-            MozOsxFontSmoothing: 'grayscale',
-            fontFeatureSettings: 'normal',
-            textRendering: 'optimizeLegibility',
-            margin: 0,
-            padding: 0,
-          }}
+          className={`${textColor} w-[74.5%] text-[3rem] font-body font-medium not-italic leading-[3.125rem] tracking-[0] text-center antialiased text-crisp m-0 p-0`}
         >
           {heading || 'Commerce and Technology Studio for the AI era'}
         </p>
       </div>
-
     </section>
   )
 }
