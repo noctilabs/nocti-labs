@@ -33,7 +33,7 @@ function FloatingField({
   const [focused, setFocused] = useState(false);
   const floated = focused || value.length > 0;
   const fontStyle: React.CSSProperties = {
-    fontSize: 'clamp(11px, 0.97vw, 100vw)',
+    fontSize: '0.97rem',
     fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
     fontWeight: 400,
     fontStyle: 'normal',
@@ -47,7 +47,7 @@ function FloatingField({
   };
   if (isTextarea) {
     return (
-      <div style={{ marginBottom: 'clamp(8px, 0.8vw, 100vw)' }}>
+      <div style={{ marginBottom: '0.8rem' }}>
         <label htmlFor={name} style={labelStyle}>
           {label}
         </label>
@@ -60,10 +60,10 @@ function FloatingField({
           onBlur={() => setFocused(false)}
           className="w-full bg-[#D9D9D9] text-black focus:outline-none resize-none"
           style={{
-            height: 'clamp(80px, 9.47vw, 100vw)',
-            borderRadius: 'clamp(6px, 0.69vw, 100vw)',
-            padding: 'clamp(8px, 0.83vw, 100vw)',
-            marginTop: 'clamp(10px, 1.21vw, 100vw)',
+            height: '9.47rem',
+            borderRadius: '0.69rem',
+            padding: '0.83rem',
+            marginTop: '1.21rem',
             ...fontStyle,
             ...inputStyle,
           }}
@@ -74,10 +74,10 @@ function FloatingField({
   return (
     <div
       style={{
-        marginBottom: 'clamp(8px, 0.8vw, 100vw)',
+        marginBottom: '0.8rem',
         position: 'relative',
         borderBottom: '1px solid white',
-        paddingBottom: 'clamp(6px, 0.75vw, 100vw)',
+        paddingBottom: '0.75rem',
       }}
     >
       <label
@@ -164,7 +164,7 @@ export default function ContactForm(): React.ReactElement {
       <p
         className="text-white"
         style={{
-          fontSize: 'clamp(11px, 0.97vw, 100vw)',
+          fontSize: '0.97rem',
           fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
           fontWeight: 400,
           lineHeight: '1.143',
@@ -180,7 +180,7 @@ export default function ContactForm(): React.ReactElement {
       {/* Row 1: First Name + Last Name */}
       <div
         className="grid grid-cols-2"
-        style={{ gap: 'clamp(12px, 1.38vw, 100vw)' }}
+        style={{ gap: '1.38rem' }}
       >
         <FloatingField
           name="firstName"
@@ -201,7 +201,7 @@ export default function ContactForm(): React.ReactElement {
       {/* Row 2: Work Email + Company Name */}
       <div
         className="grid grid-cols-2"
-        style={{ gap: 'clamp(12px, 1.38vw, 100vw)' }}
+        style={{ gap: '1.38rem' }}
       >
         <FloatingField
           name="email"
@@ -223,7 +223,7 @@ export default function ContactForm(): React.ReactElement {
       {/* Row 3: Current E-Commerce Platform + Country / Region */}
       <div
         className="grid grid-cols-2"
-        style={{ gap: 'clamp(12px, 1.38vw, 100vw)' }}
+        style={{ gap: '1.38rem' }}
       >
         <FloatingField
           name="platform"
@@ -243,7 +243,7 @@ export default function ContactForm(): React.ReactElement {
       {/* Row 4: Phone Number */}
       <div
         className="grid grid-cols-2"
-        style={{ gap: 'clamp(12px, 1.38vw, 100vw)' }}
+        style={{ gap: '1.38rem' }}
       >
         <FloatingField
           name="phone"
@@ -255,11 +255,11 @@ export default function ContactForm(): React.ReactElement {
       </div>
 
       {/* Project Description */}
-      <div style={{ marginTop: 'clamp(10px, 1.21vw, 100vw)', marginBottom: 'clamp(12px, 1.31vw, 100vw)' }}>
+      <div style={{ marginTop: '1.21rem', marginBottom: '1.31rem' }}>
         <label
           className="block text-white"
           style={{
-            fontSize: 'clamp(11px, 0.97vw, 100vw)',
+            fontSize: '0.97rem',
             fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
             fontWeight: 400,
             lineHeight: '1.143',
@@ -273,11 +273,11 @@ export default function ContactForm(): React.ReactElement {
           onChange={handleChange}
           className="w-full bg-[#D9D9D9] text-black focus:outline-none resize-none"
           style={{
-            height: 'clamp(80px, 9.47vw, 100vw)',
-            borderRadius: 'clamp(6px, 0.69vw, 100vw)',
-            padding: 'clamp(8px, 0.83vw, 100vw)',
-            marginTop: 'clamp(10px, 1.21vw, 100vw)',
-            fontSize: 'clamp(11px, 0.97vw, 100vw)',
+            height: '9.47rem',
+            borderRadius: '0.69rem',
+            padding: '0.83rem',
+            marginTop: '1.21rem',
+            fontSize: '0.97rem',
             fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
             fontWeight: 400,
             lineHeight: '1.143',
@@ -291,7 +291,7 @@ export default function ContactForm(): React.ReactElement {
           <p
             className="text-red-400 mb-2"
             style={{
-              fontSize: 'clamp(10px, 0.83vw, 100vw)',
+              fontSize: '0.83rem',
               fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
               fontWeight: 400,
               lineHeight: '1.143',
@@ -305,10 +305,10 @@ export default function ContactForm(): React.ReactElement {
           disabled={submitting}
           className="bg-white text-black hover:opacity-80 transition disabled:opacity-50"
           style={{
-            width: 'clamp(70px, 6.97vw, 100vw)',
-            height: 'clamp(28px, 2.57vw, 100vw)',
-            borderRadius: 'clamp(6px, 0.69vw, 100vw)',
-            fontSize: 'clamp(11px, 0.97vw, 100vw)',
+            width: '6.97rem',
+            height: '2.57rem',
+            borderRadius: '0.69rem',
+            fontSize: '0.97rem',
             fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
             fontWeight: 500,
             lineHeight: '1.143',

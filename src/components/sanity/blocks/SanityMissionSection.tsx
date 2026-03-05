@@ -31,20 +31,20 @@ export default function SanityMissionSection({
         style={{
           width: "100%",
           position: "relative",
-          paddingLeft: "clamp(20px, 2.77vw, 100vw)",
-          paddingRight: "clamp(20px, 2.77vw, 100vw)",
-          paddingTop: "clamp(10px, 2.37vw, 100vw)",
-          paddingBottom: "clamp(80px, 11.07vw, 100vw)",
+          paddingLeft: "2.77rem",
+          paddingRight: "2.77rem",
+          paddingTop: "2.37rem",
+          paddingBottom: "11.07rem",
           display: "flex",
           flexDirection: "column",
-          gap: "clamp(40px, 5.47vw, 100vw)",
+          gap: "5.47rem",
         }}
       >
         {/* Heading */}
         {heading && (
           <h2
             style={{
-              fontSize: "clamp(28px, 3.32vw, 100vw)",
+              fontSize: "3.32rem",
               fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
               fontWeight: 500,
               fontStyle: "normal",
@@ -63,7 +63,7 @@ export default function SanityMissionSection({
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(5, 1fr)",
-              gap: "clamp(20px, 5.47vw, 100vw)",
+              gap: "5.47rem",
               alignItems: "start",
             }}
           >
@@ -73,7 +73,7 @@ export default function SanityMissionSection({
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: "clamp(8px, 0.9vw, 100vw)",
+                  gap: "0.9rem",
                   width: "100%",
                   alignItems: "flex-start",
                 }}
@@ -83,9 +83,9 @@ export default function SanityMissionSection({
                   <div
                     style={{
                       width: "100%",
-                      height: "clamp(80px, 10.14vw, 100vw)",
+                      height: "10.14rem",
                       position: "relative",
-                      marginBottom: "clamp(8px, 0.9vw, 100vw)",
+                      marginBottom: "0.9rem",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -103,10 +103,10 @@ export default function SanityMissionSection({
                 ) : (
                   <div
                     style={{
-                      width: "clamp(80px, 10.14vw, 100vw)",
-                      height: "clamp(80px, 10.14vw, 100vw)",
+                      width: "10.14rem",
+                      height: "10.14rem",
                       borderRadius: "50%",
-                      marginBottom: "clamp(8px, 0.9vw, 100vw)",
+                      marginBottom: "0.9rem",
                       background:
                         "radial-gradient(circle, rgba(0, 100, 200, 1) 0%, rgba(0, 150, 255, 0.8) 100%)",
                     }}
@@ -117,7 +117,7 @@ export default function SanityMissionSection({
                 {principle.title && (
                   <h3
                     style={{
-                      fontSize: "clamp(16px, 1.66vw, 100vw)",
+                      fontSize: "1.66rem",
                       fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
                       fontWeight: 500,
                       fontStyle: "normal",
@@ -135,7 +135,7 @@ export default function SanityMissionSection({
                 {principle.description && (
                   <p
                     style={{
-                      fontSize: "clamp(11px, 0.97vw, 100vw)",
+                      fontSize: "0.97rem",
                       fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
                       fontWeight: 400,
                       fontStyle: "normal",
@@ -158,7 +158,7 @@ export default function SanityMissionSection({
           <div
             style={{
               width: "100%",
-              height: "clamp(80px, 10.14vw, 100vw)",
+              height: "10.14rem",
               position: "relative",
             }}
           >

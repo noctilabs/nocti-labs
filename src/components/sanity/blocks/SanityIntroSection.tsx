@@ -8,15 +8,15 @@ import type { PAGE_QUERYResult } from '../../../../sanity.types'
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
 type SanityIntroSectionProps = Extract<PageBlock, { _type: 'introSection' }>
 
-/** Horizontal inset matching PersistentNav (clamp(20px, 3vw, 40px)) for flush alignment on resize. */
-const SECTION_INSET = 'clamp(20px, 3vw, 40px)';
+/** Horizontal inset matching PersistentNav (3rem) for flush alignment on resize. */
+const SECTION_INSET = '3rem';
 
 /** Fluid type scales proportionally with viewport, matching Figma ratios at 1445px. */
-const HEADING_FONT_SIZE = 'clamp(28px, 3.32vw, 100vw)';
+const HEADING_FONT_SIZE = '3.32rem';
 const HEADING_LINE_HEIGHT = '1.042';
-const DESCRIPTION_FONT_SIZE = 'clamp(18px, 2.21vw, 100vw)';
+const DESCRIPTION_FONT_SIZE = '2.21rem';
 const DESCRIPTION_LINE_HEIGHT = '1.156';
-const BADGE_FONT_SIZE = 'clamp(12px, 1.25vw, 16px)';
+const BADGE_FONT_SIZE = '1.25rem';
 
 export default function SanityIntroSection({
   heading,
@@ -41,7 +41,7 @@ export default function SanityIntroSection({
       {/* Heading - Top Left (aligned with header inset via section margin) */}
       {heading && (
         <div
-          style={{ marginTop: '50px', marginBottom: '40px', width: 'clamp(325px, 38.55vw, 100vw)' }}
+          style={{ marginTop: '50px', marginBottom: '40px', width: '38.55rem' }}
         >
           <h2
             style={{

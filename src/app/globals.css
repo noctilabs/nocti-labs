@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --nav-offset: clamp(76px, 7vw, 100px);
+  --nav-offset: 6.25rem;
   --color-black: #000000;
   --color-white: #ffffff;
   --color-footer: #e9e8e7;
@@ -21,6 +21,8 @@
 }
 
 html {
+  /* 1rem = 16px at 1440px viewport, scales fluidly, responds correctly to browser zoom */
+  font-size: clamp(10px, 1.111vw, 20px);
   scroll-behavior: smooth;
 }
 

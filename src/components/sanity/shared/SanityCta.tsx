@@ -31,7 +31,7 @@ export default function SanityCta({
       href={href}
       className={`hover:opacity-70 transition inline-flex items-center gap-2 ${className}`}
       style={{
-        fontSize: 'clamp(16px, 1.66vw, 100vw)',
+        fontSize: '1.66rem',
         fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
         fontWeight: 'inherit',
         fontStyle: 'normal',

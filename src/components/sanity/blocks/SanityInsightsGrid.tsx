@@ -15,23 +15,23 @@ export default function SanityInsightsGrid({
       data-nav-theme="dark"
       className="bg-black text-white"
       style={{
-        paddingTop: 'clamp(40px, 2.34vw, 100vw)',
-        marginLeft: 'clamp(20px, 2.77vw, 100vw)',
-        marginRight: 'clamp(20px, 2.77vw, 100vw)',
-        marginBottom: 'clamp(20px, 2.77vw, 100vw)',
+        paddingTop: '2.34rem',
+        marginLeft: '2.77rem',
+        marginRight: '2.77rem',
+        marginBottom: '2.77rem',
       }}
     >
         {heading && (
           <h2
             style={{
-              fontSize: 'clamp(28px, 3.32vw, 100vw)',
+              fontSize: '3.32rem',
               fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
               fontWeight: 500,
               fontStyle: 'normal',
               lineHeight: '1.042',
               letterSpacing: '0',
               paddingTop: '0',
-              paddingBottom: 'clamp(50px, 7.11vw, 100vw)',
+              paddingBottom: '7.11rem',
             }}
           >
             {heading}
@@ -42,8 +42,8 @@ export default function SanityInsightsGrid({
           <div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
             style={{
-              gap: 'clamp(12px, 1.42vw, 100vw)',
-              paddingBottom: 'clamp(20px, 2.77vw, 100vw)',
+              gap: '1.42rem',
+              paddingBottom: '2.77rem',
             }}
           >
             {featuredPosts.map((post) => (
@@ -67,14 +67,14 @@ export default function SanityInsightsGrid({
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 'clamp(10px, 1.38vw, 100vw)',
-                    marginTop: 'clamp(12px, 1.38vw, 100vw)',
+                    gap: '1.38rem',
+                    marginTop: '1.38rem',
                   }}
                 >
                   {/* Title */}
                   <h3
                     style={{
-                      fontSize: 'clamp(16px, 1.66vw, 100vw)',
+                      fontSize: '1.66rem',
                       fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
                       fontWeight: 500,
                       fontStyle: 'normal',
@@ -90,7 +90,7 @@ export default function SanityInsightsGrid({
                   {post.excerpt && (
                     <p
                       style={{
-                        fontSize: 'clamp(11px, 0.97vw, 100vw)',
+                        fontSize: '0.97rem',
                         fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
                         fontWeight: 400,
                         fontStyle: 'normal',
@@ -107,7 +107,7 @@ export default function SanityInsightsGrid({
                   {post.author && (
                     <p
                       style={{
-                        fontSize: 'clamp(11px, 0.97vw, 100vw)',
+                        fontSize: '0.97rem',
                         fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
                         fontWeight: 400,
                         fontStyle: 'normal',
@@ -129,14 +129,14 @@ export default function SanityInsightsGrid({
           href="/blog"
           className="text-white hover:opacity-70 transition inline-block"
           style={{
-            fontSize: 'clamp(18px, 1.66vw, 100vw)',
+            fontSize: '1.66rem',
             fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
             fontWeight: 500,
             fontStyle: 'normal',
             lineHeight: '1.042',
             letterSpacing: '0',
-            paddingTop: 'clamp(20px, 2.81vw, 100vw)',
-            paddingBottom: 'clamp(20px, 2.59vw, 100vw)',
+            paddingTop: '2.81rem',
+            paddingBottom: '2.59rem',
           }}
         >
           Read our Blog →

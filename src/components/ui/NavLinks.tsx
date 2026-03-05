@@ -16,15 +16,15 @@ export default function NavLinks({ theme = 'light' }: NavLinksProps) {
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
 
   return (
-    <div className="relative" style={{ width: 'clamp(280px, 33.29vw, 100vw)', height: 'clamp(36px, 4.15vw, 100vw)', flexShrink: 1, minWidth: 0 }}>
+    <div className="relative" style={{ width: '33.29rem', height: '4.15rem', flexShrink: 1, minWidth: 0 }}>
       <div className="absolute top-0 left-0 w-full h-full rounded-[3px]" style={{ background: bgColor, transition: 'background-color 0.4s ease-in-out' }} />
-      <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center gap-[10px]" style={{ width: 'clamp(260px, 30.52vw, 100vw)', height: 'clamp(22px, 2.56vw, 100vw)', top: 'clamp(7px, 0.83vw, 100vw)', paddingLeft: 'clamp(12px, 1.38vw, 100vw)', paddingRight: 'clamp(12px, 1.38vw, 100vw)' }}>
+      <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center gap-[10px]" style={{ width: '30.52rem', height: '2.56rem', top: '0.83rem', paddingLeft: '1.38rem', paddingRight: '1.38rem' }}>
         <Link 
           href="/work" 
           className="flex flex-col items-center justify-center shrink-0 text-center no-underline whitespace-nowrap" 
-          style={{ 
-            width: 'clamp(40px, 4.36vw, 100vw)', 
-            fontSize: 'clamp(10px, 0.97vw, 100vw)', 
+          style={{
+            width: '4.36rem',
+            fontSize: '0.97rem',
             fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
             fontWeight: '500',
             fontStyle: 'normal',
@@ -44,9 +44,9 @@ export default function NavLinks({ theme = 'light' }: NavLinksProps) {
         <Link 
           href="/services" 
           className="flex flex-col items-center justify-center shrink-0 text-center no-underline whitespace-nowrap" 
-          style={{ 
-            width: 'clamp(60px, 6.61vw, 100vw)', 
-            fontSize: 'clamp(10px, 0.97vw, 100vw)', 
+          style={{
+            width: '6.61rem',
+            fontSize: '0.97rem',
             fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
             fontWeight: '500',
             fontStyle: 'normal',
@@ -66,9 +66,9 @@ export default function NavLinks({ theme = 'light' }: NavLinksProps) {
         <Link 
           href="/about" 
           className="flex flex-col items-center justify-center shrink-0 text-center no-underline whitespace-nowrap" 
-          style={{ 
-            width: 'clamp(45px, 4.91vw, 100vw)', 
-            fontSize: 'clamp(10px, 0.97vw, 100vw)', 
+          style={{
+            width: '4.91rem',
+            fontSize: '0.97rem',
             fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
             fontWeight: '500',
             fontStyle: 'normal',
@@ -88,9 +88,9 @@ export default function NavLinks({ theme = 'light' }: NavLinksProps) {
         <Link 
           href="/blog" 
           className="flex flex-col items-center justify-center shrink-0 text-center no-underline whitespace-nowrap" 
-          style={{ 
-            width: 'clamp(40px, 4.89vw, 100vw)', 
-            fontSize: 'clamp(10px, 0.97vw, 100vw)', 
+          style={{
+            width: '4.89rem',
+            fontSize: '0.97rem',
             fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
             fontWeight: '500',
             fontStyle: 'normal',

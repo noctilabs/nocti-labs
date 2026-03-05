@@ -16,30 +16,30 @@ export default function NavContactButton({ className = '', theme = 'light' }: Na
       href="/contact"
       className={`relative inline-flex items-center justify-center rounded-full no-underline ${className}`}
       style={{
-        width: 'clamp(100px, 10.93vw, 100vw)',
-        height: 'clamp(36px, 4.15vw, 100vw)',
+        width: '10.93rem',
+        height: '4.15rem',
         borderRadius: '184px',
         background: bgColor,
         color: textColor,
-        paddingLeft: 'clamp(10px, 1.23vw, 100vw)',
-        paddingRight: 'clamp(10px, 1.26vw, 100vw)',
-        paddingTop: 'clamp(6px, 0.87vw, 100vw)',
-        paddingBottom: 'clamp(6px, 0.87vw, 100vw)',
-        gap: 'clamp(5px, 0.62vw, 100vw)',
+        paddingLeft: '1.23rem',
+        paddingRight: '1.26rem',
+        paddingTop: '0.87rem',
+        paddingBottom: '0.87rem',
+        gap: '0.62rem',
         flexShrink: 0,
         minWidth: 0,
         transition: 'background-color 0.4s ease-in-out, color 0.4s ease-in-out',
       }}
     >
       <div 
-        style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center', 
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           lineHeight: '1',
-          width: 'clamp(60px, 6.92vw, 100vw)',
-          height: 'clamp(20px, 2.42vw, 100vw)',
-          fontSize: 'clamp(10px, 0.97vw, 100vw)',
+          width: '6.92rem',
+          height: '2.42rem',
+          fontSize: '0.97rem',
           fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
           fontWeight: '500',
           fontStyle: 'normal',
@@ -58,12 +58,12 @@ export default function NavContactButton({ className = '', theme = 'light' }: Na
       >
         Contact Us
       </div>
-      <svg 
-        width="clamp(10px, 0.9vw, 100vw)" 
-        height="clamp(11px, 1vw, 100vw)" 
-        viewBox="0 0 15 16" 
-        fill="none" 
-        xmlns="http://www.w3.org/2000/svg" 
+      <svg
+        width="0.9rem"
+        height="1rem"
+        viewBox="0 0 15 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
         style={{ transition: 'fill 0.4s ease-in-out', flexShrink: 0 }}
       >
         <path 

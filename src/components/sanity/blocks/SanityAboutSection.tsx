@@ -17,22 +17,22 @@ export default function SanityAboutSection({
     >
       <div
         style={{
-          paddingLeft: 'clamp(20px, 2.77vw, 100vw)',
-          paddingRight: 'clamp(20px, 2.77vw, 100vw)',
-          paddingTop: 'clamp(40px, 4.74vw, 100vw)',
+          paddingLeft: '2.77rem',
+          paddingRight: '2.77rem',
+          paddingTop: '4.74rem',
         }}
       >
         {/* Heading */}
         {heading && (
           <h1
             style={{
-              fontSize: 'clamp(28px, 3.32vw, 100vw)',
+              fontSize: '3.32rem',
               fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
               fontWeight: 500,
               fontStyle: 'normal',
               lineHeight: '1.042',
               letterSpacing: '0',
-              marginBottom: 'clamp(20px, 3.94vw, 100vw)',
+              marginBottom: '3.94rem',
               color: 'white',
             }}
           >
@@ -44,15 +44,15 @@ export default function SanityAboutSection({
         {description && (
           <p
             style={{
-              fontSize: 'clamp(18px, 2.21vw, 100vw)',
+              fontSize: '2.21rem',
               fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
               fontWeight: 500,
               fontStyle: 'normal',
               lineHeight: '1.156',
               letterSpacing: '0',
               color: 'white',
-              maxWidth: 'clamp(300px, 94.44vw, 100vw)',
-              marginBottom: 'clamp(40px, 5.54vw, 100vw)',
+              maxWidth: '94.44rem',
+              marginBottom: '5.54rem',
             }}
           >
             {description}
@@ -64,15 +64,15 @@ export default function SanityAboutSection({
       {image?.asset?._ref && (
         <div
           style={{
-            paddingLeft: 'clamp(20px, 2.77vw, 100vw)',
-            paddingRight: 'clamp(20px, 2.77vw, 100vw)',
-            paddingBottom: 'clamp(10px, 1.385vw, 100vw)',
+            paddingLeft: '2.77rem',
+            paddingRight: '2.77rem',
+            paddingBottom: '1.385rem',
           }}
         >
         <div
           style={{
             width: '100%',
-            height: 'clamp(200px, 26.64vw, 100vw)',
+            height: '26.64rem',
             position: 'relative',
             borderRadius: '3px',
             overflow: 'hidden',

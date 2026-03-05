@@ -103,13 +103,13 @@ export default function PersistentNav(): React.ReactElement {
 
   const navStyle: React.CSSProperties = {
     position: 'fixed',
-    top: 'clamp(20px, 2.77vw, 100vw)',
-    left: 'clamp(20px, 2.77vw, 100vw)',
-    right: 'clamp(20px, 2.77vw, 100vw)',
+    top: '2.77rem',
+    left: '2.77rem',
+    right: '2.77rem',
     display: 'grid',
     gridTemplateColumns: 'minmax(0, 1fr) auto minmax(0, 1fr)',
     alignItems: 'center',
-    gap: 'clamp(8px, 1vw, 100vw)',
+    gap: '1rem',
     zIndex: 1000,
     minWidth: 0, // Allow grid to shrink below content size
     overflow: 'visible',

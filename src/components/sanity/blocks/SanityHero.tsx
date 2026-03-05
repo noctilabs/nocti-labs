@@ -78,7 +78,7 @@ export default function SanityHero({
           className={textColor}
           style={{
             width: '74.5%',
-            fontSize: 'clamp(1.5rem, 3.32vw, 100vw)',
+            fontSize: '3.32rem',
             fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
             fontWeight: 500,
             fontStyle: 'normal',

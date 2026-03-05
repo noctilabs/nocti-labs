@@ -59,23 +59,23 @@ export default function SanityServicesShowcase({
         style={{
           width: "100%",
           position: "relative",
-          paddingLeft: "clamp(20px, 3vw, 40px)",
-          paddingRight: "clamp(20px, 3vw, 40px)",
-          paddingTop: "clamp(40px, 5vw, 80px)",
-          paddingBottom: "clamp(40px, 5vw, 80px)",
+          paddingLeft: "3rem",
+          paddingRight: "3rem",
+          paddingTop: "5rem",
+          paddingBottom: "5rem",
         }}
       >
         {/* Heading */}
         {heading && (
           <h2
             style={{
-              fontSize: "clamp(28px, 3.32vw, 100vw)",
+              fontSize: "3.32rem",
               fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
               fontWeight: 500,
               fontStyle: "normal",
               lineHeight: "1.042",
               letterSpacing: "0",
-              marginBottom: "clamp(40px, 5.4vw, 78px)",
+              marginBottom: "5.4rem",
             }}
           >
             {heading}
@@ -95,14 +95,14 @@ export default function SanityServicesShowcase({
                   <div
                     onClick={() => toggleService(service._id)}
                     style={{
-                      fontSize: "clamp(28px, 3.32vw, 100vw)",
+                      fontSize: "3.32rem",
                       fontFamily:
                         'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
                       fontWeight: 500,
                       lineHeight: "1.042",
                       letterSpacing: "0",
-                      paddingTop: "clamp(12px, 1.1vw, 16px)",
-                      paddingBottom: "clamp(12px, 1.1vw, 16px)",
+                      paddingTop: "1.1rem",
+                      paddingBottom: "1.1rem",
                       cursor: "pointer",
                       display: "flex",
                       justifyContent: "space-between",
@@ -120,7 +120,7 @@ export default function SanityServicesShowcase({
                     <span>{service.title}</span>
                     <span
                       style={{
-                        marginRight: "clamp(60px, 7.8vw, 113px)",
+                        marginRight: "7.8rem",
                         transition: "transform 0.3s ease",
                         transform: isExpanded
                           ? "rotate(180deg)"
@@ -139,9 +139,9 @@ export default function SanityServicesShowcase({
                       style={{
                         display: "grid",
                         gridTemplateColumns: "41fr 59fr",
-                        gap: "clamp(40px, 9.6vw, 139px)",
-                        paddingTop: "clamp(20px, 2.6vw, 38px)",
-                        paddingBottom: "clamp(20px, 3vw, 40px)",
+                        gap: "9.6rem",
+                        paddingTop: "2.6rem",
+                        paddingBottom: "3rem",
                         borderBottom: "1px solid white",
                         animation: "slideDown 0.3s ease",
                       }}
@@ -149,7 +149,7 @@ export default function SanityServicesShowcase({
                       {/* Left Column: Description */}
                       <div
                         style={{
-                          fontSize: "clamp(16px, 1.66vw, 100vw)",
+                          fontSize: "1.66rem",
                           fontFamily:
                             'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
                           fontWeight: 400,
@@ -167,9 +167,9 @@ export default function SanityServicesShowcase({
                         style={{
                           display: "flex",
                           flexDirection: "column",
-                          gap: "clamp(20px, 2vw, 29px)",
-                          paddingRight: "clamp(60px, 7.8vw, 113px)",
-                          fontSize: "clamp(16px, 1.66vw, 100vw)",
+                          gap: "2rem",
+                          paddingRight: "7.8rem",
+                          fontSize: "1.66rem",
                           fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
                           fontWeight: 400,
                           lineHeight: "1.208",
@@ -198,7 +198,7 @@ export default function SanityServicesShowcase({
         {cta && (
           <div
             style={{
-              marginTop: "clamp(80px, 8.4vw, 122px)",
+              marginTop: "8.4rem",
               fontWeight: 500,
               lineHeight: "1.042",
             }}

@@ -41,16 +41,16 @@ export default function SanityProjectsShowcase({
       {heading && (
         <div
           style={{
-            paddingLeft: 'clamp(20px, 3vw, 40px)',
-            paddingRight: 'clamp(20px, 3vw, 40px)',
-            paddingTop: 'clamp(20px, 2.84vw, 100vw)',
-            paddingBottom: 'clamp(8px, 0.97vw, 100vw)',
+            paddingLeft: '3rem',
+            paddingRight: '3rem',
+            paddingTop: '2.84rem',
+            paddingBottom: '0.97rem',
           }}
         >
           <h2
             style={{
               color: headingColor || '#000000',
-              fontSize: 'clamp(28px, 3.32vw, 100vw)',
+              fontSize: '3.32rem',
               fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
               fontWeight: 500,
               fontStyle: 'normal',
@@ -66,10 +66,10 @@ export default function SanityProjectsShowcase({
       <div
         className="w-full flex items-start justify-center relative"
         style={{
-          paddingLeft: 'clamp(20px, 3vw, 40px)',
-          paddingRight: 'clamp(20px, 3vw, 40px)',
-          paddingTop: heading ? '0' : 'clamp(20px, 3vw, 40px)',
-          paddingBottom: 'clamp(80px, 10vw, 136px)',
+          paddingLeft: '3rem',
+          paddingRight: '3rem',
+          paddingTop: heading ? '0' : '3rem',
+          paddingBottom: '10rem',
           minHeight: heading ? 'auto' : '100vh',
         }}
       >
@@ -106,8 +106,8 @@ export default function SanityProjectsShowcase({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    paddingLeft: 'clamp(20px, 3vw, 40px)',
-                    paddingRight: 'clamp(20px, 3vw, 40px)',
+                    paddingLeft: '3rem',
+                    paddingRight: '3rem',
                   }}
                 >
                   <div
@@ -116,15 +116,15 @@ export default function SanityProjectsShowcase({
                       maxWidth: '614px',
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: 'clamp(0px, 2vw, 20px)',
+                      gap: '2rem',
                     }}
                   >
                     <div className="text-center">
                       <p
                         className="font-mono uppercase font-bold text-[#FF0000] italic"
                         style={{
-                          fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-                          lineHeight: 'clamp(2.25rem, 6vw, 4.5rem)',
+                          fontSize: '4rem',
+                          lineHeight: '6rem',
                           wordBreak: 'break-word',
                         }}
                       >
@@ -137,15 +137,15 @@ export default function SanityProjectsShowcase({
               <div
                 className="absolute bg-white"
                 style={{
-                  bottom: 'clamp(20px, 6.99vw, 100vw)',
+                  bottom: '6.99rem',
                   left: '50%',
                   transform: 'translateX(-50%)',
                   zIndex: 10,
-                  height: 'clamp(40px, 4.15vw, 100vw)',
-                  width: 'clamp(250px, 41.87vw, 100vw)',
+                  height: '4.15rem',
+                  width: '41.87rem',
                   borderRadius: '3px',
-                  paddingLeft: 'clamp(8px, 0.76vw, 100vw)',
-                  paddingRight: 'clamp(8px, 0.76vw, 100vw)',
+                  paddingLeft: '0.76rem',
+                  paddingRight: '0.76rem',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -154,7 +154,7 @@ export default function SanityProjectsShowcase({
               >
                 <p
                   style={{
-                    fontSize: 'clamp(11px, 0.97vw, 100vw)',
+                    fontSize: '0.97rem',
                     fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
                     fontWeight: 400,
                     fontStyle: 'normal',
@@ -176,8 +176,8 @@ export default function SanityProjectsShowcase({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                paddingLeft: 'clamp(20px, 3vw, 40px)',
-                paddingRight: 'clamp(20px, 3vw, 40px)',
+                paddingLeft: '3rem',
+                paddingRight: '3rem',
               }}
             >
               <div
@@ -186,15 +186,15 @@ export default function SanityProjectsShowcase({
                   maxWidth: '614px',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: 'clamp(0px, 2vw, 20px)',
+                  gap: '2rem',
                 }}
               >
                 <div className="text-center">
                   <p
                     className="font-mono uppercase font-bold text-[#FF0000] italic"
                     style={{
-                      fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-                      lineHeight: 'clamp(2.25rem, 6vw, 4.5rem)',
+                      fontSize: '4rem',
+                      lineHeight: '6rem',
                       wordBreak: 'break-word',
                     }}
                   >
@@ -203,8 +203,8 @@ export default function SanityProjectsShowcase({
                   <p
                     className="font-mono uppercase font-bold text-[#FF0000] italic"
                     style={{
-                      fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-                      lineHeight: 'clamp(2.25rem, 6vw, 4.5rem)',
+                      fontSize: '4rem',
+                      lineHeight: '6rem',
                       wordBreak: 'break-word',
                     }}
                   >

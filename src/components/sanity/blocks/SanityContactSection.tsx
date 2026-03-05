@@ -5,7 +5,7 @@ type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[numbe
 type SanityContactSectionProps = Extract<PageBlock, { _type: 'contactSection' }>
 
 const TITLE_STYLE: React.CSSProperties = {
-  fontSize: 'clamp(28px, 3.32vw, 100vw)',
+  fontSize: '3.32rem',
   fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
   fontWeight: 500,
   fontStyle: 'normal',
@@ -14,7 +14,7 @@ const TITLE_STYLE: React.CSSProperties = {
 }
 
 const CTA_STYLE: React.CSSProperties = {
-  fontSize: 'clamp(18px, 1.66vw, 100vw)',
+  fontSize: '1.66rem',
   fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
   fontWeight: 500,
   fontStyle: 'normal',
@@ -34,21 +34,21 @@ export default function SanityContactSection({
       style={{
         background: 'black',
         color: 'white',
-        paddingTop: 'clamp(60px, 9.48vw, 100vw)',
-        paddingBottom: 'clamp(60px, 8.34vw, 100vw)',
-        paddingLeft: 'clamp(20px, 2.77vw, 100vw)',
-        paddingRight: 'clamp(40px, 10.73vw, 100vw)',
+        paddingTop: '9.48rem',
+        paddingBottom: '8.34rem',
+        paddingLeft: '2.77rem',
+        paddingRight: '10.73rem',
       }}
     >
       <div
         className="grid grid-cols-1 lg:grid-cols-[673fr_442fr]"
-        style={{ gap: 'clamp(40px, 9.34vw, 100vw)' }}
+        style={{ gap: '9.34rem' }}
       >
 
         {/* LEFT COLUMN */}
         <div>
           {/* "Lets talk!" + email — side by side */}
-          <div style={{ display: 'flex', alignItems: 'start', gap: 'clamp(12px, 1.38vw, 100vw)' }}>
+          <div style={{ display: 'flex', alignItems: 'start', gap: '1.38rem' }}>
             {heading && (
               <h2 style={{ ...TITLE_STYLE, flex: 1, margin: 0 }}>
                 {heading}
@@ -60,7 +60,7 @@ export default function SanityContactSection({
                   ...CTA_STYLE,
                   flex: 1,
                   margin: 0,
-                  paddingTop: 'clamp(10px, 1.59vw, 100vw)',
+                  paddingTop: '1.59rem',
                   color: 'white',
                 }}
               >
@@ -73,8 +73,8 @@ export default function SanityContactSection({
           <div
             className="grid grid-cols-2"
             style={{
-              gap: 'clamp(12px, 1.38vw, 100vw)',
-              marginTop: 'clamp(150px, 18.75vw, 100vw)',
+              gap: '1.38rem',
+              marginTop: '18.75rem',
             }}
           >
             <h3 style={TITLE_STYLE}>
@@ -82,8 +82,8 @@ export default function SanityContactSection({
             </h3>
             <div
               style={{
-                paddingTop: 'clamp(8px, 1.63vw, 100vw)',
-                width: 'clamp(200px, 22.7vw, 100vw)',
+                paddingTop: '1.63rem',
+                width: '22.7rem',
               }}
             >
               {offices && offices.map((office, index) => {
@@ -96,7 +96,7 @@ export default function SanityContactSection({
                   <div
                     key={office._key}
                     style={{
-                      marginTop: index > 0 ? 'clamp(16px, 1.73vw, 100vw)' : 0,
+                      marginTop: index > 0 ? '1.73rem' : 0,
                     }}
                   >
                     <p style={{ ...CTA_STYLE, color: 'white' }}>
@@ -118,7 +118,7 @@ export default function SanityContactSection({
         {/* RIGHT COLUMN — form */}
         <div>
           {formHeading && (
-            <h2 style={{ ...TITLE_STYLE, paddingBottom: 'clamp(12px, 1.58vw, 100vw)' }}>
+            <h2 style={{ ...TITLE_STYLE, paddingBottom: '1.58rem' }}>
               {formHeading}
             </h2>
           )}
