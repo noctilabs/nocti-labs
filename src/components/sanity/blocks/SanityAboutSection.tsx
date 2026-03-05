@@ -26,11 +26,14 @@ export default function SanityAboutSection({
         {heading && (
           <h1
             style={{
-              fontSize: 'clamp(32px, 3.3vw, 48px)',
-              fontFamily: 'var(--font-body), system-ui, sans-serif',
-              fontWeight: '500',
-              lineHeight: '50px',
+              fontSize: 'clamp(28px, 3.32vw, 48px)',
+              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+              fontWeight: 500,
+              fontStyle: 'normal',
+              lineHeight: '1.042',
+              letterSpacing: '0',
               marginBottom: 'clamp(20px, 2.4vw, 35px)',
+              color: 'white',
             }}
           >
             {heading}
@@ -41,10 +44,12 @@ export default function SanityAboutSection({
         {description && (
           <p
             style={{
-              fontSize: 'clamp(20px, 2.2vw, 32px)',
-              fontFamily: 'var(--font-body), system-ui, sans-serif',
-              fontWeight: '500',
-              lineHeight: 'clamp(28px, 2.6vw, 37px)',
+              fontSize: 'clamp(18px, 2.21vw, 32px)',
+              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+              fontWeight: 500,
+              fontStyle: 'normal',
+              lineHeight: '1.156',
+              letterSpacing: '0',
               color: 'white',
               maxWidth: '100%',
               marginBottom: 'clamp(40px, 5vw, 80px)',
