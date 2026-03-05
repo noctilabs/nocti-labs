@@ -46,11 +46,13 @@ body {
   display: none; /* Chrome/Safari/Opera */
 }
 
-/* Shared font rendering utility for nav components */
-.text-crisp {
-  font-synthesis: none;
-  font-feature-settings: normal;
-  text-rendering: optimizeLegibility;
+@layer utilities {
+  /* Shared font rendering utility for nav components */
+  .text-crisp {
+    font-synthesis: none;
+    font-feature-settings: normal;
+    text-rendering: optimizeLegibility;
+  }
 }
 
 /* Prevent browser autofill from adding white background */

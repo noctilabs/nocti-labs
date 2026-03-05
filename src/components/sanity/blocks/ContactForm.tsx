@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { caption } from '@/lib/typography';
 
 interface FloatingFieldProps {
   name: string;
@@ -12,7 +13,7 @@ interface FloatingFieldProps {
   isTextarea?: boolean;
 }
 
-const fieldTextClass = "text-[0.97rem] font-body font-normal not-italic leading-[1.143] tracking-[0]";
+const fieldTextClass = caption;
 
 function FloatingField({
   name,

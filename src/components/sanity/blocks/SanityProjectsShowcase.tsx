@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
 import { getNavTheme } from '@/lib/colorUtils'
+import { heading as headingCls } from '@/lib/typography'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
@@ -39,9 +40,9 @@ export default function SanityProjectsShowcase({
       suppressHydrationWarning
     >
       {heading && (
-        <div className="px-[3rem] pt-[2.84rem] pb-[0.97rem]">
+        <div className="px-section-x pt-[2.84rem] pb-[0.97rem]">
           <h2
-            className="text-[3.32rem] font-body font-medium not-italic leading-[1.042] tracking-[0]"
+            className={headingCls}
             style={{ color: headingColor || '#000000' }}
           >
             {heading}
@@ -50,7 +51,7 @@ export default function SanityProjectsShowcase({
       )}
       {/* Full Screen Green Placeholder Section */}
       <div
-        className={`w-full flex items-start justify-center relative px-[3rem] pb-[10rem] ${heading ? 'pt-0' : 'pt-[3rem] min-h-screen'}`}
+        className={`w-full flex items-start justify-center relative px-section-x pb-[10rem] ${heading ? 'pt-0' : 'pt-[3rem] min-h-screen'}`}
       >
         <div className="relative w-full aspect-[1200/667] rounded-[3px]">
           {firstProject ? (
@@ -73,7 +74,7 @@ export default function SanityProjectsShowcase({
                   className="w-full h-full object-cover rounded-[3px]"
                 />
               ) : (
-                <div className="bg-[#00FF17] w-full h-full rounded-[3px] flex items-center justify-center px-[3rem]">
+                <div className="bg-[#00FF17] w-full h-full rounded-[3px] flex items-center justify-center px-section-x">
                   <div className="w-full max-w-[614px] flex flex-col gap-8">
                     <div className="text-center">
                       <p className="font-mono uppercase font-bold text-[#FF0000] italic text-[4rem] leading-[6rem] break-words">
@@ -91,7 +92,7 @@ export default function SanityProjectsShowcase({
               </div>
             </>
           ) : (
-            <div className="bg-[#00FF17] w-full h-full rounded-[3px] flex items-center justify-center px-[3rem]">
+            <div className="bg-[#00FF17] w-full h-full rounded-[3px] flex items-center justify-center px-section-x">
               <div className="w-full max-w-[614px] flex flex-col gap-8">
                 <div className="text-center">
                   <p className="font-mono uppercase font-bold text-[#FF0000] italic text-[4rem] leading-[6rem] break-words">

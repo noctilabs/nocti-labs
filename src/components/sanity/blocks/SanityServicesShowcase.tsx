@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import SanityCta from "@/components/sanity/shared/SanityCta";
+import { heading as headingCls, bodyMedium } from "@/lib/typography";
 import type { PAGE_QUERYResult } from "../../../../sanity.types";
 
 type PageBlock = NonNullable<
@@ -55,10 +56,10 @@ export default function SanityServicesShowcase({
       className="bg-black text-white flex flex-col relative"
       suppressHydrationWarning
     >
-      <div className="w-full relative px-[3rem] py-[5rem]">
+      <div className="w-full relative px-section-x py-[5rem]">
         {/* Heading */}
         {heading && (
-          <h2 className="text-[3.32rem] font-body font-medium not-italic leading-[1.042] tracking-[0] mb-[5.4rem]">
+          <h2 className={`${headingCls} mb-[5.4rem]`}>
             {heading}
           </h2>
         )}
@@ -75,7 +76,7 @@ export default function SanityServicesShowcase({
                   {/* Accordion Header */}
                   <div
                     onClick={() => toggleService(service._id)}
-                    className={`text-[3.32rem] font-body font-medium leading-[1.042] tracking-[0] py-[1.1rem] cursor-pointer flex justify-between items-center transition-opacity duration-300 ease-in-out select-none border-b border-white hover:opacity-70 ${isFirst ? 'border-t' : ''}`}
+                    className={`${headingCls} py-[1.1rem] cursor-pointer flex justify-between items-center transition-opacity duration-300 ease-in-out select-none border-b border-white hover:opacity-70 ${isFirst ? 'border-t' : ''}`}
                   >
                     <span>{service.title}</span>
                     <span
@@ -89,12 +90,12 @@ export default function SanityServicesShowcase({
                   {isExpanded && (
                     <div className="grid grid-cols-[41fr_59fr] gap-[9.6rem] pt-[2.6rem] pb-[3rem] border-b border-white animate-[slideDown_0.3s_ease]">
                       {/* Left Column: Description */}
-                      <div className="text-[1.66rem] font-body font-normal not-italic leading-[1.208] tracking-[0] text-white">
+                      <div className={bodyMedium}>
                         {service.description}
                       </div>
 
                       {/* Right Column: Service Items */}
-                      <div className="flex flex-col gap-8 pr-[7.8rem] text-[1.66rem] font-body font-normal leading-[1.208] tracking-[0]">
+                      <div className={`${bodyMedium} flex flex-col gap-8 pr-[7.8rem]`}>
                         {service.items &&
                           service.items.map((item) => (
                             <div key={item._key}>

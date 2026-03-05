@@ -1,11 +1,9 @@
 import ContactForm from './ContactForm'
+import { heading as titleClass, subheading as ctaClass } from '@/lib/typography'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
 type SanityContactSectionProps = Extract<PageBlock, { _type: 'contactSection' }>
-
-const titleClass = "text-[3.32rem] font-body font-medium not-italic leading-[1.042] tracking-[0]";
-const ctaClass = "text-[1.66rem] font-body font-medium not-italic leading-[1.042] tracking-[0]";
 
 export default function SanityContactSection({
   heading,
@@ -16,7 +14,7 @@ export default function SanityContactSection({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white pt-[9.48rem] pb-[8.34rem] pl-[3rem] pr-[10.73rem]"
+      className="bg-black text-white pt-[9.48rem] pb-[8.34rem] pl-section-x pr-[10.73rem]"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[673fr_442fr] gap-[9.34rem]">
 

@@ -47,7 +47,7 @@ export default async function Footer() {
   return (
     <footer
       data-nav-theme="light"
-      className="text-black relative w-full bg-footer h-screen overflow-hidden px-[3rem] flex flex-col"
+      className="text-black relative w-full bg-footer h-screen overflow-hidden px-section-x flex flex-col"
     >
       <div className="relative z-10 pt-[11.3rem]">
         {/* Footer columns — all 5 columns in a row, matching Figma layout */}

@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      spacing: {
+        'section-x': '3rem',
+      },
       colors: {
         black: "#000000",
         white: "#ffffff",

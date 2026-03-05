@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
 import SanityCta from '@/components/sanity/shared/SanityCta'
+import { heading as headingCls, bodyLarge } from '@/lib/typography'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
@@ -18,12 +19,12 @@ export default function SanityIntroSection({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white relative py-20 flex flex-col justify-start px-[3rem] pt-0 ml-0 mr-0 mb-0"
+      className="bg-black text-white relative flex flex-col justify-start px-section-x pb-20"
     >
       {/* Heading - Top Left */}
       {heading && (
-        <div className="mt-[50px] mb-[40px] max-w-[38.55rem] w-full">
-          <h2 className="m-0 text-[3.32rem] font-body font-medium not-italic leading-[1.042] tracking-[0]">
+        <div className="mt-[3.125rem] mb-[2.5rem] max-w-[38.55rem] w-full">
+          <h2 className={`${headingCls} m-0`}>
             {heading}
           </h2>
         </div>
@@ -65,8 +66,8 @@ export default function SanityIntroSection({
 
       {/* Description - Below Image */}
       {description && (
-        <div className="pb-[20px] max-w-[94.42%]">
-          <p className="text-[2.21rem] font-body font-medium not-italic leading-[1.156] tracking-[0] pt-[40px] pb-[20px] m-0">
+        <div className="pb-[1.25rem] max-w-[94.42%]">
+          <p className={`${bodyLarge} pt-[2.5rem] pb-[1.25rem] m-0`}>
             {description}
           </p>
         </div>
@@ -74,7 +75,7 @@ export default function SanityIntroSection({
 
       {/* CTA - Bottom Right */}
       {cta && (
-        <div className="flex justify-end pt-[20px] pb-[40px] font-medium leading-[1.042]">
+        <div className="flex justify-end pt-[1.25rem] pb-[2.5rem] font-medium leading-[1.042]">
           <SanityCta {...cta} className="text-white" />
         </div>
       )}

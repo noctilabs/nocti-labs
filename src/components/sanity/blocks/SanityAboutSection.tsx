@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
+import { heading as headingCls, bodyLarge } from '@/lib/typography'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
@@ -15,17 +16,17 @@ export default function SanityAboutSection({
       data-nav-theme="dark"
       className="bg-black text-white relative"
     >
-      <div className="px-[3rem] pt-[4.74rem]">
+      <div className="px-section-x pt-[4.74rem]">
         {/* Heading */}
         {heading && (
-          <h1 className="text-[3.32rem] font-body font-medium not-italic leading-[1.042] tracking-[0] mb-[3.94rem] text-white">
+          <h1 className={`${headingCls} mb-[3.94rem]`}>
             {heading}
           </h1>
         )}
 
         {/* Description */}
         {description && (
-          <p className="text-[2.21rem] font-body font-medium not-italic leading-[1.156] tracking-[0] text-white max-w-[94.44rem] mb-[5.54rem]">
+          <p className={`${bodyLarge} max-w-[94.44rem] mb-[5.54rem]`}>
             {description}
           </p>
         )}
@@ -33,7 +34,7 @@ export default function SanityAboutSection({
 
       {/* Full-width Image */}
       {image?.asset?._ref && (
-        <div className="px-[3rem] pb-[1.385rem]">
+        <div className="px-section-x pb-[1.385rem]">
           <div className="w-full h-[26.64rem] relative rounded-[3px] overflow-hidden">
             <Image
               src={urlFor(image).width(1440).url()}

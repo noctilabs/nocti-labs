@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
+import { heading as headingCls, subheading, caption } from '@/lib/typography'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
@@ -13,10 +14,10 @@ export default function SanityInsightsGrid({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white pt-[2.34rem] mx-[3rem] mb-[3rem]"
+      className="bg-black text-white pt-[2.34rem] mx-section-x mb-[3rem]"
     >
         {heading && (
-          <h2 className="text-[3.32rem] font-body font-medium not-italic leading-[1.042] tracking-[0] pt-0 pb-[7.11rem]">
+          <h2 className={`${headingCls} pt-0 pb-[7.11rem]`}>
             {heading}
           </h2>
         )}
@@ -42,20 +43,20 @@ export default function SanityInsightsGrid({
                 {/* Text content */}
                 <div className="flex flex-col gap-[1.38rem] mt-[1.38rem]">
                   {/* Title */}
-                  <h3 className="text-[1.66rem] font-body font-medium not-italic leading-[1.042] tracking-[0] text-white">
+                  <h3 className={subheading}>
                     {post.title}
                   </h3>
 
                   {/* Excerpt */}
                   {post.excerpt && (
-                    <p className="text-[0.97rem] font-body font-normal not-italic leading-[1.143] tracking-[0] text-white">
+                    <p className={caption}>
                       {post.excerpt}
                     </p>
                   )}
 
                   {/* Author */}
                   {post.author && (
-                    <p className="text-[0.97rem] font-body font-normal not-italic leading-[1.143] tracking-[0] text-muted">
+                    <p className={`${caption} text-muted`}>
                       {post.author}
                     </p>
                   )}
@@ -67,7 +68,7 @@ export default function SanityInsightsGrid({
 
         <Link
           href="/blog"
-          className="text-white hover:opacity-70 transition inline-block text-[1.66rem] font-body font-medium not-italic leading-[1.042] tracking-[0] pt-[2.81rem] pb-[2.59rem]"
+          className={`${subheading} text-white hover:opacity-70 transition inline-block pt-[2.81rem] pb-[2.59rem]`}
         >
           Read our Blog →
         </Link>

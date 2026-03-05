@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
+import { heading as headingCls, subheading, caption } from "@/lib/typography";
 import type { PAGE_QUERYResult } from "../../../../sanity.types";
 
 type PageBlock = NonNullable<
@@ -23,10 +24,10 @@ export default function SanityMissionSection({
       className="bg-black text-white flex flex-col relative"
       suppressHydrationWarning
     >
-      <div className="w-full relative px-[3rem] pt-[2.37rem] pb-[11.07rem] flex flex-col gap-[5.47rem]">
+      <div className="w-full relative px-section-x pt-[2.37rem] pb-[11.07rem] flex flex-col gap-[5.47rem]">
         {/* Heading */}
         {heading && (
-          <h2 className="text-[3.32rem] font-body font-medium not-italic leading-[1.042] tracking-[0] m-0">
+          <h2 className={`${headingCls} m-0`}>
             {heading}
           </h2>
         )}
@@ -56,14 +57,14 @@ export default function SanityMissionSection({
 
                 {/* Title */}
                 {principle.title && (
-                  <h3 className="text-[1.66rem] font-body font-medium not-italic leading-[1.042] tracking-[0] m-0 text-white">
+                  <h3 className={`${subheading} m-0`}>
                     {principle.title}
                   </h3>
                 )}
 
                 {/* Description */}
                 {principle.description && (
-                  <p className="text-[0.97rem] font-body font-normal not-italic leading-[1.143] tracking-[0] text-white m-0">
+                  <p className={`${caption} m-0`}>
                     {principle.description}
                   </p>
                 )}
