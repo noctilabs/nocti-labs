@@ -31,24 +31,26 @@ export default function SanityMissionSection({
         style={{
           width: "100%",
           position: "relative",
-          paddingLeft: "clamp(20px, 3vw, 40px)",
-          paddingRight: "clamp(20px, 3vw, 40px)",
-          paddingTop: "clamp(40px, 5vw, 80px)",
-          paddingBottom: "160px",
+          paddingLeft: "clamp(20px, 2.77vw, 100vw)",
+          paddingRight: "clamp(20px, 2.77vw, 100vw)",
+          paddingTop: "clamp(10px, 2.37vw, 100vw)",
+          paddingBottom: "clamp(80px, 11.07vw, 100vw)",
           display: "flex",
           flexDirection: "column",
-          gap: "clamp(80px, 2.5vw, 80px)",
+          gap: "clamp(40px, 5.47vw, 100vw)",
         }}
       >
         {/* Heading */}
         {heading && (
           <h2
             style={{
-              fontSize: "clamp(32px, 3.3vw, 48px)",
-              fontFamily: 'var(--font-body), system-ui, sans-serif',
-              fontWeight: "500",
-              lineHeight: "50px",
-              marginTop: "0px",
+              fontSize: "clamp(28px, 3.32vw, 100vw)",
+              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+              fontWeight: 500,
+              fontStyle: "normal",
+              lineHeight: "1.042",
+              letterSpacing: "0",
+              margin: 0,
             }}
           >
             {heading}
@@ -60,8 +62,9 @@ export default function SanityMissionSection({
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(clamp(120px, 20vw, 210px), 1fr))",
-              gap: "clamp(20px, 4vw, 79px)",
+              gridTemplateColumns: "repeat(5, 1fr)",
+              gap: "clamp(20px, 5.47vw, 100vw)",
+              alignItems: "start",
             }}
           >
             {principles.map((principle, index) => (
@@ -70,37 +73,40 @@ export default function SanityMissionSection({
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: "clamp(13px, 1.5vw, 16px)",
+                  gap: "clamp(8px, 0.9vw, 100vw)",
                   width: "100%",
+                  alignItems: "flex-start",
                 }}
               >
                 {/* Icon */}
                 {principle.icon?.asset?._ref ? (
                   <div
                     style={{
-                      width: "clamp(120px, 10vw, 160px)",
-                      height: "clamp(120px, 10vw, 160px)",
-                      borderRadius: "50%",
+                      width: "100%",
+                      height: "clamp(80px, 10.14vw, 100vw)",
                       position: "relative",
-                      marginBottom: "clamp(13px, 1vw, 13px)",
-                      background:
-                        "radial-gradient(circle, rgba(0, 100, 200, 1) 0%, rgba(0, 150, 255, 0.8) 100%)",
+                      marginBottom: "clamp(8px, 0.9vw, 100vw)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
                     <Image
-                      src={urlFor(principle.icon).width(160).height(160).url()}
+                      src={urlFor(principle.icon).width(500).height(500).url()}
                       alt=""
-                      fill
-                      className="object-cover rounded-full"
+                      width={500}
+                      height={500}
+                      className="object-contain"
+                      style={{ width: "100%", height: "100%", maxWidth: "100%", maxHeight: "100%" }}
                     />
                   </div>
                 ) : (
                   <div
                     style={{
-                      width: "clamp(120px, 10vw, 160px)",
-                      height: "clamp(120px, 10vw, 160px)",
+                      width: "clamp(80px, 10.14vw, 100vw)",
+                      height: "clamp(80px, 10.14vw, 100vw)",
                       borderRadius: "50%",
-                      marginBottom: "clamp(13px, 1vw, 13px)",
+                      marginBottom: "clamp(8px, 0.9vw, 100vw)",
                       background:
                         "radial-gradient(circle, rgba(0, 100, 200, 1) 0%, rgba(0, 150, 255, 0.8) 100%)",
                     }}
@@ -111,11 +117,14 @@ export default function SanityMissionSection({
                 {principle.title && (
                   <h3
                     style={{
-                      fontSize: "clamp(20px, 1.66vw, 24px)",
-                      fontFamily: 'var(--font-body), system-ui, sans-serif',
-                      fontWeight: "500",
-                      lineHeight: "25px",
-                      marginBottom: "clamp(13px, 1vw, 13px)",
+                      fontSize: "clamp(16px, 1.66vw, 100vw)",
+                      fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+                      fontWeight: 500,
+                      fontStyle: "normal",
+                      lineHeight: "1.042",
+                      letterSpacing: "0",
+                      margin: 0,
+                      color: "white",
                     }}
                   >
                     {principle.title}
@@ -126,11 +135,14 @@ export default function SanityMissionSection({
                 {principle.description && (
                   <p
                     style={{
-                      fontSize: "clamp(14px, 0.97vw, 14px)",
-                      fontFamily: 'var(--font-body), system-ui, sans-serif',
-                      fontWeight: "400",
-                      lineHeight: "16px",
+                      fontSize: "clamp(11px, 0.97vw, 100vw)",
+                      fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+                      fontWeight: 400,
+                      fontStyle: "normal",
+                      lineHeight: "1.143",
+                      letterSpacing: "0",
                       color: "white",
+                      margin: 0,
                     }}
                   >
                     {principle.description}
@@ -146,7 +158,7 @@ export default function SanityMissionSection({
           <div
             style={{
               width: "100%",
-              height: "clamp(146px, 11vw, 147px)",
+              height: "clamp(80px, 10.14vw, 100vw)",
               position: "relative",
             }}
           >

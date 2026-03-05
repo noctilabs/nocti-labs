@@ -18,14 +18,21 @@ export default async function Footer() {
       style={{
         backgroundColor: '#e9e8e7',
         overflow: 'hidden',
+        minHeight: '100vh',
         paddingLeft: 'clamp(20px, 2.77vw, 100vw)',
         paddingRight: 'clamp(20px, 2.77vw, 100vw)',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
       }}
     >
       <div
         className="relative z-10"
         style={{
-          paddingTop: 'clamp(100px, 11.69vw, 100vw)',
+          paddingTop: 'clamp(80px, 9.7vw, 100vw)',
+          flex: '1',
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         {/* Footer Columns Grid - 5 columns layout */}
@@ -124,7 +131,7 @@ export default async function Footer() {
           textAlign: 'center',
           width: '100%',
           marginTop: 'clamp(100px, 16vw, 100vw)',
-          paddingBottom: 'clamp(60px, 8.3vw, 100vw)',
+          paddingBottom: 'clamp(45px, 6.23vw, 100vw)',
         }}
       >
         {companyName}
