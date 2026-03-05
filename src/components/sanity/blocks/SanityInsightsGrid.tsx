@@ -16,9 +16,9 @@ export default function SanityInsightsGrid({
       className="bg-black text-white"
       style={{
         paddingTop: '2.34rem',
-        marginLeft: '2.77rem',
-        marginRight: '2.77rem',
-        marginBottom: '2.77rem',
+        marginLeft: '3rem',
+        marginRight: '3rem',
+        marginBottom: '3rem',
       }}
     >
         {heading && (
@@ -43,7 +43,7 @@ export default function SanityInsightsGrid({
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
             style={{
               gap: '1.42rem',
-              paddingBottom: '2.77rem',
+              paddingBottom: '3rem',
             }}
           >
             {featuredPosts.map((post) => (

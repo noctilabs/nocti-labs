@@ -17,8 +17,8 @@ export default function SanityAboutSection({
     >
       <div
         style={{
-          paddingLeft: '2.77rem',
-          paddingRight: '2.77rem',
+          paddingLeft: '3rem',
+          paddingRight: '3rem',
           paddingTop: '4.74rem',
         }}
       >
@@ -64,8 +64,8 @@ export default function SanityAboutSection({
       {image?.asset?._ref && (
         <div
           style={{
-            paddingLeft: '2.77rem',
-            paddingRight: '2.77rem',
+            paddingLeft: '3rem',
+            paddingRight: '3rem',
             paddingBottom: '1.385rem',
           }}
         >

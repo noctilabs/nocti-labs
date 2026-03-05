@@ -31,8 +31,8 @@ export default function SanityMissionSection({
         style={{
           width: "100%",
           position: "relative",
-          paddingLeft: "2.77rem",
-          paddingRight: "2.77rem",
+          paddingLeft: "3rem",
+          paddingRight: "3rem",
           paddingTop: "2.37rem",
           paddingBottom: "11.07rem",
           display: "flex",

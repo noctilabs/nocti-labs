@@ -60,8 +60,8 @@ export default async function Footer() {
         backgroundColor: '#e9e8e7',
         height: '100vh',
         overflow: 'hidden',
-        paddingLeft: '2.77rem',
-        paddingRight: '2.77rem',
+        paddingLeft: '3rem',
+        paddingRight: '3rem',
         display: 'flex',
         flexDirection: 'column',
       }}

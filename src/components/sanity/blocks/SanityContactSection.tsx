@@ -36,7 +36,7 @@ export default function SanityContactSection({
         color: 'white',
         paddingTop: '9.48rem',
         paddingBottom: '8.34rem',
-        paddingLeft: '2.77rem',
+        paddingLeft: '3rem',
         paddingRight: '10.73rem',
       }}
     >

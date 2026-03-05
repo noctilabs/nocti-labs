@@ -103,9 +103,9 @@ export default function PersistentNav(): React.ReactElement {
 
   const navStyle: React.CSSProperties = {
     position: 'fixed',
-    top: '2.77rem',
-    left: '2.77rem',
-    right: '2.77rem',
+    top: '3rem',
+    left: '3rem',
+    right: '3rem',
     display: 'grid',
     gridTemplateColumns: 'minmax(0, 1fr) auto minmax(0, 1fr)',
     alignItems: 'center',
