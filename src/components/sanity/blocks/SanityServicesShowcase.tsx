@@ -69,10 +69,12 @@ export default function SanityServicesShowcase({
         {heading && (
           <h2
             style={{
-              fontSize: "clamp(32px, 3.3vw, 48px)",
-              fontFamily: 'var(--font-body), system-ui, sans-serif',
-              fontWeight: "500",
-              lineHeight: "50px",
+              fontSize: "clamp(28px, 3.32vw, 100vw)",
+              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+              fontWeight: 500,
+              fontStyle: "normal",
+              lineHeight: "1.042",
+              letterSpacing: "0",
               marginBottom: "clamp(40px, 5.4vw, 78px)",
             }}
           >
@@ -93,11 +95,12 @@ export default function SanityServicesShowcase({
                   <div
                     onClick={() => toggleService(service._id)}
                     style={{
-                      fontSize: "clamp(32px, 3.3vw, 48px)",
+                      fontSize: "clamp(28px, 3.32vw, 100vw)",
                       fontFamily:
-                        'var(--font-body), system-ui, sans-serif',
-                      fontWeight: "500",
-                      lineHeight: "50px",
+                        'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+                      fontWeight: 500,
+                      lineHeight: "1.042",
+                      letterSpacing: "0",
                       paddingTop: "clamp(12px, 1.1vw, 16px)",
                       paddingBottom: "clamp(12px, 1.1vw, 16px)",
                       cursor: "pointer",
@@ -146,11 +149,13 @@ export default function SanityServicesShowcase({
                       {/* Left Column: Description */}
                       <div
                         style={{
-                          fontSize: "clamp(16px, 1.66vw, 24px)",
+                          fontSize: "clamp(16px, 1.66vw, 100vw)",
                           fontFamily:
-                            'var(--font-body), system-ui, sans-serif',
-                          fontWeight: "400",
-                          lineHeight: "29px",
+                            'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+                          fontWeight: 400,
+                          fontStyle: "normal",
+                          lineHeight: "1.208",
+                          letterSpacing: "0",
                           color: "white",
                         }}
                       >
@@ -164,6 +169,11 @@ export default function SanityServicesShowcase({
                           flexDirection: "column",
                           gap: "clamp(20px, 2vw, 29px)",
                           paddingRight: "clamp(60px, 7.8vw, 113px)",
+                          fontSize: "clamp(16px, 1.66vw, 100vw)",
+                          fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+                          fontWeight: 400,
+                          lineHeight: "1.208",
+                          letterSpacing: "0",
                         }}
                       >
                         {service.items &&
@@ -171,7 +181,7 @@ export default function SanityServicesShowcase({
                             <div key={item._key}>
                               <SanityCta
                                 {...item}
-                                className="text-white text-[clamp(16px,1.66vw,24px)] font-normal w-full flex justify-between"
+                                className="text-white w-full flex justify-between"
                               />
                             </div>
                           ))}
@@ -190,6 +200,7 @@ export default function SanityServicesShowcase({
             style={{
               marginTop: "clamp(80px, 8.4vw, 122px)",
               fontWeight: 500,
+              lineHeight: "1.042",
             }}
           >
             <SanityCta {...cta} className="text-white" />

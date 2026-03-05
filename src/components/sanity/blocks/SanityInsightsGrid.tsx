@@ -13,19 +13,26 @@ export default function SanityInsightsGrid({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white pt-[94px] mb-[40px]"
+      className="bg-black text-white"
       style={{
-        marginLeft: 'clamp(20px, 3vw, 40px)',
-        marginRight: 'clamp(20px, 3vw, 40px)',
-        paddingLeft: '0px',
-        paddingRight: '0px',
-        marginBottom: '40px',
+        paddingTop: 'clamp(40px, 2.34vw, 100vw)',
+        marginLeft: 'clamp(20px, 2.77vw, 100vw)',
+        marginRight: 'clamp(20px, 2.77vw, 100vw)',
+        marginBottom: 'clamp(20px, 2.77vw, 100vw)',
       }}
     >
         {heading && (
-          <h2 
-            className="font-display text-[48px] font-medium leading-[50px] mb-[103px]"
-            style={{ paddingTop: '40px', paddingBottom: '100px' }}
+          <h2
+            style={{
+              fontSize: 'clamp(28px, 3.32vw, 100vw)',
+              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+              fontWeight: 500,
+              fontStyle: 'normal',
+              lineHeight: '1.042',
+              letterSpacing: '0',
+              paddingTop: '0',
+              paddingBottom: 'clamp(50px, 7.11vw, 100vw)',
+            }}
           >
             {heading}
           </h2>
@@ -33,8 +40,11 @@ export default function SanityInsightsGrid({
 
         {featuredPosts && featuredPosts.length > 0 && (
           <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[20px] mb-[40px]"
-            style={{ paddingBottom: '40px' }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
+            style={{
+              gap: 'clamp(12px, 1.42vw, 100vw)',
+              paddingBottom: 'clamp(20px, 2.77vw, 100vw)',
+            }}
           >
             {featuredPosts.map((post) => (
               <div key={post._id} className="group cursor-pointer flex flex-col">
@@ -45,34 +55,67 @@ export default function SanityInsightsGrid({
                     alt={post.title || ''}
                     width={652}
                     height={442}
-                    className="w-full aspect-[326/221] object-cover mb-[20px] group-hover:opacity-80 transition"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 22.55vw"
+                    className="w-full h-auto object-cover group-hover:opacity-80 transition"
                   />
                 ) : (
-                  <div className="w-full aspect-[326/221] bg-gray-800 mb-[20px] group-hover:opacity-80 transition" />
+                  <div className="w-full aspect-[326/221] bg-gray-800 group-hover:opacity-80 transition" />
                 )}
 
                 {/* Text content */}
                 <div
-                  className="flex flex-col gap-[13px]"
-                  style={{ marginTop: '30px', marginBottom: '30px' }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 'clamp(10px, 1.38vw, 100vw)',
+                    marginTop: 'clamp(12px, 1.38vw, 100vw)',
+                  }}
                 >
                   {/* Title */}
-                  <h3 className="font-body text-[24px] font-medium leading-[25px] text-white"
-                    style={{ marginBottom: '10px' }}
+                  <h3
+                    style={{
+                      fontSize: 'clamp(16px, 1.66vw, 100vw)',
+                      fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+                      fontWeight: 500,
+                      fontStyle: 'normal',
+                      lineHeight: '1.042',
+                      letterSpacing: '0',
+                      color: 'white',
+                    }}
                   >
                     {post.title}
                   </h3>
 
                   {/* Excerpt */}
                   {post.excerpt && (
-                    <p className="font-body text-[14px] font-normal leading-[16px] text-white">
+                    <p
+                      style={{
+                        fontSize: 'clamp(11px, 0.97vw, 100vw)',
+                        fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+                        fontWeight: 400,
+                        fontStyle: 'normal',
+                        lineHeight: '1.143',
+                        letterSpacing: '0',
+                        color: 'white',
+                      }}
+                    >
                       {post.excerpt}
                     </p>
                   )}
 
                   {/* Author */}
                   {post.author && (
-                    <p className="font-body text-[14px] font-normal leading-[16px] text-[#A8A8A8]">
+                    <p
+                      style={{
+                        fontSize: 'clamp(11px, 0.97vw, 100vw)',
+                        fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+                        fontWeight: 400,
+                        fontStyle: 'normal',
+                        lineHeight: '1.143',
+                        letterSpacing: '0',
+                        color: '#a8a8a8',
+                      }}
+                    >
                       {post.author}
                     </p>
                   )}
@@ -84,7 +127,17 @@ export default function SanityInsightsGrid({
 
         <Link
           href="/blog"
-          className="font-body text-[24px] font-medium leading-[25px] text-white hover:opacity-70 transition"
+          className="text-white hover:opacity-70 transition inline-block"
+          style={{
+            fontSize: 'clamp(18px, 1.66vw, 100vw)',
+            fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+            fontWeight: 500,
+            fontStyle: 'normal',
+            lineHeight: '1.042',
+            letterSpacing: '0',
+            paddingTop: 'clamp(20px, 2.81vw, 100vw)',
+            paddingBottom: 'clamp(20px, 2.59vw, 100vw)',
+          }}
         >
           Read our Blog →
         </Link>

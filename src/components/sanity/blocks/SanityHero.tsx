@@ -47,9 +47,7 @@ export default function SanityHero({
       data-nav-theme="dark"
       style={{
         width: '100%',
-        minHeight: 'clamp(400px, 54.6vh, 789px)',
-        maxHeight: 'clamp(789px, 100vh, 1200px)',
-        aspectRatio: '1445 / 789',
+        height: '100vh',
         position: 'relative',
         overflow: 'hidden',
         marginTop: 'calc(-1 * var(--nav-offset))',

@@ -43,13 +43,20 @@ export default function SanityProjectsShowcase({
           style={{
             paddingLeft: 'clamp(20px, 3vw, 40px)',
             paddingRight: 'clamp(20px, 3vw, 40px)',
-            paddingTop: 'clamp(20px, 2.5vw, 35px)',
-            paddingBottom: '10px',
+            paddingTop: 'clamp(20px, 2.84vw, 100vw)',
+            paddingBottom: 'clamp(8px, 0.97vw, 100vw)',
           }}
         >
-          <h2 
-            className="font-body text-[48px] font-semibold"
-            style={{ color: headingColor || '#000000' }}
+          <h2
+            style={{
+              color: headingColor || '#000000',
+              fontSize: 'clamp(28px, 3.32vw, 100vw)',
+              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+              fontWeight: 500,
+              fontStyle: 'normal',
+              lineHeight: '1.042',
+              letterSpacing: '0',
+            }}
           >
             {heading}
           </h2>
@@ -61,7 +68,7 @@ export default function SanityProjectsShowcase({
         style={{
           paddingLeft: 'clamp(20px, 3vw, 40px)',
           paddingRight: 'clamp(20px, 3vw, 40px)',
-          paddingTop: 'clamp(20px, 3vw, 40px)',
+          paddingTop: heading ? '0' : 'clamp(20px, 3vw, 40px)',
           paddingBottom: 'clamp(80px, 10vw, 136px)',
           minHeight: heading ? 'auto' : '100vh',
         }}
@@ -128,30 +135,33 @@ export default function SanityProjectsShowcase({
                 </div>
               )}
               <div
-                className="absolute bg-white rounded-[3px]"
+                className="absolute bg-white"
                 style={{
-                  bottom: 'clamp(20px, 4vw, 41px)',
+                  bottom: 'clamp(20px, 6.99vw, 100vw)',
                   left: '50%',
                   transform: 'translateX(-50%)',
                   zIndex: 10,
-                  height: 'clamp(44px, 6vw, 60px)',
-                  maxWidth: 'clamp(250px, 60vw, 605px)',
-                  width: 'clamp(250px, 40vw, 605px)',
-                  paddingTop: 'clamp(16px, 3vw, 32px)',
-                  paddingBottom: 'clamp(16px, 3vw, 32px)',
-                  paddingLeft: 'clamp(16px, 3vw, 32px)',
-                  paddingRight: 'clamp(16px, 3vw, 32px)',
+                  height: 'clamp(40px, 4.15vw, 100vw)',
+                  width: 'clamp(250px, 41.87vw, 100vw)',
+                  borderRadius: '3px',
+                  paddingLeft: 'clamp(8px, 0.76vw, 100vw)',
+                  paddingRight: 'clamp(8px, 0.76vw, 100vw)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 16px 32px rgba(0,0,0,0.12), 0 24px 48px rgba(0,0,0,0.08)',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.1)',
                 }}
               >
                 <p
-                  className="font-mono uppercase text-black opacity-80 text-center font-semibold"
                   style={{
-                    fontSize: 'clamp(11px, 2vw, 14px)',
-                    lineHeight: '1.4',
+                    fontSize: 'clamp(11px, 0.97vw, 100vw)',
+                    fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
+                    fontWeight: 400,
+                    fontStyle: 'normal',
+                    lineHeight: '1.286',
+                    letterSpacing: '0',
+                    textAlign: 'center',
+                    color: '#000000',
                   }}
                 >
                   {firstProject.client && `${firstProject.client}, `}

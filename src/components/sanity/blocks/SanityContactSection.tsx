@@ -4,6 +4,24 @@ import type { PAGE_QUERYResult } from '../../../../sanity.types'
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
 type SanityContactSectionProps = Extract<PageBlock, { _type: 'contactSection' }>
 
+const TITLE_STYLE: React.CSSProperties = {
+  fontSize: 'clamp(28px, 3.32vw, 100vw)',
+  fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+  fontWeight: 500,
+  fontStyle: 'normal',
+  lineHeight: '1.042',
+  letterSpacing: '0',
+}
+
+const CTA_STYLE: React.CSSProperties = {
+  fontSize: 'clamp(18px, 1.66vw, 100vw)',
+  fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+  fontWeight: 500,
+  fontStyle: 'normal',
+  lineHeight: '1.042',
+  letterSpacing: '0',
+}
+
 export default function SanityContactSection({
   heading,
   email,
@@ -16,58 +34,72 @@ export default function SanityContactSection({
       style={{
         background: 'black',
         color: 'white',
-        paddingTop: '100px',
-        paddingBottom: '80px',
-        paddingLeft: '40px',
-        paddingRight: '40px',
+        paddingTop: 'clamp(60px, 9.48vw, 100vw)',
+        paddingBottom: 'clamp(60px, 8.34vw, 100vw)',
+        paddingLeft: 'clamp(20px, 2.77vw, 100vw)',
+        paddingRight: 'clamp(40px, 10.73vw, 100vw)',
       }}
     >
-      {/* Two-column layout: left (Lets talk + offices) | right (form) */}
       <div
-        className="grid grid-cols-1 lg:grid-cols-[788fr_442fr] gap-[20px]"
-        style={{ marginRight: '100px' }}
+        className="grid grid-cols-1 lg:grid-cols-[673fr_442fr]"
+        style={{ gap: 'clamp(40px, 9.34vw, 100vw)' }}
       >
 
         {/* LEFT COLUMN */}
-        <div style={{ marginRight: '40px' }}>
-          {/* "Lets talk!" + email — side by side in two halves */}
-          <div className="grid grid-cols-2 gap-[20px]">
+        <div>
+          {/* "Lets talk!" + email — side by side */}
+          <div style={{ display: 'flex', alignItems: 'start', gap: 'clamp(12px, 1.38vw, 100vw)' }}>
             {heading && (
-              <h2 className="font-body text-[48px] font-medium leading-[50px] text-white">
+              <h2 style={{ ...TITLE_STYLE, flex: 1, margin: 0 }}>
                 {heading}
               </h2>
             )}
             {email && (
               <p
-                className="font-body text-[24px] font-medium leading-[25px] text-white flex items-center"
-                style={{ marginTop: '30px', marginBottom: '0px' }}
+                style={{
+                  ...CTA_STYLE,
+                  flex: 1,
+                  margin: 0,
+                  paddingTop: 'clamp(10px, 1.59vw, 100vw)',
+                  color: 'white',
+                }}
               >
                 {email}
               </p>
             )}
           </div>
 
-          {/* "Our Offices" + addresses — side by side in two halves */}
+          {/* "Our Offices" + addresses — side by side */}
           <div
-            className="grid grid-cols-2 gap-[20px]"
-            style={{ marginTop: '100px', marginBottom: '100px' }}
+            className="grid grid-cols-2"
+            style={{
+              gap: 'clamp(12px, 1.38vw, 100vw)',
+              marginTop: 'clamp(150px, 18.75vw, 100vw)',
+            }}
           >
-            <h3 className="font-body text-[48px] font-medium leading-[50px] text-white">
+            <h3 style={TITLE_STYLE}>
               Our Offices
             </h3>
-            <div style={{ marginTop: '30px', marginRight: '40px' }}>
-              {offices && offices.map((office) => {
+            <div
+              style={{
+                paddingTop: 'clamp(8px, 1.63vw, 100vw)',
+                width: 'clamp(200px, 22.7vw, 100vw)',
+              }}
+            >
+              {offices && offices.map((office, index) => {
                 const locationLine = [office.city, office.state, office.country].filter(Boolean).join(', ');
                 const hasAddressParts = office.address || office.stateAbbr || office.zip;
                 const addressLine = hasAddressParts
                   ? [office.address, office.city && (office.stateAbbr || office.zip) ? `${office.city}, ${[office.stateAbbr, office.zip].filter(Boolean).join(' ')}` : null].filter(Boolean).join(', ')
                   : '';
                 return (
-                  <div key={office._key} className="mb-[25px] last:mb-0">
-                    <p
-                      className="font-body text-[24px] font-medium leading-[25px] text-white"
-                      style={{ paddingTop: '10px', paddingBottom: '20px' }}
-                    >
+                  <div
+                    key={office._key}
+                    style={{
+                      marginTop: index > 0 ? 'clamp(16px, 1.73vw, 100vw)' : 0,
+                    }}
+                  >
+                    <p style={{ ...CTA_STYLE, color: 'white' }}>
                       {locationLine}
                       {addressLine && (
                         <>
@@ -86,7 +118,7 @@ export default function SanityContactSection({
         {/* RIGHT COLUMN — form */}
         <div>
           {formHeading && (
-            <h2 className="font-body text-[48px] font-medium leading-[50px] text-white mb-[23px]" style={{ paddingBottom: '20px' }}>
+            <h2 style={{ ...TITLE_STYLE, paddingBottom: 'clamp(12px, 1.58vw, 100vw)' }}>
               {formHeading}
             </h2>
           )}

@@ -11,9 +11,11 @@ type SanityIntroSectionProps = Extract<PageBlock, { _type: 'introSection' }>
 /** Horizontal inset matching PersistentNav (clamp(20px, 3vw, 40px)) for flush alignment on resize. */
 const SECTION_INSET = 'clamp(20px, 3vw, 40px)';
 
-/** Fluid type scales with viewport (min, preferred vw, max). */
-const HEADING_FONT_SIZE = 'clamp(28px, 4vw, 48px)';
-const DESCRIPTION_FONT_SIZE = 'clamp(18px, 2.5vw, 32px)';
+/** Fluid type scales proportionally with viewport, matching Figma ratios at 1445px. */
+const HEADING_FONT_SIZE = 'clamp(28px, 3.32vw, 100vw)';
+const HEADING_LINE_HEIGHT = '1.042';
+const DESCRIPTION_FONT_SIZE = 'clamp(18px, 2.21vw, 100vw)';
+const DESCRIPTION_LINE_HEIGHT = '1.156';
 const BADGE_FONT_SIZE = 'clamp(12px, 1.25vw, 16px)';
 
 export default function SanityIntroSection({
@@ -39,12 +41,19 @@ export default function SanityIntroSection({
       {/* Heading - Top Left (aligned with header inset via section margin) */}
       {heading && (
         <div
-          className="max-w-3xl mb-12"
-          style={{ marginTop: '50px', marginBottom: '40px' }}
+          style={{ marginTop: '50px', marginBottom: '40px', width: 'clamp(325px, 38.55vw, 100vw)' }}
         >
           <h2
-            className="font-body font-bold leading-tight"
-            style={{ marginTop: 0, marginBottom: 0, fontSize: HEADING_FONT_SIZE }}
+            style={{
+              marginTop: 0,
+              marginBottom: 0,
+              fontSize: HEADING_FONT_SIZE,
+              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+              fontWeight: 500,
+              fontStyle: 'normal',
+              lineHeight: HEADING_LINE_HEIGHT,
+              letterSpacing: '0',
+            }}
           >
             {heading}
           </h2>
@@ -85,10 +94,22 @@ export default function SanityIntroSection({
         </div>
       )}
 
-      {/* Description - Below Image (aligned via section margin) */}
+      {/* Description - Below Image */}
       {description && (
-        <div className="pb-[20px]">
-          <p className="font-body leading-relaxed mb-8 pl-0 pt-10 pb-5" style={{ fontSize: DESCRIPTION_FONT_SIZE, marginRight: 120 }}>
+        <div style={{ paddingBottom: '20px', maxWidth: '94.42%' }}>
+          <p
+            style={{
+              fontSize: DESCRIPTION_FONT_SIZE,
+              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+              fontWeight: 500,
+              fontStyle: 'normal',
+              lineHeight: DESCRIPTION_LINE_HEIGHT,
+              letterSpacing: '0',
+              paddingTop: '40px',
+              paddingBottom: '20px',
+              margin: 0,
+            }}
+          >
             {description}
           </p>
         </div>
@@ -96,7 +117,7 @@ export default function SanityIntroSection({
 
       {/* CTA - Bottom Right */}
       {cta && (
-        <div className="mt-8 pb-8 flex justify-end" style={{ marginBottom: '40px' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '20px', paddingBottom: '40px', fontWeight: 500, lineHeight: '1.042' }}>
           <SanityCta {...cta} className="text-white" />
         </div>
       )}

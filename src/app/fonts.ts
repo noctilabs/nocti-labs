@@ -13,25 +13,48 @@ export const displayFont = localFont({
 });
 
 /**
- * Neue Haas Unica Pro Medium
+ * Neue Haas Unica Pro (Regular + Medium)
  * Used for body text and headings
  */
 export const bodyFont = localFont({
-  src: '../../public/fonts/NeueHaasUnicaPro-Medium.ttf',
+  src: [
+    {
+      path: '../../public/fonts/NeueHaasUnicaPro-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/NeueHaasUnicaPro-Medium.ttf',
+      weight: '500',
+      style: 'normal',
+    },
+  ],
   variable: '--font-body',
-  weight: '500',
-  style: 'normal',
   display: 'swap',
 });
 
 /**
- * ABC Diatype Mono Unlicensed Trial Medium
- * Used for monospace text like navigation links
+ * ABC Diatype Mono Unlicensed Trial (Regular + Medium)
+ * Used for monospace text like navigation links and labels
  */
 export const monoFont = localFont({
-  src: '../../public/fonts/ABCDiatypeMono-Medium-Trial.otf',
+  src: [
+    {
+      path: '../../public/fonts/ABCDiatypeMono-Regular-Trial.otf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/ABCDiatypeMono-Medium-Trial.otf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/ABCDiatypeMono-Bold-Trial.otf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
   variable: '--font-mono',
-  weight: '500',
-  style: 'normal',
   display: 'swap',
 });

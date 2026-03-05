@@ -14,27 +14,28 @@ export default async function Footer() {
   return (
     <footer
       data-nav-theme="light"
-      className="text-black relative min-h-[400px] w-full"
+      className="text-black relative w-full"
       style={{
         backgroundColor: '#e9e8e7',
-        transform: 'none',
-        overflow: 'visible',
-        paddingBottom: '40px',
+        overflow: 'hidden',
+        paddingLeft: 'clamp(20px, 2.77vw, 100vw)',
+        paddingRight: 'clamp(20px, 2.77vw, 100vw)',
       }}
     >
-      <div 
+      <div
         className="relative z-10"
         style={{
-          paddingLeft: 'clamp(20px, 3vw, 40px)',
-          paddingRight: 'clamp(20px, 3vw, 40px)',
-          paddingTop: '100px',
+          paddingTop: 'clamp(100px, 11.69vw, 100vw)',
         }}
       >
         {/* Footer Columns Grid - 5 columns layout */}
         {footerColumns.length > 0 && (
           <div
-            className="mb-[100px] mt-[50px]"
-            style={{ display: 'grid', gridTemplateColumns: '2fr 2fr 1fr 1fr 1fr', gap: '0 18px' }}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '326fr 326fr 210fr 210fr 210fr',
+              gap: '0 clamp(12px, 1.38vw, 100vw)',
+            }}
           >
             {footerColumns.map((col) => {
               const hasLinks = col.links && col.links.length > 0;
@@ -44,13 +45,34 @@ export default async function Footer() {
                   {col.heading && (
                     <>
                       {hasLinks ? (
-                        <h3 className="font-mono uppercase text-[14px] font-bold leading-[18px] mb-0 text-black">
+                        <h3
+                          style={{
+                            fontSize: 'clamp(11px, 0.97vw, 100vw)',
+                            fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
+                            fontWeight: 700,
+                            fontStyle: 'normal',
+                            lineHeight: '1.286',
+                            letterSpacing: '0',
+                            textTransform: 'uppercase',
+                            color: 'black',
+                          }}
+                        >
                           {col.heading}
                         </h3>
                       ) : (
                         <Link 
                           href={col.heading === 'BLOG' ? '/blog' : col.heading === 'ABOUT' ? '/about' : '#'}
-                          className="font-mono uppercase text-[14px] font-bold leading-[18px] mb-0 text-black hover:opacity-70 transition block"
+                          className="hover:opacity-70 transition block"
+                          style={{
+                            fontSize: 'clamp(11px, 0.97vw, 100vw)',
+                            fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
+                            fontWeight: 700,
+                            fontStyle: 'normal',
+                            lineHeight: '1.286',
+                            letterSpacing: '0',
+                            textTransform: 'uppercase',
+                            color: 'black',
+                          }}
                         >
                           {col.heading}
                         </Link>
@@ -58,9 +80,23 @@ export default async function Footer() {
                     </>
                   )}
                   {col.links && col.links.length > 0 && (
-                    <ul className="mt-0 font-mono text-[14px] font-normal leading-[18px] uppercase text-black">
+                    <ul
+                      style={{
+                        listStyle: 'none',
+                        margin: 0,
+                        padding: 0,
+                        fontSize: 'clamp(11px, 0.97vw, 100vw)',
+                        fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
+                        fontWeight: 400,
+                        fontStyle: 'normal',
+                        lineHeight: '1.286',
+                        letterSpacing: '0',
+                        textTransform: 'uppercase',
+                        color: 'black',
+                      }}
+                    >
                       {col.links.map((link) => (
-                        <li key={link._key} className="mb-0 leading-[18px]">
+                        <li key={link._key}>
                           <Link href={link.href ?? '#'} className="hover:opacity-70 transition">
                             {link.label}
                           </Link>
@@ -76,16 +112,19 @@ export default async function Footer() {
       </div>
 
       {/* Large Centered Logo - Full Width */}
-      <h2 
-        className="font-display font-semibold text-black text-center mb-0 block w-full"
+      <h2
         style={{
-          fontSize: 'clamp(80px, 18vw, 9999px)',
-          lineHeight: '1',
-          transform: 'none',
-          marginTop: '200px',
-          paddingLeft: 0,
-          paddingRight: 0,
-          letterSpacing: '-0.02em',
+          fontSize: 'clamp(80px, 20.2vw, 100vw)',
+          fontFamily: 'var(--font-display), "Helvetica Neue", Helvetica, Arial, sans-serif',
+          fontWeight: 500,
+          fontStyle: 'normal',
+          lineHeight: '0.305',
+          letterSpacing: '0',
+          color: 'black',
+          textAlign: 'center',
+          width: '100%',
+          marginTop: 'clamp(100px, 16vw, 100vw)',
+          paddingBottom: 'clamp(60px, 8.3vw, 100vw)',
         }}
       >
         {companyName}

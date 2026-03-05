@@ -16,16 +16,16 @@ export default function NavContactButton({ className = '', theme = 'light' }: Na
       href="/contact"
       className={`relative inline-flex items-center justify-center rounded-full no-underline ${className}`}
       style={{
-        width: 'clamp(100px, 11.58vw, 158px)',
-        height: 'clamp(36px, 4.4vw, 60px)',
+        width: 'clamp(100px, 10.93vw, 100vw)',
+        height: 'clamp(36px, 4.15vw, 100vw)',
         borderRadius: '184px',
         background: bgColor,
         color: textColor,
-        paddingLeft: 'clamp(10px, 1.3vw, 17.756px)',
-        paddingRight: 'clamp(10px, 1.34vw, 18.244px)',
-        paddingTop: 'clamp(6px, 0.92vw, 12.614px)',
-        paddingBottom: 'clamp(6px, 0.92vw, 12.614px)',
-        gap: 'clamp(5px, 0.66vw, 9px)',
+        paddingLeft: 'clamp(10px, 1.23vw, 100vw)',
+        paddingRight: 'clamp(10px, 1.26vw, 100vw)',
+        paddingTop: 'clamp(6px, 0.87vw, 100vw)',
+        paddingBottom: 'clamp(6px, 0.87vw, 100vw)',
+        gap: 'clamp(5px, 0.62vw, 100vw)',
         flexShrink: 0,
         minWidth: 0,
         transition: 'background-color 0.4s ease-in-out, color 0.4s ease-in-out',
@@ -37,9 +37,9 @@ export default function NavContactButton({ className = '', theme = 'light' }: Na
           alignItems: 'center', 
           justifyContent: 'center', 
           lineHeight: '1',
-          width: 'clamp(60px, 7.33vw, 100px)',
-          height: 'clamp(20px, 2.9vw, 34.771px)',
-          fontSize: 'clamp(10px, 1.03vw, 14px)',
+          width: 'clamp(60px, 6.92vw, 100vw)',
+          height: 'clamp(20px, 2.42vw, 100vw)',
+          fontSize: 'clamp(10px, 0.97vw, 100vw)',
           fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
           fontWeight: '500',
           fontStyle: 'normal',
@@ -59,8 +59,8 @@ export default function NavContactButton({ className = '', theme = 'light' }: Na
         Contact Us
       </div>
       <svg 
-        width="clamp(10px, 0.95vw, 13px)" 
-        height="clamp(11px, 1.03vw, 14.488px)" 
+        width="clamp(10px, 0.9vw, 100vw)" 
+        height="clamp(11px, 1vw, 100vw)" 
         viewBox="0 0 15 16" 
         fill="none" 
         xmlns="http://www.w3.org/2000/svg" 

@@ -14,8 +14,8 @@ export default function NavLogo({ className = '', theme = 'light' }: NavLogoProp
     <Link
       href="/"
       style={{ 
-        width: 'clamp(80px, 9.67vw, 132px)', 
-        height: 'clamp(36px, 4.4vw, 60px)', 
+        width: 'clamp(80px, 9.13vw, 100vw)', 
+        height: 'clamp(36px, 4.15vw, 100vw)', 
         position: 'relative', 
         display: 'flex', 
         alignItems: 'center', 
@@ -23,10 +23,10 @@ export default function NavLogo({ className = '', theme = 'light' }: NavLogoProp
         borderRadius: 3, 
         flexShrink: 0, 
         minWidth: 0, 
-        paddingLeft: 'clamp(9px, 9.09%, 12px)', 
-        paddingRight: 'clamp(9px, 8.33%, 11px)',
-        paddingTop: 'clamp(6px, 1.83vw, 11px)',
-        paddingBottom: 'clamp(6px, 1.83vw, 11px)',
+        paddingLeft: 'clamp(9px, 0.83vw, 100vw)', 
+        paddingRight: 'clamp(9px, 0.76vw, 100vw)',
+        paddingTop: 'clamp(6px, 0.76vw, 100vw)',
+        paddingBottom: 'clamp(6px, 0.76vw, 100vw)',
       }}
       className={`no-underline ${className}`}
     >
@@ -40,7 +40,7 @@ export default function NavLogo({ className = '', theme = 'light' }: NavLogoProp
           alignItems: 'center',
           justifyContent: 'center',
           color: textColor,
-          fontSize: 'clamp(14px, 1.68vw, 23px)',
+          fontSize: 'clamp(14px, 1.59vw, 100vw)',
           fontFamily: 'var(--font-display), "Helvetica Neue", Helvetica, Arial, sans-serif',
           fontWeight: '500',
           fontStyle: 'normal',

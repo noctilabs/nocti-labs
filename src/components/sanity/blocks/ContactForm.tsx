@@ -3,39 +3,11 @@
 import { useState } from 'react';
 
 /**
- * Spacing derived from Figma node 2089:22 (form frame) absolute positions.
- * Label 14px/16px line-height; row step ~38px; label→input ~11px.
+ * Figma node 2032:5 — form fields.
+ * Each field group is 26.83px tall (label 16px + gap + 1px line).
+ * Row step 38.39px at 1445px viewport. Column gap 20px.
+ * All spacing proportional via vw.
  */
-const SPACING = {
-  labelToInput: 11,
-  betweenRows: 38,
-  phoneRowToProjectDesc: 17,
-  projectDescLabelToTextarea: 17,
-  textareaToButton: 19,
-  formColumnGap: 20,
-} as const;
-
-/** Vertical space reserved above input when label is floated. */
-const FLOATING_LABEL_TOP_SPACE = 18;
-/** Offset so resting label sits slightly above the input border. */
-const LABEL_RESTING_TOP_OFFSET = 4;
-/** Total height of the floating field wrapper (label area + input area). */
-const FLOATING_FIELD_HEIGHT = 42;
-/** Top margin so floated label does not hit the bottom border of the field above. */
-const FLOATING_FIELD_TOP_MARGIN = 8;
-
-/**
- * Sizes from Figma node 2089:22 (absoluteBoundingBox / style).
- * Copy S: 14px, lineHeight 16. Button & textarea cornerRadius 10.
- */
-const SIZES = {
-  textareaHeight: 136.83,
-  textareaWidth: 442,
-  submitWidth: 100.66,
-  submitHeight: 37.15,
-  borderRadius: 10,
-  inputLineWidth: 211,
-} as const;
 
 interface FloatingFieldProps {
   name: string;
@@ -45,7 +17,6 @@ interface FloatingFieldProps {
   required?: boolean;
   type?: string;
   inputStyle?: React.CSSProperties;
-  labelClassName?: string;
   isTextarea?: boolean;
 }
 
@@ -57,42 +28,27 @@ function FloatingField({
   required = false,
   type = 'text',
   inputStyle,
-  labelClassName,
   isTextarea = false,
 }: FloatingFieldProps): React.ReactElement {
   const [focused, setFocused] = useState(false);
   const floated = focused || value.length > 0;
-  const baseInputClasses =
-    'w-full h-full bg-transparent border-b-2 border-white text-white font-body text-[14px] leading-[16px] pt-0 pb-2 focus:outline-none box-border';
-  const labelBase =
-    'font-body text-[14px] font-normal leading-[16px] text-[#d9d9d9] block absolute left-0 transition-all duration-200 pointer-events-none';
+  const fontStyle: React.CSSProperties = {
+    fontSize: 'clamp(11px, 0.97vw, 100vw)',
+    fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+    fontWeight: 400,
+    fontStyle: 'normal',
+    lineHeight: '1.143',
+    letterSpacing: '0',
+  };
   const labelStyle: React.CSSProperties = {
-    top: floated ? 0 : FLOATING_LABEL_TOP_SPACE - LABEL_RESTING_TOP_OFFSET,
-    color: floated ? '#d9d9d9' : 'rgba(255, 255, 255, 0.65)',
-  };
-  const wrapperStyle: React.CSSProperties = {
-    position: 'relative',
-    paddingTop: FLOATING_LABEL_TOP_SPACE,
-    minHeight: FLOATING_FIELD_HEIGHT,
-    marginTop: FLOATING_FIELD_TOP_MARGIN,
-  };
-  const inputWrapperStyle: React.CSSProperties = {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: FLOATING_LABEL_TOP_SPACE,
-    bottom: 0,
+    ...fontStyle,
+    display: 'block',
+    color: floated ? '#d9d9d9' : '#d9d9d9',
   };
   if (isTextarea) {
-    const textareaClasses =
-      'w-full bg-[#D9D9D9] text-black font-body text-[14px] leading-[16px] focus:outline-none resize-none';
     return (
-      <div style={wrapperStyle}>
-        <label
-          htmlFor={name}
-          className={`${labelBase} ${labelClassName ?? ''}`}
-          style={labelStyle}
-        >
+      <div style={{ marginBottom: 'clamp(8px, 0.8vw, 100vw)' }}>
+        <label htmlFor={name} style={labelStyle}>
           {label}
         </label>
         <textarea
@@ -102,11 +58,13 @@ function FloatingField({
           onChange={onChange}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          className={textareaClasses}
+          className="w-full bg-[#D9D9D9] text-black focus:outline-none resize-none"
           style={{
-            height: SIZES.textareaHeight,
-            borderRadius: SIZES.borderRadius,
-            padding: '12px',
+            height: 'clamp(80px, 9.47vw, 100vw)',
+            borderRadius: 'clamp(6px, 0.69vw, 100vw)',
+            padding: 'clamp(8px, 0.83vw, 100vw)',
+            marginTop: 'clamp(10px, 1.21vw, 100vw)',
+            ...fontStyle,
             ...inputStyle,
           }}
         />
@@ -114,28 +72,47 @@ function FloatingField({
     );
   }
   return (
-    <div style={wrapperStyle}>
+    <div
+      style={{
+        marginBottom: 'clamp(8px, 0.8vw, 100vw)',
+        position: 'relative',
+        borderBottom: '1px solid white',
+        paddingBottom: 'clamp(6px, 0.75vw, 100vw)',
+      }}
+    >
       <label
         htmlFor={name}
-        className={`${labelBase} ${labelClassName ?? ''}`}
-        style={labelStyle}
+        style={{
+          ...labelStyle,
+          opacity: floated ? 0 : 1,
+          transition: 'opacity 0.15s',
+        }}
       >
         {label}
       </label>
-      <div style={inputWrapperStyle}>
-        <input
-          id={name}
-          type={type}
-          name={name}
-          value={value}
-          onChange={onChange}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
-          className={baseInputClasses}
-          style={inputStyle}
-          required={required}
-        />
-      </div>
+      <input
+        id={name}
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        className="bg-transparent text-white focus:outline-none"
+        style={{
+          ...fontStyle,
+          ...inputStyle,
+          color: 'white',
+          border: 'none',
+          padding: 0,
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+        }}
+        required={required}
+      />
     </div>
   );
 }
@@ -184,7 +161,15 @@ export default function ContactForm(): React.ReactElement {
 
   if (submitted) {
     return (
-      <p className="font-body text-[14px] text-white">
+      <p
+        className="text-white"
+        style={{
+          fontSize: 'clamp(11px, 0.97vw, 100vw)',
+          fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+          fontWeight: 400,
+          lineHeight: '1.143',
+        }}
+      >
         Thanks! We&apos;ll be in touch soon.
       </p>
     );
@@ -194,8 +179,8 @@ export default function ContactForm(): React.ReactElement {
     <form onSubmit={handleSubmit}>
       {/* Row 1: First Name + Last Name */}
       <div
-        className="grid grid-cols-2 mb-0"
-        style={{ gap: SPACING.formColumnGap, marginBottom: 0 }}
+        className="grid grid-cols-2"
+        style={{ gap: 'clamp(12px, 1.38vw, 100vw)' }}
       >
         <FloatingField
           name="firstName"
@@ -215,8 +200,8 @@ export default function ContactForm(): React.ReactElement {
 
       {/* Row 2: Work Email + Company Name */}
       <div
-        className="grid grid-cols-2 mb-0"
-        style={{ gap: SPACING.formColumnGap, marginBottom: 0 }}
+        className="grid grid-cols-2"
+        style={{ gap: 'clamp(12px, 1.38vw, 100vw)' }}
       >
         <FloatingField
           name="email"
@@ -237,8 +222,8 @@ export default function ContactForm(): React.ReactElement {
 
       {/* Row 3: Current E-Commerce Platform + Country / Region */}
       <div
-        className="grid grid-cols-2 mb-0"
-        style={{ gap: SPACING.formColumnGap, marginBottom: 0 }}
+        className="grid grid-cols-2"
+        style={{ gap: 'clamp(12px, 1.38vw, 100vw)' }}
       >
         <FloatingField
           name="platform"
@@ -257,11 +242,8 @@ export default function ContactForm(): React.ReactElement {
 
       {/* Row 4: Phone Number */}
       <div
-        className="grid grid-cols-2 mb-0"
-        style={{
-          gap: SPACING.formColumnGap,
-          marginBottom: SPACING.phoneRowToProjectDesc,
-        }}
+        className="grid grid-cols-2"
+        style={{ gap: 'clamp(12px, 1.38vw, 100vw)' }}
       >
         <FloatingField
           name="phone"
@@ -272,11 +254,16 @@ export default function ContactForm(): React.ReactElement {
         />
       </div>
 
-      {/* Project Description — label above textarea, label→textarea 17px, textarea→button 19px */}
-      <div style={{ marginTop: 25, marginBottom: SPACING.textareaToButton }}>
+      {/* Project Description */}
+      <div style={{ marginTop: 'clamp(10px, 1.21vw, 100vw)', marginBottom: 'clamp(12px, 1.31vw, 100vw)' }}>
         <label
-          className="font-body text-[14px] font-normal leading-[16px] text-white block"
-          style={{ marginBottom: SPACING.projectDescLabelToTextarea }}
+          className="block text-white"
+          style={{
+            fontSize: 'clamp(11px, 0.97vw, 100vw)',
+            fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+            fontWeight: 400,
+            lineHeight: '1.143',
+          }}
         >
           Project Description
         </label>
@@ -284,11 +271,16 @@ export default function ContactForm(): React.ReactElement {
           name="description"
           value={formData.description}
           onChange={handleChange}
-          className="w-full bg-[#D9D9D9] text-black font-body text-[14px] leading-[16px] focus:outline-none resize-none"
+          className="w-full bg-[#D9D9D9] text-black focus:outline-none resize-none"
           style={{
-            height: SIZES.textareaHeight,
-            borderRadius: SIZES.borderRadius,
-            padding: '12px',
+            height: 'clamp(80px, 9.47vw, 100vw)',
+            borderRadius: 'clamp(6px, 0.69vw, 100vw)',
+            padding: 'clamp(8px, 0.83vw, 100vw)',
+            marginTop: 'clamp(10px, 1.21vw, 100vw)',
+            fontSize: 'clamp(11px, 0.97vw, 100vw)',
+            fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+            fontWeight: 400,
+            lineHeight: '1.143',
           }}
         />
       </div>
@@ -296,18 +288,30 @@ export default function ContactForm(): React.ReactElement {
       {/* Submit — 100.66×37.15, cornerRadius 10 */}
       <div style={{ marginBottom: submitError ? 8 : 0 }}>
         {submitError && (
-          <p className="font-body text-[12px] text-red-400 mb-2">
+          <p
+            className="text-red-400 mb-2"
+            style={{
+              fontSize: 'clamp(10px, 0.83vw, 100vw)',
+              fontFamily: 'var(--font-body), "Helvetica Neue", Helvetica, Arial, sans-serif',
+              fontWeight: 400,
+              lineHeight: '1.143',
+            }}
+          >
             Something went wrong. Please try again.
           </p>
         )}
         <button
           type="submit"
           disabled={submitting}
-          className="bg-white text-black font-mono text-[14px] font-semibold hover:opacity-80 transition disabled:opacity-50"
+          className="bg-white text-black hover:opacity-80 transition disabled:opacity-50"
           style={{
-            width: SIZES.submitWidth,
-            height: SIZES.submitHeight,
-            borderRadius: SIZES.borderRadius,
+            width: 'clamp(70px, 6.97vw, 100vw)',
+            height: 'clamp(28px, 2.57vw, 100vw)',
+            borderRadius: 'clamp(6px, 0.69vw, 100vw)',
+            fontSize: 'clamp(11px, 0.97vw, 100vw)',
+            fontFamily: 'var(--font-mono), "Courier New", Courier, monospace',
+            fontWeight: 500,
+            lineHeight: '1.143',
           }}
         >
           {submitting ? '...' : 'Submit'}
