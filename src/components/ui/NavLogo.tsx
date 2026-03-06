@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 interface NavLogoProps {
   className?: string;
@@ -6,37 +9,23 @@ interface NavLogoProps {
 }
 
 export default function NavLogo({ className = '', theme = 'light' }: NavLogoProps) {
+  const pathname = usePathname();
   const isDark = theme === 'dark';
-  const bgColor = isDark ? 'black' : 'white';
-  const textColor = isDark ? 'white' : '#1E1E1E';
 
   return (
     <Link
       href="/"
-      style={{ width: 'clamp(80px, 9vw, 165px)', height: 'clamp(36px, 4vw, 75px)', position: 'relative', display: 'block', borderRadius: 3 }}
-      className={`no-underline ${className}`}
+      onClick={(e) => {
+        if (pathname === '/') {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }}
+      className={`w-[8.25rem] h-[3.75rem] relative flex items-center justify-center rounded-[3px] shrink-0 min-w-0 px-[0.8125rem] no-underline ${className}`}
     >
-      <div style={{ width: '100%', height: '100%', left: 0, top: 0, position: 'absolute', background: bgColor, borderRadius: 3, transition: 'background-color 0.4s ease-in-out' }} />
+      <div className={`absolute inset-0 rounded-[3px] z-0 transition-[background-color] duration-[400ms] ease-in-out ${isDark ? 'bg-black' : 'bg-white'}`} />
       <div
-        style={{
-          width: '82.5%',
-          height: '63.3%',
-          left: '9.1%',
-          top: '18.3%',
-          position: 'absolute',
-          textAlign: 'center',
-          justifyContent: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          color: textColor,
-          fontSize: 'clamp(12px, 1.2vw, 24px)',
-          fontFamily: "'Neue Haas Grotesk Display Std', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-          fontWeight: '700',
-          lineHeight: '1',
-          wordWrap: 'break-word',
-          overflow: 'hidden',
-          transition: 'color 0.4s ease-in-out',
-        }}
+        className={`relative z-[1] text-center flex items-center justify-center text-[1.4375rem] font-display font-medium not-italic leading-[1] tracking-[0] antialiased text-crisp transition-colors duration-[400ms] ease-in-out whitespace-nowrap ${isDark ? 'text-white' : 'text-[#1e1e1e]'}`}
       >
         Nocti Labs
       </div>

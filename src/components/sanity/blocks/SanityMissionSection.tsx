@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
+import { heading as headingCls, subheading, caption } from "@/lib/typography";
 import type { PAGE_QUERYResult } from "../../../../sanity.types";
 
 type PageBlock = NonNullable<
@@ -12,10 +13,6 @@ type SanityMissionSectionProps = Extract<
   { _type: "missionSection" }
 >;
 
-/**
- * SanityMissionSection component displays a "Mission" section with a heading,
- * optional decorative image, and a grid of principles/values.
- */
 export default function SanityMissionSection({
   heading,
   image,
@@ -27,112 +24,47 @@ export default function SanityMissionSection({
       className="bg-black text-white flex flex-col relative"
       suppressHydrationWarning
     >
-      <div
-        style={{
-          width: "100%",
-          position: "relative",
-          paddingLeft: "clamp(20px, 3vw, 40px)",
-          paddingRight: "clamp(20px, 3vw, 40px)",
-          paddingTop: "clamp(40px, 5vw, 80px)",
-          paddingBottom: "160px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "clamp(80px, 2.5vw, 80px)",
-        }}
-      >
+      <div className="w-full relative px-section-x pt-[2.37rem] pb-[11.07rem] flex flex-col gap-[5.47rem]">
         {/* Heading */}
         {heading && (
-          <h2
-            style={{
-              fontSize: "clamp(32px, 3.3vw, 48px)",
-              fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
-              fontWeight: "500",
-              lineHeight: "50px",
-              marginTop: "0px",
-            }}
-          >
+          <h2 className={`${headingCls} m-0`}>
             {heading}
           </h2>
         )}
 
         {/* Principles Grid */}
         {principles && principles.length > 0 && (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(clamp(120px, 20vw, 210px), 1fr))",
-              gap: "clamp(20px, 4vw, 79px)",
-            }}
-          >
+          <div className="grid grid-cols-5 gap-[5.47rem] items-start">
             {principles.map((principle, index) => (
               <div
                 key={principle._key || index}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "clamp(13px, 1.5vw, 16px)",
-                  width: "100%",
-                }}
+                className="flex flex-col gap-[0.9rem] w-full items-start"
               >
                 {/* Icon */}
                 {principle.icon?.asset?._ref ? (
-                  <div
-                    style={{
-                      width: "clamp(120px, 10vw, 160px)",
-                      height: "clamp(120px, 10vw, 160px)",
-                      borderRadius: "50%",
-                      position: "relative",
-                      marginBottom: "clamp(13px, 1vw, 13px)",
-                      background:
-                        "radial-gradient(circle, rgba(0, 100, 200, 1) 0%, rgba(0, 150, 255, 0.8) 100%)",
-                    }}
-                  >
+                  <div className="w-full h-[10.14rem] relative mb-[0.9rem] flex items-center justify-center">
                     <Image
-                      src={urlFor(principle.icon).width(160).height(160).url()}
+                      src={urlFor(principle.icon).width(500).height(500).url()}
                       alt=""
-                      fill
-                      className="object-cover rounded-full"
+                      width={500}
+                      height={500}
+                      className="object-contain w-full h-full max-w-full max-h-full"
                     />
                   </div>
                 ) : (
-                  <div
-                    style={{
-                      width: "clamp(120px, 10vw, 160px)",
-                      height: "clamp(120px, 10vw, 160px)",
-                      borderRadius: "50%",
-                      marginBottom: "clamp(13px, 1vw, 13px)",
-                      background:
-                        "radial-gradient(circle, rgba(0, 100, 200, 1) 0%, rgba(0, 150, 255, 0.8) 100%)",
-                    }}
-                  />
+                  <div className="w-[10.14rem] h-[10.14rem] rounded-full mb-[0.9rem] bg-[radial-gradient(circle,rgba(0,100,200,1)_0%,rgba(0,150,255,0.8)_100%)]" />
                 )}
 
                 {/* Title */}
                 {principle.title && (
-                  <h3
-                    style={{
-                      fontSize: "clamp(20px, 1.66vw, 24px)",
-                      fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
-                      fontWeight: "500",
-                      lineHeight: "25px",
-                      marginBottom: "clamp(13px, 1vw, 13px)",
-                    }}
-                  >
+                  <h3 className={`${subheading} m-0`}>
                     {principle.title}
                   </h3>
                 )}
 
                 {/* Description */}
                 {principle.description && (
-                  <p
-                    style={{
-                      fontSize: "clamp(14px, 0.97vw, 14px)",
-                      fontFamily: '"Neue Haas Unica Pro", system-ui, sans-serif',
-                      fontWeight: "400",
-                      lineHeight: "16px",
-                      color: "white",
-                    }}
-                  >
+                  <p className={`${caption} m-0`}>
                     {principle.description}
                   </p>
                 )}
@@ -143,19 +75,12 @@ export default function SanityMissionSection({
 
         {/* Image Section */}
         {image?.asset?._ref && (
-          <div
-            style={{
-              width: "100%",
-              height: "clamp(146px, 11vw, 147px)",
-              position: "relative",
-            }}
-          >
+          <div className="w-full h-[10.14rem] relative">
             <Image
               src={urlFor(image).width(1304).url()}
               alt=""
               fill
-              className="object-cover"
-              style={{ maxWidth: "none" }}
+              className="object-cover max-w-none"
             />
           </div>
         )}

@@ -1,4 +1,5 @@
 import ContactForm from './ContactForm'
+import { heading as titleClass, subheading as ctaClass } from '@/lib/typography'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
@@ -13,61 +14,44 @@ export default function SanityContactSection({
   return (
     <section
       data-nav-theme="dark"
-      style={{
-        background: 'black',
-        color: 'white',
-        paddingTop: '100px',
-        paddingBottom: '80px',
-        paddingLeft: '40px',
-        paddingRight: '40px',
-      }}
+      className="bg-black text-white pt-[9.48rem] pb-[8.34rem] pl-section-x pr-[10.73rem]"
     >
-      {/* Two-column layout: left (Lets talk + offices) | right (form) */}
-      <div
-        className="grid grid-cols-1 lg:grid-cols-[788fr_442fr] gap-[20px]"
-        style={{ marginRight: '100px' }}
-      >
+      <div className="grid grid-cols-1 lg:grid-cols-[673fr_442fr] gap-[9.34rem]">
 
         {/* LEFT COLUMN */}
-        <div style={{ marginRight: '40px' }}>
-          {/* "Lets talk!" + email — side by side in two halves */}
-          <div className="grid grid-cols-2 gap-[20px]">
+        <div>
+          {/* "Lets talk!" + email — side by side */}
+          <div className="flex items-start gap-[1.38rem]">
             {heading && (
-              <h2 className="font-body text-[48px] font-medium leading-[50px] text-white">
+              <h2 className={`${titleClass} flex-1 m-0`}>
                 {heading}
               </h2>
             )}
             {email && (
-              <p
-                className="font-body text-[24px] font-medium leading-[25px] text-white flex items-center"
-                style={{ marginTop: '30px', marginBottom: '0px' }}
-              >
+              <p className={`${ctaClass} flex-1 m-0 pt-[1.59rem] text-white`}>
                 {email}
               </p>
             )}
           </div>
 
-          {/* "Our Offices" + addresses — side by side in two halves */}
-          <div
-            className="grid grid-cols-2 gap-[20px]"
-            style={{ marginTop: '100px', marginBottom: '100px' }}
-          >
-            <h3 className="font-body text-[48px] font-medium leading-[50px] text-white">
+          {/* "Our Offices" + addresses — side by side */}
+          <div className="grid grid-cols-2 gap-[1.38rem] mt-[18.75rem]">
+            <h3 className={titleClass}>
               Our Offices
             </h3>
-            <div style={{ marginTop: '30px', marginRight: '40px' }}>
-              {offices && offices.map((office) => {
+            <div className="pt-[1.63rem] w-[22.7rem]">
+              {offices && offices.map((office, index) => {
                 const locationLine = [office.city, office.state, office.country].filter(Boolean).join(', ');
                 const hasAddressParts = office.address || office.stateAbbr || office.zip;
                 const addressLine = hasAddressParts
                   ? [office.address, office.city && (office.stateAbbr || office.zip) ? `${office.city}, ${[office.stateAbbr, office.zip].filter(Boolean).join(' ')}` : null].filter(Boolean).join(', ')
                   : '';
                 return (
-                  <div key={office._key} className="mb-[25px] last:mb-0">
-                    <p
-                      className="font-body text-[24px] font-medium leading-[25px] text-white"
-                      style={{ paddingTop: '10px', paddingBottom: '20px' }}
-                    >
+                  <div
+                    key={office._key}
+                    className={index > 0 ? 'mt-[1.73rem]' : ''}
+                  >
+                    <p className={`${ctaClass} text-white`}>
                       {locationLine}
                       {addressLine && (
                         <>
@@ -86,7 +70,7 @@ export default function SanityContactSection({
         {/* RIGHT COLUMN — form */}
         <div>
           {formHeading && (
-            <h2 className="font-body text-[48px] font-medium leading-[50px] text-white mb-[23px]" style={{ paddingBottom: '20px' }}>
+            <h2 className={`${titleClass} pb-[1.58rem]`}>
               {formHeading}
             </h2>
           )}

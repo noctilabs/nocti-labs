@@ -3,18 +3,11 @@
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
 import SanityCta from '@/components/sanity/shared/SanityCta'
+import { heading as headingCls, bodyLarge } from '@/lib/typography'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
 type SanityIntroSectionProps = Extract<PageBlock, { _type: 'introSection' }>
-
-/** Horizontal inset matching PersistentNav (clamp(20px, 3vw, 40px)) for flush alignment on resize. */
-const SECTION_INSET = 'clamp(20px, 3vw, 40px)';
-
-/** Fluid type scales with viewport (min, preferred vw, max). */
-const HEADING_FONT_SIZE = 'clamp(28px, 4vw, 48px)';
-const DESCRIPTION_FONT_SIZE = 'clamp(18px, 2.5vw, 32px)';
-const BADGE_FONT_SIZE = 'clamp(12px, 1.25vw, 16px)';
 
 export default function SanityIntroSection({
   heading,
@@ -26,34 +19,20 @@ export default function SanityIntroSection({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white relative py-20 flex flex-col justify-start"
-      style={{
-        paddingLeft: SECTION_INSET,
-        paddingRight: SECTION_INSET,
-        paddingTop: 0,
-        marginLeft: 0,
-        marginRight: 0,
-        marginBottom: 0,
-      }}
+      className="bg-black text-white relative flex flex-col justify-start px-section-x pb-20"
     >
-      {/* Heading - Top Left (aligned with header inset via section margin) */}
+      {/* Heading - Top Left */}
       {heading && (
-        <div
-          className="max-w-3xl mb-12"
-          style={{ marginTop: '50px', marginBottom: '40px' }}
-        >
-          <h2
-            className="font-body font-bold leading-tight"
-            style={{ marginTop: 0, marginBottom: 0, fontSize: HEADING_FONT_SIZE }}
-          >
+        <div className="mt-[3.125rem] mb-[2.5rem] max-w-[38.55rem] w-full">
+          <h2 className={`${headingCls} m-0`}>
             {heading}
           </h2>
         </div>
       )}
 
-      {/* Badge - Top Right (same inset as header) */}
+      {/* Badge - Top Right */}
       {badge && (
-        <div className="absolute top-20 flex items-center gap-3" style={{ right: SECTION_INSET }}>
+        <div className="absolute top-20 flex items-center gap-3 right-[3rem]">
           {badge.image?.asset?._ref && (
             <div className="w-12 h-12 rounded-full overflow-hidden bg-white flex items-center justify-center relative">
               <Image
@@ -65,16 +44,16 @@ export default function SanityIntroSection({
             </div>
           )}
           {badge.text && (
-            <span className="font-body text-white" style={{ fontSize: BADGE_FONT_SIZE }}>
+            <span className="font-body text-white text-[1.25rem]">
               {badge.text}
             </span>
           )}
         </div>
       )}
 
-      {/* Image - Center (aligned via section margin) */}
+      {/* Image - Center */}
       {image?.asset?._ref && (
-        <div style={{ marginBottom: '30px' }}>
+        <div className="mb-[30px]">
           <Image
             src={urlFor(image).width(1400).url()}
             alt=""
@@ -85,10 +64,10 @@ export default function SanityIntroSection({
         </div>
       )}
 
-      {/* Description - Below Image (aligned via section margin) */}
+      {/* Description - Below Image */}
       {description && (
-        <div className="pb-[20px]">
-          <p className="font-body leading-relaxed mb-8 pl-0 pt-10 pb-5" style={{ fontSize: DESCRIPTION_FONT_SIZE, marginRight: 120 }}>
+        <div className="pb-[1.25rem] max-w-[94.42%]">
+          <p className={`${bodyLarge} pt-[2.5rem] pb-[1.25rem] m-0`}>
             {description}
           </p>
         </div>
@@ -96,7 +75,7 @@ export default function SanityIntroSection({
 
       {/* CTA - Bottom Right */}
       {cta && (
-        <div className="mt-8 pb-8 flex justify-end" style={{ marginBottom: '40px' }}>
+        <div className="flex justify-end pt-[1.25rem] pb-[2.5rem] font-medium leading-[1.042]">
           <SanityCta {...cta} className="text-white" />
         </div>
       )}

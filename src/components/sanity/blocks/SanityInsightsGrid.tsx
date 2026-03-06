@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
+import { heading as headingCls, subheading, caption } from '@/lib/typography'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
@@ -13,29 +14,16 @@ export default function SanityInsightsGrid({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white pt-[94px] mb-[40px]"
-      style={{
-        marginLeft: 'clamp(20px, 3vw, 40px)',
-        marginRight: 'clamp(20px, 3vw, 40px)',
-        paddingLeft: '0px',
-        paddingRight: '0px',
-        marginBottom: '40px',
-      }}
+      className="bg-black text-white pt-[2.34rem] mx-section-x mb-[3rem]"
     >
         {heading && (
-          <h2 
-            className="font-display text-[48px] font-medium leading-[50px] mb-[103px]"
-            style={{ paddingTop: '40px', paddingBottom: '100px' }}
-          >
+          <h2 className={`${headingCls} pt-0 pb-[7.11rem]`}>
             {heading}
           </h2>
         )}
 
         {featuredPosts && featuredPosts.length > 0 && (
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[20px] mb-[40px]"
-            style={{ paddingBottom: '40px' }}
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1.42rem] pb-[3rem]">
             {featuredPosts.map((post) => (
               <div key={post._id} className="group cursor-pointer flex flex-col">
                 {/* Cover Image */}
@@ -45,34 +33,30 @@ export default function SanityInsightsGrid({
                     alt={post.title || ''}
                     width={652}
                     height={442}
-                    className="w-full aspect-[326/221] object-cover mb-[20px] group-hover:opacity-80 transition"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 22.55vw"
+                    className="w-full h-auto object-cover group-hover:opacity-80 transition"
                   />
                 ) : (
-                  <div className="w-full aspect-[326/221] bg-gray-800 mb-[20px] group-hover:opacity-80 transition" />
+                  <div className="w-full aspect-[326/221] bg-gray-800 group-hover:opacity-80 transition" />
                 )}
 
                 {/* Text content */}
-                <div
-                  className="flex flex-col gap-[13px]"
-                  style={{ marginTop: '30px', marginBottom: '30px' }}
-                >
+                <div className="flex flex-col gap-[1.38rem] mt-[1.38rem]">
                   {/* Title */}
-                  <h3 className="font-body text-[24px] font-medium leading-[25px] text-white"
-                    style={{ marginBottom: '10px' }}
-                  >
+                  <h3 className={subheading}>
                     {post.title}
                   </h3>
 
                   {/* Excerpt */}
                   {post.excerpt && (
-                    <p className="font-body text-[14px] font-normal leading-[16px] text-white">
+                    <p className={caption}>
                       {post.excerpt}
                     </p>
                   )}
 
                   {/* Author */}
                   {post.author && (
-                    <p className="font-body text-[14px] font-normal leading-[16px] text-[#A8A8A8]">
+                    <p className={`${caption} text-muted`}>
                       {post.author}
                     </p>
                   )}
@@ -84,7 +68,7 @@ export default function SanityInsightsGrid({
 
         <Link
           href="/blog"
-          className="font-body text-[24px] font-medium leading-[25px] text-white hover:opacity-70 transition"
+          className={`${subheading} text-white hover:opacity-70 transition inline-block pt-[2.81rem] pb-[2.59rem]`}
         >
           Read our Blog →
         </Link>

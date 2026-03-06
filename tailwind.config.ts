@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      spacing: {
+        'section-x': '3rem',
+      },
       colors: {
         black: "#000000",
         white: "#ffffff",
@@ -17,9 +20,9 @@ const config: Config = {
         blue: "#1500ff",
       },
       fontFamily: {
-        display: ["'Neue Haas Grotesk Display Std'", "'Helvetica Neue'", "Helvetica", "Arial", "sans-serif"],
-        body: ["'Neue Haas Unica Pro'", "'Helvetica Neue'", "Helvetica", "Arial", "sans-serif"],
-        mono: ["'ABC Diatype Mono'", "'Courier New'", "Courier", "monospace"],
+        display: ["var(--font-display)", "'Helvetica Neue'", "Helvetica", "Arial", "sans-serif"],
+        body: ["var(--font-body)", "'Helvetica Neue'", "Helvetica", "Arial", "sans-serif"],
+        mono: ["var(--font-mono)", "'Courier New'", "Courier", "monospace"],
       },
     },
   },

@@ -1,33 +1,36 @@
 @import "tailwindcss";
+@config "../../tailwind.config.ts";
 
 :root {
-  --nav-offset: clamp(76px, 7vw, 100px);
+  --nav-offset: 6.25rem;
   --color-black: #000000;
   --color-white: #ffffff;
   --color-footer: #e9e8e7;
   --color-accent: #00ff11;
   --color-muted: #a8a8a8;
   --color-blue: #1500ff;
-  --font-display:
-    "Neue Haas Grotesk Display Std", "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
-  --font-body:
-    "Neue Haas Unica Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-mono: "ABC Diatype Mono", "Courier New", Courier, monospace;
+  /* Font variables are injected by Next.js fonts - fallbacks defined here */
+  --font-display-fallback: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body-fallback: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono-fallback: "Courier New", Courier, monospace;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 }
 
 html {
+  /* 1rem = 16px at 1440px viewport, scales fluidly, responds correctly to browser zoom */
+  font-size: clamp(10px, 1.111vw, 20px);
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-body), var(--font-body-fallback);
   background: var(--color-black);
   color: var(--color-white);
   -webkit-font-smoothing: antialiased;
@@ -41,4 +44,32 @@ body {
 
 *::-webkit-scrollbar {
   display: none; /* Chrome/Safari/Opera */
+}
+
+@layer utilities {
+  /* Shared font rendering utility for nav components */
+  .text-crisp {
+    font-synthesis: none;
+    font-feature-settings: normal;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* Prevent browser autofill from adding white background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px black inset !important;
+  -webkit-text-fill-color: white !important;
+  caret-color: white !important;
+  transition: background-color 5000s ease-in-out 0s;
 }

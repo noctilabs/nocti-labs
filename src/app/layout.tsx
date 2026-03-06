@@ -3,6 +3,7 @@ import "./globals.css";
 import { SanityLive } from "@/sanity/lib/live";
 import NavWrapper from "@/components/layout/NavWrapper";
 import ScrollToTop from "@/components/layout/ScrollToTop";
+import { displayFont, bodyFont, monoFont } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Nocti Labs - Commerce and Technology Studio for the AI era",
@@ -16,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}>
       <body>
         <ScrollToTop />
         <NavWrapper />
