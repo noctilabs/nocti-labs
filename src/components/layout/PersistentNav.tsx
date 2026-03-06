@@ -95,7 +95,7 @@ export default function PersistentNav(): React.ReactElement {
     };
   }, []);
 
-  const navClass = "fixed top-[2.5rem] left-[2.5rem] right-[2.5rem] grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 z-[1000] min-w-0 overflow-visible pointer-events-auto";
+  const navClass = "fixed top-[2.5rem] left-section-x right-section-x grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 z-[1000] min-w-0 overflow-visible pointer-events-auto";
 
   return (
     <div className="fixed inset-x-0 top-0 z-[1000] pointer-events-none h-screen">
