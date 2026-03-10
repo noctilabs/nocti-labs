@@ -14,6 +14,7 @@ export const contactMessageType = defineType({
     defineField({ name: 'country', title: 'Country / Region', type: 'string', readOnly: true }),
     defineField({ name: 'platform', title: 'E-Commerce Platform', type: 'string', readOnly: true }),
     defineField({ name: 'phone', title: 'Phone Number', type: 'string', readOnly: true }),
+    defineField({ name: 'hearAboutUs', title: 'How did you hear about us?', type: 'string', readOnly: true }),
     defineField({ name: 'description', title: 'Project Description', type: 'text', readOnly: true }),
     defineField({ name: 'submittedAt', title: 'Submitted At', type: 'datetime', readOnly: true }),
   ],

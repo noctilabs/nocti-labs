@@ -46,6 +46,20 @@ export const contactSectionType = defineType({
         'Other',
       ],
     }),
+    defineField({
+      name: 'hearAboutUsOptions',
+      title: 'How did you hear about us? Options',
+      type: 'array',
+      of: [{ type: 'string' }],
+      description: 'Options for the How did you hear about us? dropdown in the contact form',
+      initialValue: [
+        'I found you on Google',
+        'Someone recommended you',
+        'I saw a post on LinkedIn',
+        'I read your blog or an article about Nocti Labs',
+        'Other',
+      ],
+    }),
   ],
   preview: {
     select: { title: 'heading' },
