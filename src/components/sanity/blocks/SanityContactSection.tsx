@@ -10,6 +10,7 @@ export default function SanityContactSection({
   email,
   offices,
   formHeading,
+  ecommercePlatforms,
 }: SanityContactSectionProps) {
   return (
     <section
@@ -74,7 +75,7 @@ export default function SanityContactSection({
               {formHeading}
             </h2>
           )}
-          <ContactForm />
+          <ContactForm platformOptions={ecommercePlatforms ?? undefined} />
         </div>
 
       </div>

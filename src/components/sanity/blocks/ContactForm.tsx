@@ -13,6 +13,14 @@ interface FloatingFieldProps {
   isTextarea?: boolean;
 }
 
+interface FloatingSelectProps {
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  label: string;
+  options: readonly string[];
+}
+
 const fieldTextClass = caption;
 
 function FloatingField({
@@ -69,7 +77,60 @@ function FloatingField({
   );
 }
 
-export default function ContactForm(): React.ReactElement {
+function FloatingSelect({
+  name,
+  value,
+  onChange,
+  label,
+  options,
+}: FloatingSelectProps): React.ReactElement {
+  const [focused, setFocused] = useState(false);
+  const floated = focused || value.length > 0;
+
+  return (
+    <div className="mb-[0.8rem] relative border-b border-white pb-[0.75rem]">
+      <label
+        htmlFor={name}
+        className={`${fieldTextClass} block text-[#d9d9d9] transition-opacity duration-150 ${floated ? 'opacity-0' : 'opacity-100'}`}
+      >
+        {label}
+      </label>
+      <select
+        id={name}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        className={`bg-transparent focus:outline-none ${fieldTextClass} absolute inset-0 w-full h-full border-none p-0 pr-6 appearance-none cursor-pointer z-[1] ${value ? 'text-white' : 'text-transparent'}`}
+      >
+        <option value="" className="bg-black text-white">
+          Select...
+        </option>
+        {options.map((opt) => (
+          <option key={opt} value={opt} className="bg-black text-white">
+            {opt}
+          </option>
+        ))}
+      </select>
+      <svg
+        className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 text-white pointer-events-none z-[2]"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+  );
+}
+
+interface ContactFormProps {
+  /** E-commerce platform options from Sanity (contact section) */
+  platformOptions?: string[] | null;
+}
+
+export default function ContactForm({ platformOptions = [] }: ContactFormProps): React.ReactElement {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -82,7 +143,7 @@ export default function ContactForm(): React.ReactElement {
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ): void => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -160,11 +221,12 @@ export default function ContactForm(): React.ReactElement {
 
       {/* Row 3: Current E-Commerce Platform + Country / Region */}
       <div className="grid grid-cols-2 gap-[1.38rem]">
-        <FloatingField
+        <FloatingSelect
           name="platform"
           value={formData.platform}
           onChange={handleChange}
           label="Current E-Commerce Platform"
+          options={platformOptions ?? []}
         />
         <FloatingField
           name="country"
