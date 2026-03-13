@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       spacing: {
-        'section-x': '3rem',
+        'section-x': '2.5rem',
       },
       colors: {
         black: "#000000",

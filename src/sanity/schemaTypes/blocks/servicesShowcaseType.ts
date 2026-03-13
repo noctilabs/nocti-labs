@@ -12,6 +12,11 @@ export const servicesShowcaseType = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'tagline',
+      type: 'text',
+      description: 'Supporting text that appears alongside the heading',
+    }),
+    defineField({
       name: 'services',
       type: 'array',
       of: [

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import SanityCta from "@/components/sanity/shared/SanityCta";
-import { heading as headingCls, bodyMedium } from "@/lib/typography";
+import { bodyMedium } from "@/lib/typography";
 import type { PAGE_QUERYResult } from "../../../../sanity.types";
 
 type PageBlock = NonNullable<
@@ -11,7 +11,9 @@ type PageBlock = NonNullable<
 type SanityServicesShowcaseProps = Extract<
   PageBlock,
   { _type: "servicesShowcase" }
->;
+> & {
+  tagline?: string;
+};
 
 function ChevronIcon({ className }: { className?: string }) {
   return (
@@ -41,6 +43,7 @@ function ChevronIcon({ className }: { className?: string }) {
 
 export default function SanityServicesShowcase({
   heading,
+  tagline,
   services,
   cta,
 }: SanityServicesShowcaseProps) {
@@ -56,13 +59,21 @@ export default function SanityServicesShowcase({
       className="bg-black text-white flex flex-col relative"
       suppressHydrationWarning
     >
-      <div className="w-full relative px-section-x py-[5rem]">
-        {/* Heading */}
-        {heading && (
-          <h2 className={`${headingCls} mb-[5.4rem]`}>
-            {heading}
-          </h2>
-        )}
+      <div className="w-full relative px-section-x pt-[2.375rem] pb-[2rem]">
+        {/* Heading and Tagline */}
+        <div className="flex items-start mb-[2rem]">
+          {heading && (
+            <h2 className="font-body font-medium text-[3rem] leading-[3.125rem] w-[54.8%] shrink-0">
+              {heading}
+            </h2>
+          )}
+          {tagline && (
+            <div className="font-body text-[2rem] leading-[2.3125rem] not-italic text-white font-[500] flex-1">
+              <p className="mb-0">{tagline.split('\n')[0]}</p>
+              <p>{tagline.split('\n')[1]}</p>
+            </div>
+          )}
+        </div>
 
         {/* Services Accordion */}
         {services && services.length > 0 && (
@@ -76,7 +87,7 @@ export default function SanityServicesShowcase({
                   {/* Accordion Header */}
                   <div
                     onClick={() => toggleService(service._id)}
-                    className={`${headingCls} py-[1.1rem] cursor-pointer flex justify-between items-center transition-opacity duration-300 ease-in-out select-none border-b border-white hover:opacity-70 ${isFirst ? 'border-t' : ''}`}
+                    className={`font-body font-medium text-[3rem] leading-[3.125rem] py-[1.1rem] cursor-pointer flex justify-between items-center transition-opacity duration-300 ease-in-out select-none border-b border-white hover:opacity-70 ${isFirst ? 'border-t' : ''}`}
                   >
                     <span>{service.title}</span>
                     <span
@@ -116,8 +127,8 @@ export default function SanityServicesShowcase({
 
         {/* CTA */}
         {cta && (
-          <div className="mt-[8.4rem] font-medium leading-[1.042]">
-            <SanityCta {...cta} className="text-white" />
+          <div className="mt-[3.75rem]">
+            <SanityCta {...cta} className="text-white font-body font-medium text-[1.5rem] leading-[1.5625rem] tracking-[0]" />
           </div>
         )}
       </div>

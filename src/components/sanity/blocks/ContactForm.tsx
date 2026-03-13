@@ -15,9 +15,12 @@ interface FloatingFieldProps {
 interface FloatingSelectProps {
   name: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange: (value: string) => void;
   label: string;
   options: readonly string[];
+  open: boolean;
+  onToggle: () => void;
+  panelWidth?: string;
 }
 
 // Figma spec: 14px font size, 16px line height, Regular (400), Neue Haas Unica Pro
@@ -78,47 +81,80 @@ function FloatingField({
   );
 }
 
+// Figma: items at 14px/16px line-height, panel padding 0.625rem top/bottom
+// Red dot: 8px, positioned left-[3px], vertically centered on active item row
+// Item height = 1rem (16px line-height), py-[0.625rem] = 10px top padding
+// dot center offset = 0.625rem + (itemIndex * 1rem) + 0.5rem (half item height)
+function getRedDotTop(index: number): string {
+  // 0.625rem top padding + index * 1rem line-height + 0.25rem (center of 0.5rem dot)
+  return `calc(0.625rem + ${index} * 1rem + 0.25rem)`;
+}
+
 function FloatingSelect({
-  name,
   value,
   onChange,
   label,
   options,
+  open,
+  onToggle,
+  panelWidth = 'w-full',
 }: FloatingSelectProps): React.ReactElement {
-  const [focused, setFocused] = useState(false);
-  const floated = focused || value.length > 0;
+  const [hovered, setHovered] = useState<string | null>(null);
+
+  // Active item: hovered takes priority, fallback to selected value
+  const activeItem = hovered ?? value ?? null;
+  const activeIndex = activeItem ? options.indexOf(activeItem) : -1;
 
   return (
-    <div className="mb-[1.323375rem] relative border-b border-white pb-[0.75rem] overflow-hidden">
-      <label
-        htmlFor={name}
-        className={`${fieldTextClass} block text-[#d9d9d9] transition-opacity duration-150 whitespace-nowrap overflow-hidden text-ellipsis ${floated ? 'opacity-0' : 'opacity-100'}`}
+    <div className="mb-[1.323375rem] relative border-b border-white pb-[0.75rem]">
+      <button
+        type="button"
+        onClick={onToggle}
+        className={`w-full text-left focus:outline-none flex justify-between items-center ${fieldTextClass} ${value ? 'text-white' : 'text-[#d9d9d9]'}`}
       >
-        {label}
-      </label>
-      <select
-        id={name}
-        name={name}
-        value={value}
-        onChange={onChange}
-        onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
-        className={`bg-transparent focus:outline-none ${fieldTextClass} absolute inset-0 w-full h-full border-none p-0 pr-6 appearance-none cursor-pointer z-[1] ${value ? 'text-white' : 'text-transparent'}`}
-      >
-        {options.map((opt) => (
-          <option key={opt} value={opt} className="bg-black text-white">
-            {opt}
-          </option>
-        ))}
-      </select>
-      <svg
-        className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 text-white pointer-events-none z-[2]"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-      </svg>
+        <span className="whitespace-nowrap overflow-hidden text-ellipsis">{value || label}</span>
+        <svg
+          className={`w-3 h-3 shrink-0 ml-2 transition-transform duration-150 ${open ? 'rotate-180' : ''}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {open && (
+        <div
+          className={`absolute left-0 top-full z-50 bg-[#d9d9d9] ${panelWidth}`}
+          onMouseLeave={() => setHovered(null)}
+        >
+          {/* Red dot — tracks hovered item, falls back to selected item */}
+          {activeIndex >= 0 && (
+            <span
+              className="absolute left-[0.1875rem] w-[0.5rem] h-[0.5rem] rounded-full bg-red-500 transition-all duration-100"
+              style={{ top: getRedDotTop(activeIndex) }}
+            />
+          )}
+          {/* Options list */}
+          <div className="flex flex-col pl-[0.9375rem] py-[0.625rem]">
+            {options.map((opt) => (
+              <button
+                key={opt}
+                type="button"
+                onMouseEnter={() => setHovered(opt)}
+                onClick={() => {
+                  onChange(opt);
+                  onToggle();
+                  setHovered(null);
+                }}
+                className={`w-full text-left ${fieldTextClass} text-black leading-[1rem]`}
+              >
+                {opt}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -144,11 +180,17 @@ export default function ContactForm({ platformOptions = [], hearAboutUsOptions =
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+  const handleSelectChange = (field: string) => (value: string): void => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -225,9 +267,12 @@ export default function ContactForm({ platformOptions = [], hearAboutUsOptions =
         <FloatingSelect
           name="platform"
           value={formData.platform}
-          onChange={handleChange}
+          onChange={handleSelectChange('platform')}
           label="Current E-Commerce Platform"
           options={platformOptions ?? []}
+          open={openDropdown === 'platform'}
+          onToggle={() => setOpenDropdown((v) => v === 'platform' ? null : 'platform')}
+          panelWidth="w-[14rem]"
         />
         <FloatingField
           name="country"
@@ -250,9 +295,12 @@ export default function ContactForm({ platformOptions = [], hearAboutUsOptions =
         <FloatingSelect
           name="hearAboutUs"
           value={formData.hearAboutUs}
-          onChange={handleChange}
+          onChange={handleSelectChange('hearAboutUs')}
           label="How did you hear about us?"
           options={hearAboutUsOptions ?? []}
+          open={openDropdown === 'hearAboutUs'}
+          onToggle={() => setOpenDropdown((v) => v === 'hearAboutUs' ? null : 'hearAboutUs')}
+          panelWidth="w-[21.8125rem]"
         />
       </div>
 
