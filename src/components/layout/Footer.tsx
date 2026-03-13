@@ -5,7 +5,7 @@ import type { SITE_SETTINGS_QUERYResult } from '../../../sanity.types';
 
 type FooterColumn = NonNullable<NonNullable<SITE_SETTINGS_QUERYResult>['footerColumns']>[number]
 
-const colClass = "text-[0.97rem] font-mono leading-[1.286] tracking-[0] uppercase text-black";
+const colClass = "text-[0.875rem] font-mono leading-[1.643] tracking-[0] uppercase text-black";
 
 export default async function Footer() {
   const { data: settings } = await sanityFetch({ query: SITE_SETTINGS_QUERY });
@@ -49,13 +49,14 @@ export default async function Footer() {
       data-nav-theme="light"
       className="text-black relative w-full bg-footer h-screen overflow-hidden px-section-x flex flex-col"
     >
-      <div className="relative z-10 pt-[11.3rem]">
+      <div className="relative z-10 pt-[10.5rem]">
         {/* Footer columns — all 5 columns in a row, matching Figma layout */}
         {footerColumns.length > 0 && (
           <div
-            className="grid gap-[1.38rem] items-start w-full"
+            className="grid items-start w-full"
             style={{
-              gridTemplateColumns: `repeat(${footerColumns.length}, minmax(min-content, 1fr))`,
+              gridTemplateColumns: '26.4fr 26.4fr 17fr 17fr 17fr',
+              columnGap: '1.4vw',
             }}
           >
             {renderColumns(footerColumns)}
@@ -63,8 +64,8 @@ export default async function Footer() {
         )}
       </div>
 
-      {/* Large wordmark */}
-      <h2 className="text-[20.2vw] font-display font-medium leading-[0.85] tracking-[-0.02em] text-black text-center w-full whitespace-nowrap mt-auto pb-[1.56rem]">
+      {/* Large wordmark — absolute, bottom-aligned with small gap matching Figma */}
+      <h2 className="absolute bottom-[0] left-0 w-full text-[21vw] font-display font-medium leading-none tracking-[-0.02em] text-black text-center whitespace-nowrap">
         {companyName}
       </h2>
     </footer>
