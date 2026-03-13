@@ -43,6 +43,11 @@ export const PAGE_QUERY = defineQuery(/* groq */ `
           author,
           publishedAt
         }
+      },
+      _type == "contactSection" => {
+        ...,
+        ecommercePlatforms,
+        hearAboutUsOptions
       }
     }
   }
