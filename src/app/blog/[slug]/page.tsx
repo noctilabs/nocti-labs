@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { BLOG_POST_QUERY } from '@/sanity/lib/queries'
 import BlogPostPage from '@/components/blog/BlogPostPage'
+import BlogComingSoon from '@/components/blog/BlogComingSoon'
 import type { BlogPost } from '../../../../sanity.types'
 
 export default async function Page({
@@ -14,5 +15,7 @@ export default async function Page({
 
   if (!post) notFound()
 
-  return <BlogPostPage post={post} />
+  const hasBody = post.body && post.body.length > 0
+
+  return hasBody ? <BlogPostPage post={post} /> : <BlogComingSoon />
 }
