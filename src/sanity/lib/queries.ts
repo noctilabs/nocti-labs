@@ -53,6 +53,26 @@ export const PAGE_QUERY = defineQuery(/* groq */ `
   }
 `)
 
+export const BLOG_POST_QUERY = defineQuery(/* groq */ `
+  *[_type == "blogPost" && slug.current == $slug][0]{
+    _id,
+    title,
+    slug,
+    coverImage,
+    excerpt,
+    body[]{
+      ...,
+      _type == "image" => {
+        ...,
+        asset->
+      }
+    },
+    author,
+    authorImage,
+    publishedAt
+  }
+`)
+
 export const SITE_SETTINGS_QUERY = defineQuery(/* groq */ `
   *[_type == "siteSettings"][0]{
     _id,

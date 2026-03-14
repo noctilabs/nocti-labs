@@ -42,6 +42,12 @@ export const blogPostType = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'authorImage',
+      title: 'Author Profile Picture',
+      type: 'image',
+      options: { hotspot: true },
+    }),
+    defineField({
       name: 'publishedAt',
       type: 'datetime',
     }),

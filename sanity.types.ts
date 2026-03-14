@@ -336,6 +336,17 @@ export type BlogPost = {
     _key: string;
   }>;
   author?: string;
+  authorImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
   publishedAt?: string;
 };
 

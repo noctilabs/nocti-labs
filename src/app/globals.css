@@ -47,6 +47,11 @@ body {
 }
 
 @layer utilities {
+  /* Blog post bullet list — smaller marker to match Figma */
+  .blog-list li::marker {
+    font-size: 0.6em;
+  }
+
   /* Shared font rendering utility for nav components */
   .text-crisp {
     font-synthesis: none;
