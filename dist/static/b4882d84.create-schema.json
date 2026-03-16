@@ -1,0 +1,1198 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "label",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Internal",
+              "value": "internal"
+            },
+            {
+              "title": "External",
+              "value": "external"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "internal",
+        "name": "linkType",
+        "type": "string"
+      },
+      {
+        "description": "Relative path, e.g. /services",
+        "hidden": "conditional",
+        "name": "internalLink",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "externalUrl",
+        "type": "url",
+        "title": "External URL"
+      }
+    ],
+    "name": "cta",
+    "type": "object",
+    "title": "Call to Action"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "city",
+        "type": "string"
+      },
+      {
+        "description": "e.g. California",
+        "name": "state",
+        "type": "string",
+        "title": "State / Region"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "country",
+        "type": "string"
+      },
+      {
+        "description": "e.g. 970 N Broadway #103",
+        "name": "address",
+        "type": "string",
+        "title": "Street address"
+      },
+      {
+        "description": "e.g. CA",
+        "name": "stateAbbr",
+        "type": "string",
+        "title": "State abbreviation"
+      },
+      {
+        "description": "e.g. 90012",
+        "name": "zip",
+        "type": "string",
+        "title": "ZIP / Postal code"
+      }
+    ],
+    "name": "office",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Technology",
+              "value": "technology"
+            },
+            {
+              "title": "Design",
+              "value": "design"
+            }
+          ],
+          "layout": "radio"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "technology",
+                  "design"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "category",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "type": "cta",
+            "title": "Call to Action"
+          }
+        ],
+        "name": "items",
+        "type": "array",
+        "title": "Service Items"
+      }
+    ],
+    "name": "service",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "name": "client",
+        "type": "string"
+      },
+      {
+        "rows": 4,
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "coverImage",
+        "type": "image"
+      },
+      {
+        "options": {
+          "accept": "video/*"
+        },
+        "name": "coverVideo",
+        "type": "file"
+      },
+      {
+        "options": {
+          "layout": "tags"
+        },
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "tags",
+        "type": "array"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "url",
+        "type": "url",
+        "title": "Project URL"
+      }
+    ],
+    "name": "project",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "coverImage",
+        "type": "image"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 200
+              }
+            ],
+            "level": "warning",
+            "message": "Keep it under 200 characters for best display"
+          }
+        ],
+        "name": "excerpt",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ],
+                          "level": "error"
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "of": [],
+            "type": "block"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "type": "image"
+          }
+        ],
+        "name": "body",
+        "type": "array"
+      },
+      {
+        "name": "author",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "authorImage",
+        "type": "image",
+        "title": "Author Profile Picture"
+      },
+      {
+        "name": "publishedAt",
+        "type": "datetime"
+      }
+    ],
+    "name": "blogPost",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "companyName",
+        "type": "string"
+      },
+      {
+        "name": "email",
+        "type": "string"
+      },
+      {
+        "of": [
+          {
+            "type": "office"
+          }
+        ],
+        "name": "offices",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "platform",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "socialLinks",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "heading",
+                "type": "string"
+              },
+              {
+                "of": [
+                  {
+                    "fields": [
+                      {
+                        "name": "label",
+                        "type": "string"
+                      },
+                      {
+                        "name": "href",
+                        "type": "string"
+                      }
+                    ],
+                    "type": "object"
+                  }
+                ],
+                "name": "links",
+                "type": "array"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "footerColumns",
+        "type": "array"
+      }
+    ],
+    "name": "siteSettings",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "of": [
+          {
+            "type": "hero"
+          },
+          {
+            "type": "introSection"
+          },
+          {
+            "type": "servicesShowcase"
+          },
+          {
+            "type": "projectsShowcase"
+          },
+          {
+            "type": "insightsGrid"
+          },
+          {
+            "type": "contactSection"
+          },
+          {
+            "type": "missionSection"
+          },
+          {
+            "type": "aboutSection"
+          }
+        ],
+        "name": "pageBuilder",
+        "type": "array"
+      },
+      {
+        "fields": [
+          {
+            "name": "title",
+            "type": "string",
+            "title": "SEO Title"
+          },
+          {
+            "rows": 3,
+            "name": "description",
+            "type": "text",
+            "title": "SEO Description"
+          }
+        ],
+        "name": "seo",
+        "type": "object",
+        "title": "SEO"
+      }
+    ],
+    "name": "page",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "readOnly": true,
+        "name": "firstName",
+        "type": "string"
+      },
+      {
+        "readOnly": true,
+        "name": "lastName",
+        "type": "string"
+      },
+      {
+        "readOnly": true,
+        "name": "email",
+        "type": "string"
+      },
+      {
+        "readOnly": true,
+        "name": "company",
+        "type": "string"
+      },
+      {
+        "readOnly": true,
+        "name": "country",
+        "type": "string",
+        "title": "Country / Region"
+      },
+      {
+        "readOnly": true,
+        "name": "platform",
+        "type": "string",
+        "title": "E-Commerce Platform"
+      },
+      {
+        "readOnly": true,
+        "name": "phone",
+        "type": "string",
+        "title": "Phone Number"
+      },
+      {
+        "readOnly": true,
+        "name": "hearAboutUs",
+        "type": "string",
+        "title": "How did you hear about us?"
+      },
+      {
+        "readOnly": true,
+        "name": "description",
+        "type": "text",
+        "title": "Project Description"
+      },
+      {
+        "readOnly": true,
+        "name": "submittedAt",
+        "type": "datetime"
+      }
+    ],
+    "name": "contactMessage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Optional. Falls back to default SVG background if empty.",
+        "name": "backgroundImage",
+        "type": "image"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Inner Background Image",
+              "value": "blue"
+            },
+            {
+              "title": "Dark",
+              "value": "dark"
+            },
+            {
+              "title": "Light",
+              "value": "light"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "blue",
+        "name": "theme",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Optional. Falls back to default SVG if empty. This is the background for the headline panel.",
+        "name": "innerBackgroundImage",
+        "type": "image"
+      }
+    ],
+    "name": "hero",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image"
+      },
+      {
+        "rows": 4,
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "fields": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "name": "image",
+            "type": "image"
+          },
+          {
+            "name": "text",
+            "type": "string"
+          }
+        ],
+        "name": "badge",
+        "type": "object"
+      },
+      {
+        "name": "cta",
+        "type": "cta"
+      }
+    ],
+    "name": "introSection",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "description": "Supporting text that appears alongside the heading",
+        "name": "tagline",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "to": [
+              {
+                "type": "service"
+              }
+            ],
+            "type": "reference",
+            "title": "Reference to service"
+          }
+        ],
+        "name": "services",
+        "type": "array"
+      },
+      {
+        "name": "cta",
+        "type": "cta"
+      }
+    ],
+    "name": "servicesShowcase",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "of": [
+          {
+            "to": [
+              {
+                "type": "project"
+              }
+            ],
+            "type": "reference",
+            "title": "Reference to project"
+          }
+        ],
+        "name": "projects",
+        "type": "array"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "regex",
+                "constraint": {
+                  "pattern": "/^#[0-9A-F]{6}$/i",
+                  "invert": false
+                }
+              }
+            ],
+            "level": "error",
+            "message": "Must be a valid hex color"
+          }
+        ],
+        "description": "Hex color for the page background (e.g., #ffffff)",
+        "name": "backgroundColor",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "regex",
+                "constraint": {
+                  "pattern": "/^#[0-9A-F]{6}$/i",
+                  "invert": false
+                }
+              }
+            ],
+            "level": "error",
+            "message": "Must be a valid hex color"
+          }
+        ],
+        "description": "Hex color for the heading text (e.g., #000000)",
+        "name": "headingColor",
+        "type": "string"
+      }
+    ],
+    "name": "projectsShowcase",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 4
+              }
+            ],
+            "level": "warning",
+            "message": "Recommended max of 4 posts for the grid"
+          }
+        ],
+        "of": [
+          {
+            "to": [
+              {
+                "type": "blogPost"
+              }
+            ],
+            "type": "reference",
+            "title": "Reference to blog post"
+          }
+        ],
+        "name": "featuredPosts",
+        "type": "array"
+      }
+    ],
+    "name": "insightsGrid",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "name": "email",
+        "type": "string"
+      },
+      {
+        "of": [
+          {
+            "type": "office"
+          }
+        ],
+        "name": "offices",
+        "type": "array"
+      },
+      {
+        "name": "formHeading",
+        "type": "string"
+      },
+      {
+        "initialValue": [
+          "Shopify",
+          "WooCommerce",
+          "Salesforce Commerce Cloud",
+          "Magento",
+          "Adobe Commerce",
+          "Centra",
+          "BigCommerce",
+          "Tienda Nube",
+          "Linx",
+          "Fenicio",
+          "Other"
+        ],
+        "description": "Options for the Current E-Commerce Platform dropdown in the contact form",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "ecommercePlatforms",
+        "type": "array",
+        "title": "E-Commerce Platform Options"
+      },
+      {
+        "initialValue": [
+          "I found you on Google",
+          "Someone recommended you",
+          "I saw a post on LinkedIn",
+          "I read your blog or an article about Nocti Labs",
+          "Other"
+        ],
+        "description": "Options for the How did you hear about us? dropdown in the contact form",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "hearAboutUsOptions",
+        "type": "array",
+        "title": "How did you hear about us? Options"
+      }
+    ],
+    "name": "contactSection",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Optional decorative image displayed above the principles",
+        "name": "image",
+        "type": "image"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "rows": 3,
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "description",
+                "type": "text"
+              },
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "description": "Optional icon for the principle",
+                "name": "icon",
+                "type": "image"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "principles",
+        "type": "array"
+      }
+    ],
+    "name": "missionSection",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "name": "heading",
+        "type": "string"
+      },
+      {
+        "rows": 4,
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Full-width image displayed below the description",
+        "name": "image",
+        "type": "image"
+      }
+    ],
+    "name": "aboutSection",
+    "type": "object"
+  }
+]
