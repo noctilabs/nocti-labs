@@ -25,7 +25,7 @@ export default function SanityInsightsGrid({
         {featuredPosts && featuredPosts.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1.42rem] pb-[3rem]">
             {featuredPosts.map((post) => (
-              <div key={post._id} className="group cursor-pointer flex flex-col">
+              <Link key={post._id} href={`/blog/${post.slug?.current}`} className="group flex flex-col">
                 {/* Cover Image */}
                 {post.coverImage?.asset?._ref ? (
                   <Image
@@ -61,7 +61,7 @@ export default function SanityInsightsGrid({
                     </p>
                   )}
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}

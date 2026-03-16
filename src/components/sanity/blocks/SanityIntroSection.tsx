@@ -76,7 +76,7 @@ export default function SanityIntroSection({
       {/* CTA - Bottom Right */}
       {cta && (
         <div className="flex justify-end pt-[1.25rem] pb-[2.5rem] font-medium leading-[1.042]">
-          <SanityCta {...cta} className="text-white" />
+          <SanityCta {...cta} className="text-white text-[1.66rem]" />
         </div>
       )}
     </section>

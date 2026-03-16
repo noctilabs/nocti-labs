@@ -1,5 +1,5 @@
 import ContactForm from './ContactForm'
-import { heading as titleClass, subheading as ctaClass } from '@/lib/typography'
+import { contactTitle, contactCta } from '@/lib/typography'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
@@ -10,36 +10,38 @@ export default function SanityContactSection({
   email,
   offices,
   formHeading,
+  ecommercePlatforms,
+  hearAboutUsOptions,
 }: SanityContactSectionProps) {
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white pt-[9.48rem] pb-[8.34rem] pl-section-x pr-[10.73rem]"
+      className="bg-black text-white pt-[2.34rem] pb-[8.34rem] pl-section-x pr-[10.73rem] scroll-mt-[7rem]"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[673fr_442fr] gap-[9.34rem]">
 
-        {/* LEFT COLUMN */}
-        <div>
-          {/* "Lets talk!" + email — side by side */}
-          <div className="flex items-start gap-[1.38rem]">
+        {/* LEFT COLUMN — stacked per Figma */}
+        <div className="flex flex-col gap-[12.5625rem]">
+          {/* "Lets talk!" + email — stacked vertically, 21px gap */}
+          <div className="flex flex-col gap-[1.3125rem]">
             {heading && (
-              <h2 className={`${titleClass} flex-1 m-0`}>
+              <h2 className={`${contactTitle} m-0`}>
                 {heading}
               </h2>
             )}
             {email && (
-              <p className={`${ctaClass} flex-1 m-0 pt-[1.59rem] text-white`}>
+              <p className={`${contactCta} m-0 text-white`}>
                 {email}
               </p>
             )}
           </div>
 
-          {/* "Our Offices" + addresses — side by side */}
-          <div className="grid grid-cols-2 gap-[1.38rem] mt-[18.75rem]">
-            <h3 className={titleClass}>
+          {/* "Our Offices" + addresses — stacked vertically, 35px gap */}
+          <div className="flex flex-col gap-[2.1875rem]">
+            <h3 className={`${contactTitle} m-0`}>
               Our Offices
             </h3>
-            <div className="pt-[1.63rem] w-[22.7rem]">
+            <div className="max-w-[20.5rem]">
               {offices && offices.map((office, index) => {
                 const locationLine = [office.city, office.state, office.country].filter(Boolean).join(', ');
                 const hasAddressParts = office.address || office.stateAbbr || office.zip;
@@ -51,7 +53,7 @@ export default function SanityContactSection({
                     key={office._key}
                     className={index > 0 ? 'mt-[1.73rem]' : ''}
                   >
-                    <p className={`${ctaClass} text-white`}>
+                    <p className={`${contactCta} text-white`}>
                       {locationLine}
                       {addressLine && (
                         <>
@@ -70,11 +72,14 @@ export default function SanityContactSection({
         {/* RIGHT COLUMN — form */}
         <div>
           {formHeading && (
-            <h2 className={`${titleClass} pb-[1.58rem]`}>
+            <h2 className={`${contactTitle} pb-[1.25rem]`}>
               {formHeading}
             </h2>
           )}
-          <ContactForm />
+          <ContactForm 
+            platformOptions={ecommercePlatforms ?? undefined}
+            hearAboutUsOptions={hearAboutUsOptions ?? undefined}
+          />
         </div>
 
       </div>

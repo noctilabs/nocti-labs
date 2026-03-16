@@ -21,6 +21,7 @@ export async function POST(req: Request) {
       country: body.country ?? '',
       platform: body.platform ?? '',
       phone: body.phone ?? '',
+      hearAboutUs: body.hearAboutUs ?? '',
       description: body.description ?? '',
       submittedAt: new Date().toISOString(),
     })
