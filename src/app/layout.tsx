@@ -27,7 +27,7 @@ export default async function RootLayout({
         <NavWrapper />
         {children}
         <SanityLive />
-        {isEnabled && <VisualEditing />}
+        {isEnabled && <VisualEditing portal />}
       </body>
     </html>
   );
