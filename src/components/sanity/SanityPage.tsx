@@ -17,5 +17,5 @@ export default async function SanityPage({ slug }: SanityPageProps) {
     return <PageNotFound />;
   }
 
-  return <PageBuilder blocks={page.pageBuilder} />;
+  return <PageBuilder blocks={page.pageBuilder} documentId={page._id} />;
 }

@@ -1,16 +1,25 @@
 import { stegaClean } from 'next-sanity'
+import { createDataAttribute } from '@sanity/visual-editing'
 import { urlFor } from '@/sanity/lib/image'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
-type SanityHeroProps = Extract<PageBlock, { _type: 'hero' }>
+type SanityHeroProps = Extract<PageBlock, { _type: 'hero' }> & {
+  documentId?: string
+}
 
 export default function SanityHero({
   heading,
   backgroundImage,
   theme,
   innerBackgroundImage,
+  _key,
+  documentId,
 }: SanityHeroProps) {
+  const attr = (path: string) =>
+    documentId
+      ? { 'data-sanity': createDataAttribute({ id: documentId, type: 'page', path: `pageBuilder[_key=="${_key}"].${path}` }).toString() }
+      : {}
   const cleanTheme = stegaClean(theme) || 'blue'
 
   const hasCustomBg = backgroundImage?.asset?._ref
@@ -66,6 +75,7 @@ export default function SanityHero({
       >
         <p
           className={`${textColor} w-[74.5%] text-[3rem] font-body font-medium not-italic leading-[3.125rem] tracking-[0] text-center antialiased text-crisp m-0 p-0`}
+          {...attr('heading')}
         >
           {heading || 'Commerce and Technology Studio for the AI era'}
         </p>

@@ -1,13 +1,16 @@
 'use client'
 
 import Image from 'next/image'
+import { createDataAttribute } from '@sanity/visual-editing'
 import { urlFor } from '@/sanity/lib/image'
 import SanityCta from '@/components/sanity/shared/SanityCta'
 import { heading as headingCls, bodyLarge } from '@/lib/typography'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
-type SanityIntroSectionProps = Extract<PageBlock, { _type: 'introSection' }>
+type SanityIntroSectionProps = Extract<PageBlock, { _type: 'introSection' }> & {
+  documentId?: string
+}
 
 export default function SanityIntroSection({
   heading,
@@ -15,7 +18,13 @@ export default function SanityIntroSection({
   description,
   badge,
   cta,
+  _key,
+  documentId,
 }: SanityIntroSectionProps) {
+  const attr = (path: string) =>
+    documentId
+      ? { 'data-sanity': createDataAttribute({ id: documentId, type: 'page', path: `pageBuilder[_key=="${_key}"].${path}` }).toString() }
+      : {}
   return (
     <section
       data-nav-theme="dark"
@@ -24,7 +33,7 @@ export default function SanityIntroSection({
       {/* Heading - Top Left */}
       {heading && (
         <div className="mt-[3.125rem] mb-[2.5rem] max-w-[38.55rem] w-full">
-          <h2 className={`${headingCls} m-0`}>
+          <h2 className={`${headingCls} m-0`} {...attr('heading')}>
             {heading}
           </h2>
         </div>
@@ -44,7 +53,7 @@ export default function SanityIntroSection({
             </div>
           )}
           {badge.text && (
-            <span className="font-body text-white text-[1.25rem]">
+            <span className="font-body text-white text-[1.25rem]" {...attr('badge.text')}>
               {badge.text}
             </span>
           )}
@@ -67,7 +76,7 @@ export default function SanityIntroSection({
       {/* Description - Below Image */}
       {description && (
         <div className="pb-[1.25rem] max-w-[94.42%]">
-          <p className={`${bodyLarge} pt-[2.5rem] pb-[1.25rem] m-0`}>
+          <p className={`${bodyLarge} pt-[2.5rem] pb-[1.25rem] m-0`} {...attr('description')}>
             {description}
           </p>
         </div>

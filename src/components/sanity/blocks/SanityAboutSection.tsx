@@ -1,16 +1,25 @@
 import Image from 'next/image'
+import { createDataAttribute } from '@sanity/visual-editing'
 import { urlFor } from '@/sanity/lib/image'
 import { heading as headingCls, bodyLarge } from '@/lib/typography'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
-type SanityAboutSectionProps = Extract<PageBlock, { _type: 'aboutSection' }>
+type SanityAboutSectionProps = Extract<PageBlock, { _type: 'aboutSection' }> & {
+  documentId?: string
+}
 
 export default function SanityAboutSection({
   heading,
   description,
   image,
+  _key,
+  documentId,
 }: SanityAboutSectionProps) {
+  const attr = (path: string) =>
+    documentId
+      ? { 'data-sanity': createDataAttribute({ id: documentId, type: 'page', path: `pageBuilder[_key=="${_key}"].${path}` }).toString() }
+      : {}
   return (
     <section
       data-nav-theme="dark"
@@ -19,14 +28,14 @@ export default function SanityAboutSection({
       <div className="px-section-x pt-[4.74rem]">
         {/* Heading */}
         {heading && (
-          <h1 className={`${headingCls} mb-[3.94rem]`}>
+          <h1 className={`${headingCls} mb-[3.94rem]`} {...attr('heading')}>
             {heading}
           </h1>
         )}
 
         {/* Description */}
         {description && (
-          <p className={`${bodyLarge} max-w-[94.44rem] mb-[5.54rem]`}>
+          <p className={`${bodyLarge} max-w-[94.44rem] mb-[5.54rem]`} {...attr('description')}>
             {description}
           </p>
         )}

@@ -1,23 +1,32 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { createDataAttribute } from '@sanity/visual-editing'
 import { urlFor } from '@/sanity/lib/image'
 import { heading as headingCls, subheading, caption } from '@/lib/typography'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
-type SanityInsightsGridProps = Extract<PageBlock, { _type: 'insightsGrid' }>
+type SanityInsightsGridProps = Extract<PageBlock, { _type: 'insightsGrid' }> & {
+  documentId?: string
+}
 
 export default function SanityInsightsGrid({
   heading,
   featuredPosts,
+  _key,
+  documentId,
 }: SanityInsightsGridProps) {
+  const attr = (path: string) =>
+    documentId
+      ? { 'data-sanity': createDataAttribute({ id: documentId, type: 'page', path: `pageBuilder[_key=="${_key}"].${path}` }).toString() }
+      : {}
   return (
     <section
       data-nav-theme="dark"
       className="bg-black text-white pt-[2.34rem] mx-section-x mb-[3rem]"
     >
         {heading && (
-          <h2 className={`${headingCls} pt-0 pb-[7.11rem]`}>
+          <h2 className={`${headingCls} pt-0 pb-[7.11rem]`} {...attr('heading')}>
             {heading}
           </h2>
         )}

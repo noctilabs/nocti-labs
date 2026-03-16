@@ -3,5 +3,5 @@
 import { VisualEditing } from '@sanity/visual-editing/react'
 
 export default function VisualEditingWrapper() {
-  return <VisualEditing />
+  return <VisualEditing portal={true} />
 }

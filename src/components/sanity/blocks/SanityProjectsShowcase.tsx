@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image'
+import { createDataAttribute } from '@sanity/visual-editing'
 import { urlFor } from '@/sanity/lib/image'
 import { getNavTheme } from '@/lib/colorUtils'
 import { heading as headingCls } from '@/lib/typography'
@@ -11,6 +12,7 @@ type BaseProjectsShowcase = Extract<PageBlock, { _type: 'projectsShowcase' }>
 type SanityProjectsShowcaseProps = BaseProjectsShowcase & {
   backgroundColor?: string
   headingColor?: string
+  documentId?: string
 }
 
 export default function SanityProjectsShowcase({
@@ -18,7 +20,13 @@ export default function SanityProjectsShowcase({
   projects,
   backgroundColor,
   headingColor,
+  _key,
+  documentId,
 }: SanityProjectsShowcaseProps) {
+  const attr = (path: string) =>
+    documentId
+      ? { 'data-sanity': createDataAttribute({ id: documentId, type: 'page', path: `pageBuilder[_key=="${_key}"].${path}` }).toString() }
+      : {}
   type ProjectsShowcaseProjectWithVideo = {
     coverVideoUrl?: string
     coverImage?: {
@@ -44,6 +52,7 @@ export default function SanityProjectsShowcase({
           <h2
             className={headingCls}
             style={{ color: headingColor || '#000000' }}
+            {...attr('heading')}
           >
             {heading}
           </h2>

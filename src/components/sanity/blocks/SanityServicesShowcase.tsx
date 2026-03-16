@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createDataAttribute } from "@sanity/visual-editing";
 import SanityCta from "@/components/sanity/shared/SanityCta";
 import { bodyMedium } from "@/lib/typography";
 import type { PAGE_QUERYResult } from "../../../../sanity.types";
@@ -13,6 +14,7 @@ type SanityServicesShowcaseProps = Extract<
   { _type: "servicesShowcase" }
 > & {
   tagline?: string;
+  documentId?: string;
 };
 
 function ChevronIcon({ className }: { className?: string }) {
@@ -46,8 +48,15 @@ export default function SanityServicesShowcase({
   tagline,
   services,
   cta,
+  _key,
+  documentId,
 }: SanityServicesShowcaseProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  const attr = (path: string) =>
+    documentId
+      ? { 'data-sanity': createDataAttribute({ id: documentId, type: 'page', path: `pageBuilder[_key=="${_key}"].${path}` }).toString() }
+      : {};
 
   const toggleService = (id: string) => {
     setExpandedId(expandedId === id ? null : id);
@@ -63,12 +72,12 @@ export default function SanityServicesShowcase({
         {/* Heading and Tagline */}
         <div className="flex items-start mb-[2rem]">
           {heading && (
-            <h2 className="font-body font-medium text-[3rem] leading-[3.125rem] w-[54.8%] shrink-0">
+            <h2 className="font-body font-medium text-[3rem] leading-[3.125rem] w-[54.8%] shrink-0" {...attr('heading')}>
               {heading}
             </h2>
           )}
           {tagline && (
-            <div className="font-body text-[2rem] leading-[2.3125rem] not-italic text-white font-[500] flex-1">
+            <div className="font-body text-[2rem] leading-[2.3125rem] not-italic text-white font-[500] flex-1" {...attr('tagline')}>
               <p className="mb-0">{tagline.split('\n')[0]}</p>
               <p>{tagline.split('\n')[1]}</p>
             </div>

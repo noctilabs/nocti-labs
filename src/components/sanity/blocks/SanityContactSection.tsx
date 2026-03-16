@@ -1,9 +1,12 @@
+import { createDataAttribute } from '@sanity/visual-editing'
 import ContactForm from './ContactForm'
 import { contactTitle, contactCta } from '@/lib/typography'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
-type SanityContactSectionProps = Extract<PageBlock, { _type: 'contactSection' }>
+type SanityContactSectionProps = Extract<PageBlock, { _type: 'contactSection' }> & {
+  documentId?: string
+}
 
 export default function SanityContactSection({
   heading,
@@ -12,7 +15,13 @@ export default function SanityContactSection({
   formHeading,
   ecommercePlatforms,
   hearAboutUsOptions,
+  _key,
+  documentId,
 }: SanityContactSectionProps) {
+  const attr = (path: string) =>
+    documentId
+      ? { 'data-sanity': createDataAttribute({ id: documentId, type: 'page', path: `pageBuilder[_key=="${_key}"].${path}` }).toString() }
+      : {}
   return (
     <section
       data-nav-theme="dark"
@@ -25,12 +34,12 @@ export default function SanityContactSection({
           {/* "Lets talk!" + email — stacked vertically, 21px gap */}
           <div className="flex flex-col gap-[1.3125rem]">
             {heading && (
-              <h2 className={`${contactTitle} m-0`}>
+              <h2 className={`${contactTitle} m-0`} {...attr('heading')}>
                 {heading}
               </h2>
             )}
             {email && (
-              <p className={`${contactCta} m-0 text-white`}>
+              <p className={`${contactCta} m-0 text-white`} {...attr('email')}>
                 {email}
               </p>
             )}
@@ -72,11 +81,11 @@ export default function SanityContactSection({
         {/* RIGHT COLUMN — form */}
         <div>
           {formHeading && (
-            <h2 className={`${contactTitle} pb-[1.25rem]`}>
+            <h2 className={`${contactTitle} pb-[1.25rem]`} {...attr('formHeading')}>
               {formHeading}
             </h2>
           )}
-          <ContactForm 
+          <ContactForm
             platformOptions={ecommercePlatforms ?? undefined}
             hearAboutUsOptions={hearAboutUsOptions ?? undefined}
           />

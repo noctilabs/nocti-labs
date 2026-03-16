@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { createDataAttribute } from "@sanity/visual-editing";
 import { urlFor } from "@/sanity/lib/image";
 import { heading as headingCls, subheading, caption } from "@/lib/typography";
 import type { PAGE_QUERYResult } from "../../../../sanity.types";
@@ -11,13 +12,26 @@ type PageBlock = NonNullable<
 type SanityMissionSectionProps = Extract<
   PageBlock,
   { _type: "missionSection" }
->;
+> & {
+  documentId?: string;
+};
 
 export default function SanityMissionSection({
   heading,
   image,
   principles,
+  _key,
+  documentId,
 }: SanityMissionSectionProps) {
+  const attr = (path: string) =>
+    documentId
+      ? { 'data-sanity': createDataAttribute({ id: documentId, type: 'page', path: `pageBuilder[_key=="${_key}"].${path}` }).toString() }
+      : {};
+
+  const itemAttr = (itemKey: string, field: string) =>
+    documentId
+      ? { 'data-sanity': createDataAttribute({ id: documentId, type: 'page', path: `pageBuilder[_key=="${_key}"].principles[_key=="${itemKey}"].${field}` }).toString() }
+      : {};
   return (
     <section
       data-nav-theme="dark"
@@ -27,7 +41,7 @@ export default function SanityMissionSection({
       <div className="w-full relative px-section-x pt-[2.37rem] pb-[11.07rem] flex flex-col gap-[5.47rem]">
         {/* Heading */}
         {heading && (
-          <h2 className={`${headingCls} m-0`}>
+          <h2 className={`${headingCls} m-0`} {...attr('heading')}>
             {heading}
           </h2>
         )}
@@ -57,14 +71,14 @@ export default function SanityMissionSection({
 
                 {/* Title */}
                 {principle.title && (
-                  <h3 className={`${subheading} m-0`}>
+                  <h3 className={`${subheading} m-0`} {...itemAttr(principle._key!, 'title')}>
                     {principle.title}
                   </h3>
                 )}
 
                 {/* Description */}
                 {principle.description && (
-                  <p className={`${caption} m-0`}>
+                  <p className={`${caption} m-0`} {...itemAttr(principle._key!, 'description')}>
                     {principle.description}
                   </p>
                 )}
