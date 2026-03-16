@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { PortableText, PortableTextComponents } from 'next-sanity'
+import { createDataAttribute } from '@sanity/visual-editing'
 import { urlFor } from '@/sanity/lib/image'
 import type { BlogPost } from '../../../sanity.types'
 
@@ -102,6 +103,11 @@ function makePortableTextComponents(sectionRefs: React.RefObject<Record<string, 
 }
 
 export default function BlogPostPage({ post }: Props) {
+  const attr = (path: string) =>
+    post._id
+      ? { 'data-sanity': createDataAttribute({ id: post._id, type: 'blogPost', path }).toString() }
+      : {}
+
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({})
   const [activeKey, setActiveKey] = useState<string | null>(null)
   const [hoveredKey, setHoveredKey] = useState<string | null>(null)
@@ -161,11 +167,11 @@ export default function BlogPostPage({ post }: Props) {
 
       {/* ── Header: date + author ───────────────────────────── */}
       <div className="flex items-center justify-between pt-[15.125rem] px-[6.4375rem]">
-        <p className="font-body font-medium text-[1.5rem] leading-[1.5625rem]">
+        <p className="font-body font-medium text-[1.5rem] leading-[1.5625rem]" {...attr('publishedAt')}>
           {formatDate(post.publishedAt)}
         </p>
         {post.author && (
-          <div className="flex items-center gap-[0.6875rem]">
+          <div className="flex items-center gap-[0.6875rem]" {...attr('author')}>
             {post.authorImage?.asset?._ref && (
               <Image
                 src={urlFor(post.authorImage).width(39).height(39).url()}
@@ -184,7 +190,7 @@ export default function BlogPostPage({ post }: Props) {
 
       {/* ── Title ───────────────────────────────────────────── */}
       {post.title && (
-        <h1 className="font-body font-medium text-[5.625rem] leading-[5.625rem] text-white px-[6.28125rem] mt-[3.9375rem] mb-0">
+        <h1 className="font-body font-medium text-[5.625rem] leading-[5.625rem] text-white px-[6.28125rem] mt-[3.9375rem] mb-0" {...attr('title')}>
           {post.title}
         </h1>
       )}
@@ -240,7 +246,7 @@ export default function BlogPostPage({ post }: Props) {
         </aside>
 
         {/* Body content */}
-        <article className="w-[57.375rem]">
+        <article className="w-[57.375rem]" {...attr('body')}>
           {post.body && (
             <PortableText value={post.body} components={portableTextComponents} />
           )}

@@ -1,9 +1,8 @@
 import { notFound } from 'next/navigation'
-import { client } from '@/sanity/lib/client'
+import { sanityFetch } from '@/sanity/lib/live'
 import { BLOG_POST_QUERY } from '@/sanity/lib/queries'
 import BlogPostPage from '@/components/blog/BlogPostPage'
 import BlogComingSoon from '@/components/blog/BlogComingSoon'
-import type { BlogPost } from '../../../../sanity.types'
 
 export default async function Page({
   params,
@@ -11,7 +10,7 @@ export default async function Page({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const post = await client.fetch<BlogPost | null>(BLOG_POST_QUERY, { slug })
+  const { data: post } = await sanityFetch({ query: BLOG_POST_QUERY, params: { slug } })
 
   if (!post) notFound()
 
