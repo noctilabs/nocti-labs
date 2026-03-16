@@ -5,7 +5,7 @@ import NavWrapper from "@/components/layout/NavWrapper";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import { displayFont, bodyFont, monoFont } from "./fonts";
 import { draftMode } from "next/headers";
-import { VisualEditing } from "@sanity/visual-editing/next";
+import { VisualEditing } from "@sanity/visual-editing/react";
 
 export const metadata: Metadata = {
   title: "Nocti Labs - Commerce and Technology Studio for the AI era",
