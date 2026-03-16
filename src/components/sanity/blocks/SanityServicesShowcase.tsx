@@ -53,6 +53,7 @@ export default function SanityServicesShowcase({
   documentId,
 }: SanityServicesShowcaseProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const cleanTagline = stegaClean(tagline) ?? ''
 
   const attr = (path: string) =>
     documentId
@@ -79,8 +80,8 @@ export default function SanityServicesShowcase({
           )}
           {tagline && (
             <div className="font-body text-[2rem] leading-[2.3125rem] not-italic text-white font-[500] flex-1" {...attr('tagline')}>
-              <p className="mb-0">{stegaClean(tagline).split('\n')[0]}</p>
-              <p>{stegaClean(tagline).split('\n')[1]}</p>
+              <p className="mb-0" suppressHydrationWarning>{cleanTagline.split('\n')[0]}</p>
+              <p suppressHydrationWarning>{cleanTagline.split('\n')[1]}</p>
             </div>
           )}
         </div>

@@ -1,4 +1,5 @@
 import { createDataAttribute } from '@sanity/visual-editing'
+import { stegaClean } from 'next-sanity'
 import ContactForm from './ContactForm'
 import { contactTitle, contactCta } from '@/lib/typography'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
@@ -52,10 +53,10 @@ export default function SanityContactSection({
             </h3>
             <div className="max-w-[20.5rem]">
               {offices && offices.map((office, index) => {
-                const locationLine = [office.city, office.state, office.country].filter(Boolean).join(', ');
+                const locationLine = [stegaClean(office.city), stegaClean(office.state), stegaClean(office.country)].filter(Boolean).join(', ');
                 const hasAddressParts = office.address || office.stateAbbr || office.zip;
                 const addressLine = hasAddressParts
-                  ? [office.address, office.city && (office.stateAbbr || office.zip) ? `${office.city}, ${[office.stateAbbr, office.zip].filter(Boolean).join(' ')}` : null].filter(Boolean).join(', ')
+                  ? [stegaClean(office.address), stegaClean(office.city) && (stegaClean(office.stateAbbr) || stegaClean(office.zip)) ? `${stegaClean(office.city)}, ${[stegaClean(office.stateAbbr), stegaClean(office.zip)].filter(Boolean).join(' ')}` : null].filter(Boolean).join(', ')
                   : '';
                 return (
                   <div
