@@ -5,7 +5,7 @@ import NavWrapper from "@/components/layout/NavWrapper";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import { displayFont, bodyFont, monoFont } from "./fonts";
 import { draftMode } from "next/headers";
-import { VisualEditing } from "@sanity/visual-editing/react";
+import VisualEditingWrapper from "@/components/layout/VisualEditingWrapper";
 
 export const metadata: Metadata = {
   title: "Nocti Labs - Commerce and Technology Studio for the AI era",
@@ -27,7 +27,7 @@ export default async function RootLayout({
         <NavWrapper />
         {children}
         <SanityLive />
-        {isEnabled && <VisualEditing portal />}
+        {isEnabled && <VisualEditingWrapper />}
       </body>
     </html>
   );
