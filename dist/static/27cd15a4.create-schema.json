@@ -4,13 +4,13 @@
       {
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "presence",
                 "constraint": "required"
               }
-            ],
-            "level": "error"
+            ]
           }
         ],
         "name": "label",
@@ -43,6 +43,7 @@
       {
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "uri",
@@ -58,8 +59,7 @@
                   }
                 }
               }
-            ],
-            "level": "error"
+            ]
           }
         ],
         "hidden": "conditional",
@@ -77,13 +77,13 @@
       {
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "presence",
                 "constraint": "required"
               }
-            ],
-            "level": "error"
+            ]
           }
         ],
         "name": "city",
@@ -98,13 +98,13 @@
       {
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "presence",
                 "constraint": "required"
               }
-            ],
-            "level": "error"
+            ]
           }
         ],
         "name": "country",
@@ -137,13 +137,13 @@
       {
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "presence",
                 "constraint": "required"
               }
-            ],
-            "level": "error"
+            ]
           }
         ],
         "name": "title",
@@ -165,6 +165,7 @@
         },
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "valid",
@@ -177,8 +178,7 @@
                 "flag": "presence",
                 "constraint": "required"
               }
-            ],
-            "level": "error"
+            ]
           }
         ],
         "name": "category",
@@ -209,13 +209,13 @@
       {
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "presence",
                 "constraint": "required"
               }
-            ],
-            "level": "error"
+            ]
           }
         ],
         "name": "title",
@@ -227,6 +227,7 @@
         },
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "custom"
@@ -235,8 +236,7 @@
                 "flag": "presence",
                 "constraint": "required"
               }
-            ],
-            "level": "error"
+            ]
           }
         ],
         "name": "slug",
@@ -280,6 +280,7 @@
       {
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "uri",
@@ -295,8 +296,7 @@
                   }
                 }
               }
-            ],
-            "level": "error"
+            ]
           }
         ],
         "name": "url",
@@ -312,13 +312,13 @@
       {
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "presence",
                 "constraint": "required"
               }
-            ],
-            "level": "error"
+            ]
           }
         ],
         "name": "title",
@@ -330,6 +330,7 @@
         },
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "custom"
@@ -338,8 +339,7 @@
                 "flag": "presence",
                 "constraint": "required"
               }
-            ],
-            "level": "error"
+            ]
           }
         ],
         "name": "slug",
@@ -356,13 +356,13 @@
         "rows": 3,
         "validation": [
           {
+            "level": "warning",
             "rules": [
               {
                 "flag": "max",
                 "constraint": 200
               }
             ],
-            "level": "warning",
             "message": "Keep it under 200 characters for best display"
           }
         ],
@@ -372,6 +372,16 @@
       {
         "of": [
           {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
             "marks": {
               "annotations": [
                 {
@@ -385,6 +395,7 @@
                     {
                       "validation": [
                         {
+                          "level": "error",
                           "rules": [
                             {
                               "flag": "uri",
@@ -402,8 +413,7 @@
                                 }
                               }
                             }
-                          ],
-                          "level": "error"
+                          ]
                         }
                       ],
                       "description": "A valid web, email, phone, or relative link.",
@@ -439,16 +449,7 @@
                 }
               ]
             },
-            "lists": [
-              {
-                "value": "bullet",
-                "title": "Bulleted list"
-              },
-              {
-                "value": "number",
-                "title": "Numbered list"
-              }
-            ],
+            "of": [],
             "styles": [
               {
                 "value": "normal",
@@ -483,7 +484,6 @@
                 "title": "Quote"
               }
             ],
-            "of": [],
             "type": "block"
           },
           {
@@ -521,13 +521,13 @@
       {
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "presence",
                 "constraint": "required"
               }
-            ],
-            "level": "error"
+            ]
           }
         ],
         "name": "companyName",
@@ -553,13 +553,13 @@
               {
                 "validation": [
                   {
+                    "level": "error",
                     "rules": [
                       {
                         "flag": "presence",
                         "constraint": "required"
                       }
-                    ],
-                    "level": "error"
+                    ]
                   }
                 ],
                 "name": "platform",
@@ -568,6 +568,7 @@
               {
                 "validation": [
                   {
+                    "level": "error",
                     "rules": [
                       {
                         "flag": "uri",
@@ -583,8 +584,7 @@
                           }
                         }
                       }
-                    ],
-                    "level": "error"
+                    ]
                   }
                 ],
                 "name": "url",
@@ -640,13 +640,13 @@
       {
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "presence",
                 "constraint": "required"
               }
-            ],
-            "level": "error"
+            ]
           }
         ],
         "name": "title",
@@ -658,6 +658,7 @@
         },
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "custom"
@@ -666,8 +667,7 @@
                 "flag": "presence",
                 "constraint": "required"
               }
-            ],
-            "level": "error"
+            ]
           }
         ],
         "name": "slug",
@@ -791,13 +791,13 @@
       {
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "presence",
                 "constraint": "required"
               }
-            ],
-            "level": "error"
+            ]
           }
         ],
         "name": "heading",
@@ -850,13 +850,13 @@
       {
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "presence",
                 "constraint": "required"
               }
-            ],
-            "level": "error"
+            ]
           }
         ],
         "name": "heading",
@@ -957,6 +957,7 @@
       {
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "regex",
@@ -966,7 +967,6 @@
                 }
               }
             ],
-            "level": "error",
             "message": "Must be a valid hex color"
           }
         ],
@@ -977,6 +977,7 @@
       {
         "validation": [
           {
+            "level": "error",
             "rules": [
               {
                 "flag": "regex",
@@ -986,7 +987,6 @@
                 }
               }
             ],
-            "level": "error",
             "message": "Must be a valid hex color"
           }
         ],
@@ -1007,13 +1007,13 @@
       {
         "validation": [
           {
+            "level": "warning",
             "rules": [
               {
                 "flag": "max",
                 "constraint": 4
               }
             ],
-            "level": "warning",
             "message": "Recommended max of 4 posts for the grid"
           }
         ],
@@ -1125,13 +1125,13 @@
               {
                 "validation": [
                   {
+                    "level": "error",
                     "rules": [
                       {
                         "flag": "presence",
                         "constraint": "required"
                       }
-                    ],
-                    "level": "error"
+                    ]
                   }
                 ],
                 "name": "title",
@@ -1141,13 +1141,13 @@
                 "rows": 3,
                 "validation": [
                   {
+                    "level": "error",
                     "rules": [
                       {
                         "flag": "presence",
                         "constraint": "required"
                       }
-                    ],
-                    "level": "error"
+                    ]
                   }
                 ],
                 "name": "description",
