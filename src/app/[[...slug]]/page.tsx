@@ -1,5 +1,7 @@
 import SanityPage from "../../components/sanity/SanityPage";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page({
   params,
 }: {
