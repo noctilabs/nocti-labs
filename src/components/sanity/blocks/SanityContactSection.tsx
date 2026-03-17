@@ -18,7 +18,13 @@ export default function SanityContactSection({
   hearAboutUsOptions,
   _key,
   documentId,
+  ...rest
 }: SanityContactSectionProps) {
+  const formFields = (rest as Record<string, unknown>).formFields as {
+    firstName?: string; lastName?: string; email?: string; company?: string;
+    platform?: string; country?: string; phone?: string; hearAboutUs?: string;
+    projectDescription?: string; submitButton?: string;
+  } | undefined
   const attr = (path: string) =>
     documentId
       ? { 'data-sanity': createDataAttribute({ id: documentId, type: 'page', path: `pageBuilder[_key=="${_key}"].${path}` }).toString() }
@@ -51,8 +57,12 @@ export default function SanityContactSection({
             <h3 className={`${contactTitle} m-0`}>
               Our Offices
             </h3>
-            <div className="max-w-[20.5rem]">
+            <div className="max-w-[20.5rem]" {...attr('offices')}>
               {offices && offices.map((office, index) => {
+                const officeAttr = (field: string) =>
+                  documentId
+                    ? { 'data-sanity': createDataAttribute({ id: documentId, type: 'page', path: `pageBuilder[_key=="${_key}"].offices[_key=="${office._key}"].${field}` }).toString() }
+                    : {}
                 const locationLine = [stegaClean(office.city), stegaClean(office.state), stegaClean(office.country)].filter(Boolean).join(', ');
                 const hasAddressParts = office.address || office.stateAbbr || office.zip;
                 const addressLine = hasAddressParts
@@ -63,12 +73,12 @@ export default function SanityContactSection({
                     key={office._key}
                     className={index > 0 ? 'mt-[1.73rem]' : ''}
                   >
-                    <p className={`${contactCta} text-white`}>
+                    <p className={`${contactCta} text-white`} {...officeAttr('city')}>
                       {locationLine}
                       {addressLine && (
                         <>
                           <br />
-                          {addressLine}
+                          <span {...officeAttr('address')}>{addressLine}</span>
                         </>
                       )}
                     </p>
@@ -89,6 +99,21 @@ export default function SanityContactSection({
           <ContactForm
             platformOptions={ecommercePlatforms ?? undefined}
             hearAboutUsOptions={hearAboutUsOptions ?? undefined}
+            platformsDataSanity={attr('ecommercePlatforms')['data-sanity']}
+            hearAboutUsDataSanity={attr('hearAboutUsOptions')['data-sanity']}
+            formFields={formFields}
+            fieldDataSanity={{
+              firstName: attr('formFields.firstName')['data-sanity'],
+              lastName: attr('formFields.lastName')['data-sanity'],
+              email: attr('formFields.email')['data-sanity'],
+              company: attr('formFields.company')['data-sanity'],
+              platform: attr('formFields.platform')['data-sanity'],
+              country: attr('formFields.country')['data-sanity'],
+              phone: attr('formFields.phone')['data-sanity'],
+              hearAboutUs: attr('formFields.hearAboutUs')['data-sanity'],
+              projectDescription: attr('formFields.projectDescription')['data-sanity'],
+              submitButton: attr('formFields.submitButton')['data-sanity'],
+            }}
           />
         </div>
 

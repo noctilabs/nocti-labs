@@ -159,14 +159,24 @@ function FloatingSelect({
   );
 }
 
-interface ContactFormProps {
-  /** E-commerce platform options from Sanity (contact section) */
-  platformOptions?: string[] | null;
-  /** How did you hear about us options from Sanity (contact section) */
-  hearAboutUsOptions?: string[] | null;
+interface FormFields {
+  firstName?: string; lastName?: string; email?: string; company?: string;
+  platform?: string; country?: string; phone?: string; hearAboutUs?: string;
+  projectDescription?: string; submitButton?: string;
 }
 
-export default function ContactForm({ platformOptions = [], hearAboutUsOptions = [] }: ContactFormProps): React.ReactElement {
+interface ContactFormProps {
+  platformOptions?: string[] | null;
+  hearAboutUsOptions?: string[] | null;
+  platformsDataSanity?: string;
+  hearAboutUsDataSanity?: string;
+  formFields?: FormFields;
+  fieldDataSanity?: Partial<Record<keyof FormFields, string | undefined>>;
+}
+
+export default function ContactForm({ platformOptions = [], hearAboutUsOptions = [], platformsDataSanity, hearAboutUsDataSanity, formFields, fieldDataSanity }: ContactFormProps): React.ReactElement {
+  const f = (key: keyof FormFields, fallback: string) => formFields?.[key] || fallback
+  const ds = (key: keyof FormFields) => fieldDataSanity?.[key] ? { 'data-sanity': fieldDataSanity[key] } : {}
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -227,87 +237,66 @@ export default function ContactForm({ platformOptions = [], hearAboutUsOptions =
     <form onSubmit={handleSubmit}>
       {/* Row 1: First Name + Last Name */}
       <div className="grid grid-cols-2 gap-[1.38rem]">
-        <FloatingField
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-          label="First Name *"
-          required
-        />
-        <FloatingField
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-          label="Last Name *"
-          required
-        />
+        <div {...ds('firstName')}>
+          <FloatingField name="firstName" value={formData.firstName} onChange={handleChange} label={f('firstName', 'First Name *')} required />
+        </div>
+        <div {...ds('lastName')}>
+          <FloatingField name="lastName" value={formData.lastName} onChange={handleChange} label={f('lastName', 'Last Name *')} required />
+        </div>
       </div>
 
       {/* Row 2: Work Email + Company Name */}
       <div className="grid grid-cols-2 gap-[1.38rem]">
-        <FloatingField
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          label="Work Email *"
-          type="email"
-          required
-        />
-        <FloatingField
-          name="company"
-          value={formData.company}
-          onChange={handleChange}
-          label="Company Name *"
-          required
-        />
+        <div {...ds('email')}>
+          <FloatingField name="email" value={formData.email} onChange={handleChange} label={f('email', 'Work Email *')} type="email" required />
+        </div>
+        <div {...ds('company')}>
+          <FloatingField name="company" value={formData.company} onChange={handleChange} label={f('company', 'Company Name *')} required />
+        </div>
       </div>
 
       {/* Row 3: Current E-Commerce Platform + Country / Region */}
       <div className="grid grid-cols-2 gap-[1.38rem]">
-        <FloatingSelect
-          name="platform"
-          value={formData.platform}
-          onChange={handleSelectChange('platform')}
-          label="Current E-Commerce Platform"
-          options={platformOptions ?? []}
-          open={openDropdown === 'platform'}
-          onToggle={() => setOpenDropdown((v) => v === 'platform' ? null : 'platform')}
-          panelWidth="w-[14rem]"
-        />
-        <FloatingField
-          name="country"
-          value={formData.country}
-          onChange={handleChange}
-          label="Country / Region *"
-          required
-        />
+        <div {...(platformsDataSanity ? { 'data-sanity': platformsDataSanity } : {})} {...ds('platform')}>
+          <FloatingSelect
+            name="platform"
+            value={formData.platform}
+            onChange={handleSelectChange('platform')}
+            label={f('platform', 'Current E-Commerce Platform')}
+            options={platformOptions ?? []}
+            open={openDropdown === 'platform'}
+            onToggle={() => setOpenDropdown((v) => v === 'platform' ? null : 'platform')}
+            panelWidth="w-[14rem]"
+          />
+        </div>
+        <div {...ds('country')}>
+          <FloatingField name="country" value={formData.country} onChange={handleChange} label={f('country', 'Country / Region *')} required />
+        </div>
       </div>
 
       {/* Row 4: Phone Number + How did you hear about us */}
       <div className="grid grid-cols-2 gap-[1.38rem]">
-        <FloatingField
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
-          label="Phone Number"
-          type="tel"
-        />
-        <FloatingSelect
-          name="hearAboutUs"
-          value={formData.hearAboutUs}
-          onChange={handleSelectChange('hearAboutUs')}
-          label="How did you hear about us?"
-          options={hearAboutUsOptions ?? []}
-          open={openDropdown === 'hearAboutUs'}
-          onToggle={() => setOpenDropdown((v) => v === 'hearAboutUs' ? null : 'hearAboutUs')}
-          panelWidth="w-[21.8125rem]"
-        />
+        <div {...ds('phone')}>
+          <FloatingField name="phone" value={formData.phone} onChange={handleChange} label={f('phone', 'Phone Number')} type="tel" />
+        </div>
+        <div {...(hearAboutUsDataSanity ? { 'data-sanity': hearAboutUsDataSanity } : {})} {...ds('hearAboutUs')}>
+          <FloatingSelect
+            name="hearAboutUs"
+            value={formData.hearAboutUs}
+            onChange={handleSelectChange('hearAboutUs')}
+            label={f('hearAboutUs', 'How did you hear about us?')}
+            options={hearAboutUsOptions ?? []}
+            open={openDropdown === 'hearAboutUs'}
+            onToggle={() => setOpenDropdown((v) => v === 'hearAboutUs' ? null : 'hearAboutUs')}
+            panelWidth="w-[21.8125rem]"
+          />
+        </div>
       </div>
 
       {/* Project Description */}
-      <div className="mt-[0.625rem]">
+      <div className="mt-[0.625rem]" {...ds('projectDescription')}>
         <label className={`block text-white ${fieldTextClass} mb-[1.0625rem]`}>
-          Project Description
+          {f('projectDescription', 'Project Description')}
         </label>
         <textarea
           name="description"
@@ -344,8 +333,9 @@ export default function ContactForm({ platformOptions = [], hearAboutUsOptions =
             borderRadius: '0.625rem'
           }}
           className="bg-white text-black hover:opacity-80 transition disabled:opacity-50 text-[0.875rem] font-mono font-medium leading-[1rem]"
+          {...ds('submitButton')}
         >
-          {submitting ? '...' : 'Submit'}
+          {submitting ? '...' : f('submitButton', 'Submit')}
         </button>
       </div>
     </form>

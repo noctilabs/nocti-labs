@@ -1,3 +1,4 @@
+import { draftMode } from "next/headers";
 import { sanityFetch } from "../../sanity/lib/live";
 import { PAGE_QUERY } from "../../sanity/lib/queries";
 import PageBuilder from "./PageBuilder";
@@ -17,5 +18,6 @@ export default async function SanityPage({ slug }: SanityPageProps) {
     return <PageNotFound />;
   }
 
-  return <PageBuilder blocks={page.pageBuilder} documentId={page._id} />;
+  const { isEnabled } = await draftMode();
+  return <PageBuilder blocks={page.pageBuilder} documentId={isEnabled ? page._id : undefined} />;
 }
