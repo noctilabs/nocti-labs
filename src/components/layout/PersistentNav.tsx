@@ -127,6 +127,7 @@ export default function PersistentNav(): React.ReactElement {
             onClick={() => setMenuOpen((o) => !o)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
+            aria-controls={`mobile-menu-${theme}`}
             className="flex items-center justify-center w-[2rem] h-[2rem] shrink-0 pointer-events-auto bg-transparent border-none cursor-pointer p-0"
           >
             <HamburgerIcon color={iconColor} />
@@ -137,6 +138,7 @@ export default function PersistentNav(): React.ReactElement {
           <div className="w-[2rem] shrink-0" />
         </div>
         <div
+          id={`mobile-menu-${theme}`}
           className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${menuOpen ? 'max-h-[10rem]' : 'max-h-0'}`}
         >
           <MobileMenuLinks theme={theme} onLinkClick={closeMenu} />
