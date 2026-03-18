@@ -125,7 +125,7 @@ export default function PersistentNav(): React.ReactElement {
 
     return (
       <div className={`rounded-[3px] overflow-hidden ${bg} transition-[background-color] duration-[400ms] ease-in-out`}>
-        <div className="flex items-center h-[3.0625rem] pl-[1.75rem] pr-[1.75rem]">
+        <div className="flex items-center h-[49px] pl-[1.75rem] pr-[1.75rem]">
           <button
             onClick={() => setMenuOpen((o) => !o)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
@@ -135,14 +135,14 @@ export default function PersistentNav(): React.ReactElement {
           >
             <HamburgerIcon color={iconColor} open={menuOpen} />
           </button>
-          <div className={`flex-1 text-center text-[1.125rem] font-display font-medium not-italic leading-[1] ${textColor} antialiased text-crisp transition-colors duration-[400ms] ease-in-out`}>
+          <div className={`flex-1 text-center text-[18px] font-display font-medium not-italic leading-[1] ${textColor} antialiased text-crisp transition-colors duration-[400ms] ease-in-out`}>
             Nocti Labs
           </div>
           <div className="w-[1.0625rem] shrink-0" />
         </div>
         <div
           id={`mobile-menu-${theme}`}
-          className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${menuOpen ? 'max-h-[9.9375rem]' : 'max-h-0'}`}
+          className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${menuOpen ? 'max-h-[185px]' : 'max-h-0'}`}
         >
           <MobileMenuLinks theme={theme} onLinkClick={closeMenu} />
         </div>

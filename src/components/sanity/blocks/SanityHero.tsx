@@ -61,11 +61,13 @@ export default function SanityHero({
     >
       {/* Inner headline panel */}
       <div
-        className="w-[62.56%] aspect-[903/385] left-[18.96%] top-[25.60%] absolute flex items-center justify-center"
+        className="absolute flex items-center justify-center
+          left-[14px] right-[14px] top-[243px] h-[385px]
+          md:left-[18.96%] md:right-auto md:w-[62.56%] md:h-auto md:aspect-[903/385] md:top-[25.60%]"
         style={innerBgStyle}
       >
         <p
-          className={`${textColor} w-[74.5%] text-[3rem] font-body font-medium not-italic leading-[3.125rem] tracking-[0] text-center antialiased text-crisp m-0 p-0`}
+          className={`${textColor} text-[32px] leading-[37px] md:text-[3rem] md:leading-[3.125rem] font-body font-medium not-italic tracking-[0] text-center antialiased text-crisp m-0 p-0 w-[calc(100%-2rem)] md:w-[74.5%]`}
         >
           {heading || 'Commerce and Technology Studio for the AI era'}
         </p>

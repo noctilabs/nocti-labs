@@ -13,6 +13,7 @@ const links = [
   { href: '/services', label: 'SERVICES' },
   { href: '/about', label: 'ABOUT' },
   { href: '/blog', label: 'BLOG' },
+  { href: '/contact', label: 'CONTACT US' },
 ] as const;
 
 export default function MobileMenuLinks({ theme, onLinkClick }: MobileMenuLinksProps) {
@@ -21,7 +22,7 @@ export default function MobileMenuLinks({ theme, onLinkClick }: MobileMenuLinksP
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col items-center justify-center gap-[1.375rem] py-[1.375rem]">
+    <div className="flex flex-col items-center">
       {links.map(({ href, label }) => {
         const isActive = pathname === href || pathname.startsWith(href + '/');
         return (
@@ -29,7 +30,7 @@ export default function MobileMenuLinks({ theme, onLinkClick }: MobileMenuLinksP
             key={href}
             href={href}
             onClick={onLinkClick}
-            className={`text-[0.875rem] font-mono font-medium not-italic leading-[1] tracking-[0] antialiased text-crisp no-underline transition-colors duration-[400ms] ease-in-out ${textClass}`}
+            className={`text-[14px] font-mono font-medium not-italic leading-[37px] tracking-[0] antialiased text-crisp no-underline transition-colors duration-[400ms] ease-in-out ${textClass}`}
           >
             <span className={isActive ? 'border-b-2 border-current' : ''}>{label}</span>
           </Link>
