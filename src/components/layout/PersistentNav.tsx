@@ -25,7 +25,10 @@ export default function PersistentNav(): React.ReactElement {
       const lightNav = lightNavRef.current;
       if (!darkNav || !lightNav) return;
 
-      const navRect = lightNav.getBoundingClientRect();
+      // On mobile the desktop navs are display:none — fall back to the mobile pill for position
+      const desktopRect = lightNav.getBoundingClientRect();
+      const measureEl: Element = desktopRect.height === 0 && darkMobileRef.current ? darkMobileRef.current : lightNav;
+      const navRect = measureEl.getBoundingClientRect();
       const navBarTop = navRect.top;
       const navBarBottom = navRect.bottom;
       const navHeight = navRect.height;
@@ -122,24 +125,24 @@ export default function PersistentNav(): React.ReactElement {
 
     return (
       <div className={`rounded-[3px] overflow-hidden ${bg} transition-[background-color] duration-[400ms] ease-in-out`}>
-        <div className="flex items-center h-[3.0625rem] px-[0.875rem]">
+        <div className="flex items-center h-[3.0625rem] pl-[1.75rem] pr-[1.75rem]">
           <button
             onClick={() => setMenuOpen((o) => !o)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
             aria-controls={`mobile-menu-${theme}`}
-            className="flex items-center justify-center w-[2rem] h-[2rem] shrink-0 pointer-events-auto bg-transparent border-none cursor-pointer p-0"
+            className="flex items-center justify-center shrink-0 pointer-events-auto bg-transparent border-none cursor-pointer p-0"
           >
-            <HamburgerIcon color={iconColor} />
+            <HamburgerIcon color={iconColor} open={menuOpen} />
           </button>
           <div className={`flex-1 text-center text-[1.125rem] font-display font-medium not-italic leading-[1] ${textColor} antialiased text-crisp transition-colors duration-[400ms] ease-in-out`}>
             Nocti Labs
           </div>
-          <div className="w-[2rem] shrink-0" />
+          <div className="w-[1.0625rem] shrink-0" />
         </div>
         <div
           id={`mobile-menu-${theme}`}
-          className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${menuOpen ? 'max-h-[10rem]' : 'max-h-0'}`}
+          className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${menuOpen ? 'max-h-[9.9375rem]' : 'max-h-0'}`}
         >
           <MobileMenuLinks theme={theme} onLinkClick={closeMenu} />
         </div>

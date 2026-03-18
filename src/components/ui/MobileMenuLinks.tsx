@@ -21,7 +21,7 @@ export default function MobileMenuLinks({ theme, onLinkClick }: MobileMenuLinksP
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col items-center justify-center gap-[0.75rem] pb-[1.25rem] pt-[0.5rem]">
+    <div className="flex flex-col items-center justify-center gap-[1.375rem] py-[1.375rem]">
       {links.map(({ href, label }) => {
         const isActive = pathname === href || pathname.startsWith(href + '/');
         return (
