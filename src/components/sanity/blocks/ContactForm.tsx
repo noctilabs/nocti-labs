@@ -25,7 +25,7 @@ interface FloatingSelectProps {
 
 // Figma spec: 14px font size, 16px line height, Regular (400), Neue Haas Unica Pro
 // Converting to rem: 14px = 0.875rem, 16px = 1rem
-const fieldTextClass = 'text-[0.875rem] font-body font-normal leading-[1rem]';
+const fieldTextClass = 'text-[1.25rem] leading-[1.5rem] md:text-[0.875rem] md:leading-[1rem] font-body font-normal';
 
 function FloatingField({
   name,
@@ -58,8 +58,10 @@ function FloatingField({
     );
   }
 
+  // Mobile: label always visible above underline (no float trick needed at small sizes)
+  // Figma mobile row spacing: 48px between rows (3rem). Desktop uses 1.323375rem.
   return (
-    <div className="mb-[1.323375rem] relative border-b border-white pb-[0.75rem]">
+    <div className="mb-[1.5rem] md:mb-[1.323375rem] relative md:border-b md:border-white pb-[1rem] md:pb-[0.75rem] flex flex-col justify-end md:block">
       <label
         htmlFor={name}
         className={`${fieldTextClass} block text-[#d9d9d9] transition-opacity duration-150 ${floated ? 'opacity-0' : 'opacity-100'}`}
@@ -74,9 +76,11 @@ function FloatingField({
         onChange={onChange}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className={`bg-transparent text-white focus:outline-none ${fieldTextClass} absolute inset-0 w-full h-full border-none p-0`}
+        className={`bg-transparent text-[#d9d9d9] focus:outline-none ${fieldTextClass} absolute bottom-[1rem] md:inset-0 left-0 w-full border-none p-0`}
         required={required}
       />
+      {/* Mobile-only underline: 3/4 width (1/4 shorter from right) */}
+      <div className="absolute bottom-0 left-0 w-[85%] h-px bg-white md:hidden" />
     </div>
   );
 }
@@ -106,15 +110,15 @@ function FloatingSelect({
   const activeIndex = activeItem ? options.indexOf(activeItem) : -1;
 
   return (
-    <div className="mb-[1.323375rem] relative border-b border-white pb-[0.75rem]">
+    <div className="mb-[1.5rem] md:mb-[1.323375rem] relative md:border-b md:border-white pb-[1rem] md:pb-[0.75rem] flex flex-col justify-end md:block">
       <button
         type="button"
         onClick={onToggle}
-        className={`w-full text-left focus:outline-none flex justify-between items-center ${fieldTextClass} ${value ? 'text-white' : 'text-[#d9d9d9]'}`}
+        className={`text-left focus:outline-none items-center ${fieldTextClass} text-[#d9d9d9] inline-flex w-3/4 md:flex md:w-full md:justify-between`}
       >
-        <span className="whitespace-nowrap overflow-hidden text-ellipsis">{value || label}</span>
+        <span className="md:whitespace-nowrap md:overflow-hidden md:text-ellipsis">{value || label}</span>
         <svg
-          className={`w-3 h-3 shrink-0 ml-2 transition-transform duration-150 ${open ? 'rotate-180' : ''}`}
+          className={`hidden md:block w-3 h-3 shrink-0 ml-1.5 transition-transform duration-150 ${open ? 'rotate-180' : ''}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -122,6 +126,8 @@ function FloatingSelect({
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </button>
+      {/* Mobile-only underline: 3/4 width (1/4 shorter from right) */}
+      <div className="absolute bottom-0 left-0 w-[85%] h-px bg-white md:hidden" />
 
       {open && (
         <div
@@ -136,7 +142,7 @@ function FloatingSelect({
             />
           )}
           {/* Options list */}
-          <div className="flex flex-col pl-[0.9375rem] py-[0.625rem]">
+          <div className="flex flex-col pl-[0.9375rem] py-[0.625rem] md:py-[0.625rem]">
             {options.map((opt) => (
               <button
                 key={opt}
@@ -147,7 +153,7 @@ function FloatingSelect({
                   onToggle();
                   setHovered(null);
                 }}
-                className={`w-full text-left ${fieldTextClass} text-black leading-[1rem]`}
+                className={`w-full text-left text-black text-[1.125rem] leading-none py-[0.75rem] md:text-[0.875rem] md:leading-[1rem] md:py-0`}
               >
                 {opt}
               </button>
@@ -223,10 +229,14 @@ export default function ContactForm({ platformOptions = [], hearAboutUsOptions =
     );
   }
 
+  // Figma mobile (420px canvas): ~139px left col, ~70px gap, ~151px right col
+  // On 390px screen with 1.4rem side padding → ~345px form width → ~137px per col with 70px gap
+  const mobileGridClass = 'grid grid-cols-2 gap-x-[4.375rem] items-end md:items-start md:gap-x-[1.38rem] pl-[1.75rem] md:pl-0';
+
   return (
     <form onSubmit={handleSubmit}>
       {/* Row 1: First Name + Last Name */}
-      <div className="grid grid-cols-2 gap-[1.38rem]">
+      <div className={mobileGridClass}>
         <FloatingField
           name="firstName"
           value={formData.firstName}
@@ -244,7 +254,7 @@ export default function ContactForm({ platformOptions = [], hearAboutUsOptions =
       </div>
 
       {/* Row 2: Work Email + Company Name */}
-      <div className="grid grid-cols-2 gap-[1.38rem]">
+      <div className={mobileGridClass}>
         <FloatingField
           name="email"
           value={formData.email}
@@ -263,7 +273,7 @@ export default function ContactForm({ platformOptions = [], hearAboutUsOptions =
       </div>
 
       {/* Row 3: Current E-Commerce Platform + Country / Region */}
-      <div className="grid grid-cols-2 gap-[1.38rem]">
+      <div className={mobileGridClass}>
         <FloatingSelect
           name="platform"
           value={formData.platform}
@@ -272,7 +282,7 @@ export default function ContactForm({ platformOptions = [], hearAboutUsOptions =
           options={platformOptions ?? []}
           open={openDropdown === 'platform'}
           onToggle={() => setOpenDropdown((v) => v === 'platform' ? null : 'platform')}
-          panelWidth="w-[14rem]"
+          panelWidth="w-full md:w-[14rem]"
         />
         <FloatingField
           name="country"
@@ -284,7 +294,7 @@ export default function ContactForm({ platformOptions = [], hearAboutUsOptions =
       </div>
 
       {/* Row 4: Phone Number + How did you hear about us */}
-      <div className="grid grid-cols-2 gap-[1.38rem]">
+      <div className={mobileGridClass}>
         <FloatingField
           name="phone"
           value={formData.phone}
@@ -300,50 +310,36 @@ export default function ContactForm({ platformOptions = [], hearAboutUsOptions =
           options={hearAboutUsOptions ?? []}
           open={openDropdown === 'hearAboutUs'}
           onToggle={() => setOpenDropdown((v) => v === 'hearAboutUs' ? null : 'hearAboutUs')}
-          panelWidth="w-[21.8125rem]"
+          panelWidth="w-full md:w-[21.8125rem]"
         />
       </div>
 
       {/* Project Description */}
-      <div className="mt-[0.625rem]">
-        <label className={`block text-white ${fieldTextClass} mb-[1.0625rem]`}>
+      {/* Figma mobile: label 14px/16px white, gap 16px, textarea 347×137px rounded-10px */}
+      {/* gap between textarea and submit: 15px */}
+      <div className="mt-[0.625rem] pr-[5rem] md:pr-0">
+        <label className="block text-white text-[1.25rem] leading-[1.5rem] md:text-[0.875rem] md:leading-[1rem] font-body font-normal mb-[2rem] md:mb-[1rem]">
           Project Description
         </label>
         <textarea
           name="description"
           value={formData.description}
           onChange={handleChange}
-          style={{ 
-            borderRadius: '0.625rem',
-            width: '27.625rem',
-            height: '8.551625rem',
-            boxSizing: 'border-box',
-            padding: '1.5rem',
-            backgroundColor: '#D9D9D9',
-            color: 'black',
-            outline: 'none',
-            resize: 'none'
-          }}
-          className={fieldTextClass}
+          className="w-full md:w-[27.625rem] h-[13rem] md:h-[8.5625rem] rounded-[0.625rem] bg-[#D9D9D9] text-black outline-none resize-none text-[1.25rem] leading-[1.5rem] md:text-[0.875rem] md:leading-[1rem] font-body font-normal p-[0.75rem] md:p-[1.5rem]"
         />
       </div>
 
-      {/* Submit */}
-      <div className={`mt-[0.93525rem] ${submitError ? 'mb-2' : ''}`}>
+      {/* Submit — Figma: 100.66×37.147px, rounded-10px, white bg, black text, 14px mono medium */}
+      <div className={`mt-[2rem] md:mt-[0.9375rem] pb-[4rem] md:pb-0 ${submitError ? 'mb-2' : ''}`}>
         {submitError && (
-          <p className={`text-red-400 mb-2 text-[0.83rem] font-body font-normal leading-[1.143]`}>
+          <p className="text-red-400 mb-2 text-[0.83rem] font-body font-normal leading-[1.143]">
             Something went wrong. Please try again.
           </p>
         )}
         <button
           type="submit"
           disabled={submitting}
-          style={{
-            width: '6.29125rem',
-            height: '2.3216875rem',
-            borderRadius: '0.625rem'
-          }}
-          className="bg-white text-black hover:opacity-80 transition disabled:opacity-50 text-[0.875rem] font-mono font-medium leading-[1rem]"
+          className="bg-white text-black hover:opacity-80 transition disabled:opacity-50 font-mono font-medium rounded-[0.625rem] text-[1.3125rem] leading-[1.5rem] w-[9.437rem] h-[3.482rem] md:text-[0.875rem] md:leading-[1rem] md:w-[6.29125rem] md:h-[2.3216875rem]"
         >
           {submitting ? '...' : 'Submit'}
         </button>
