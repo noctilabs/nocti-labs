@@ -313,18 +313,7 @@ export default function ContactForm({ platformOptions = [], hearAboutUsOptions =
           name="description"
           value={formData.description}
           onChange={handleChange}
-          style={{ 
-            borderRadius: '0.625rem',
-            width: '27.625rem',
-            height: '8.551625rem',
-            boxSizing: 'border-box',
-            padding: '1.5rem',
-            backgroundColor: '#D9D9D9',
-            color: 'black',
-            outline: 'none',
-            resize: 'none'
-          }}
-          className={fieldTextClass}
+          className={`${fieldTextClass} w-full md:w-[27.625rem] h-[13.7rem] md:h-[8.551625rem] rounded-[0.625rem] p-[1.5rem] bg-[#D9D9D9] text-black outline-none resize-none`}
         />
       </div>
 
@@ -338,12 +327,7 @@ export default function ContactForm({ platformOptions = [], hearAboutUsOptions =
         <button
           type="submit"
           disabled={submitting}
-          style={{
-            width: '6.29125rem',
-            height: '2.3216875rem',
-            borderRadius: '0.625rem'
-          }}
-          className="bg-white text-black hover:opacity-80 transition disabled:opacity-50 text-[0.875rem] font-mono font-medium leading-[1rem]"
+          className="bg-white text-black hover:opacity-80 transition disabled:opacity-50 text-[0.875rem] font-mono font-medium leading-[1rem] px-[1.5rem] py-[0.8rem] rounded-[0.625rem] md:w-[6.29125rem] md:h-[2.3216875rem] md:px-0 md:py-0"
         >
           {submitting ? '...' : 'Submit'}
         </button>
