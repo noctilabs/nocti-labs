@@ -1,11 +1,65 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import NavLogo from '../ui/NavLogo';
 import NavLinks from '../ui/NavLinks';
 import NavContactButton from '../ui/NavContactButton';
 import MobileMenuLinks from '../ui/MobileMenuLinks';
 import HamburgerIcon from '../ui/HamburgerIcon';
+
+interface MobilePillProps {
+  theme: 'light' | 'dark';
+  menuOpen: boolean;
+  onToggleMenu: () => void;
+  onCloseMenu: () => void;
+}
+
+function MobilePill({ theme, menuOpen, onToggleMenu, onCloseMenu }: MobilePillProps) {
+  const pathname = usePathname();
+  const isDark = theme === 'dark';
+  const bg = isDark ? 'bg-black' : 'bg-white';
+  const iconColor = isDark ? 'white' : '#1e1e1e';
+  const textColor = isDark ? 'text-white' : 'text-[#1e1e1e]';
+
+  return (
+    <div className={`rounded-[3px] overflow-hidden ${bg} transition-[background-color] duration-[400ms] ease-in-out`}>
+      <div className="flex items-center h-[49px] px-[15px]">
+        <button
+          onClick={onToggleMenu}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          aria-controls={`mobile-menu-${theme}`}
+          className="flex items-center justify-center shrink-0 pointer-events-auto bg-transparent border-none cursor-pointer p-0"
+        >
+          <HamburgerIcon color={iconColor} open={menuOpen} />
+        </button>
+        <div className="flex-1 flex items-center justify-center">
+          <Link
+            href="/"
+            onClick={(e) => {
+              if (pathname === '/') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
+            className={`text-[18px] font-display font-medium not-italic leading-[1] ${textColor} antialiased text-crisp transition-colors duration-[400ms] ease-in-out no-underline`}
+          >
+            Nocti Labs
+          </Link>
+        </div>
+        <div className="w-[1.0625rem] shrink-0" />
+      </div>
+      <div
+        id={`mobile-menu-${theme}`}
+        className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${menuOpen ? 'max-h-[185px]' : 'max-h-0'}`}
+      >
+        <MobileMenuLinks theme={theme} onLinkClick={onCloseMenu} />
+      </div>
+    </div>
+  );
+}
 
 /**
  * Persistent navigation with pixel-perfect scroll-driven color inversion.
@@ -112,43 +166,11 @@ export default function PersistentNav(): React.ReactElement {
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
+  const toggleMenu = () => setMenuOpen((o) => !o);
 
   const desktopNavClass = "fixed top-[2.5rem] left-section-x right-section-x grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 z-[1000] min-w-0 overflow-visible pointer-events-auto hidden md:grid";
 
   const mobileNavClass = "fixed top-[0.75rem] left-[0.875rem] right-[0.875rem] z-[1000] pointer-events-auto md:hidden";
-
-  function MobilePill({ theme }: { theme: 'light' | 'dark' }) {
-    const isDark = theme === 'dark';
-    const bg = isDark ? 'bg-black' : 'bg-white';
-    const iconColor = isDark ? 'white' : '#1e1e1e';
-    const textColor = isDark ? 'text-white' : 'text-[#1e1e1e]';
-
-    return (
-      <div className={`rounded-[3px] overflow-hidden ${bg} transition-[background-color] duration-[400ms] ease-in-out`}>
-        <div className="flex items-center h-[49px] pl-[1.75rem] pr-[1.75rem]">
-          <button
-            onClick={() => setMenuOpen((o) => !o)}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={menuOpen}
-            aria-controls={`mobile-menu-${theme}`}
-            className="flex items-center justify-center shrink-0 pointer-events-auto bg-transparent border-none cursor-pointer p-0"
-          >
-            <HamburgerIcon color={iconColor} open={menuOpen} />
-          </button>
-          <div className={`flex-1 text-center text-[18px] font-display font-medium not-italic leading-[1] ${textColor} antialiased text-crisp transition-colors duration-[400ms] ease-in-out`}>
-            Nocti Labs
-          </div>
-          <div className="w-[1.0625rem] shrink-0" />
-        </div>
-        <div
-          id={`mobile-menu-${theme}`}
-          className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${menuOpen ? 'max-h-[185px]' : 'max-h-0'}`}
-        >
-          <MobileMenuLinks theme={theme} onLinkClick={closeMenu} />
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="fixed inset-x-0 top-0 z-[1000] pointer-events-none h-screen">
@@ -172,12 +194,12 @@ export default function PersistentNav(): React.ReactElement {
 
       {/* Mobile: Light pill */}
       <div ref={lightMobileRef} className={mobileNavClass} style={{ clipPath: 'inset(0 0 100% 0)' }}>
-        <MobilePill theme="light" />
+        <MobilePill theme="light" menuOpen={menuOpen} onToggleMenu={toggleMenu} onCloseMenu={closeMenu} />
       </div>
 
       {/* Mobile: Dark pill */}
       <div ref={darkMobileRef} className={mobileNavClass}>
-        <MobilePill theme="dark" />
+        <MobilePill theme="dark" menuOpen={menuOpen} onToggleMenu={toggleMenu} onCloseMenu={closeMenu} />
       </div>
     </div>
   );
