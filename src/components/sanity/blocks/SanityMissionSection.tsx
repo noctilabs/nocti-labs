@@ -24,7 +24,7 @@ export default function SanityMissionSection({
       className="bg-black text-white flex flex-col relative"
       suppressHydrationWarning
     >
-      <div className="w-full relative px-[2.38vw] md:px-section-x pt-[2.37rem] pb-[5.535rem] flex flex-col">
+      <div className="w-full relative px-[2.38vw] md:px-section-x pt-[2.37rem] max-md:pb-[5.535rem] md:pb-[11.07rem] flex flex-col">
         {/* Heading — mobile: 11.43vw (48px at 420px frame), desktop: 3.32rem */}
         {heading && (
           <h2 className="text-[11.43vw] leading-[11.9vw] font-body font-medium m-0 md:text-[3.32rem] md:leading-[1.042]">
