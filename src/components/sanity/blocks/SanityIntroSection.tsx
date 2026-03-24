@@ -27,10 +27,10 @@ export default function SanityIntroSection({
       <div className="flex flex-col md:block">
         {/* Heading */}
         {heading && (
-          <div className="mt-[4.5rem] mb-0 md:mt-[3.125rem] md:mb-[2.5rem] max-w-[38.55rem] w-full">
+          <div className="mt-[4.5rem] mb-0 md:mt-[3.125rem] md:mb-[2.5rem] max-w-[38.55rem] w-full md:max-w-none">
             <h2 className={`${headingCls} m-0
                             text-[4.4rem] leading-[4.6rem]
-                            md:text-[3.32rem] md:leading-[1.042]`}>
+                            md:text-[3.32rem] md:leading-[1.042] md:whitespace-nowrap`}>
               {heading}
             </h2>
           </div>
