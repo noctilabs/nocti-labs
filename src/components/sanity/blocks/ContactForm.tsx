@@ -339,7 +339,7 @@ export default function ContactForm({ platformOptions = [], hearAboutUsOptions =
         <button
           type="submit"
           disabled={submitting}
-          className="bg-white text-black hover:opacity-80 transition disabled:opacity-50 font-mono font-medium rounded-[0.625rem] text-[1.3125rem] leading-[1.5rem] w-[9.437rem] h-[3.482rem] md:text-[0.875rem] md:leading-[1rem] md:w-[6.29125rem] md:h-[2.3216875rem]"
+          className="bg-white text-black border-2 border-white hover:bg-black hover:text-white hover:border-white transition-[background-color,color,border-color] duration-[400ms] ease-in-out disabled:opacity-50 font-mono font-medium rounded-[0.625rem] text-[1.3125rem] leading-[1.5rem] w-[9.437rem] h-[3.482rem] md:text-[0.875rem] md:leading-[1rem] md:w-[6.29125rem] md:h-[2.3216875rem]"
         >
           {submitting ? '...' : 'Submit'}
         </button>
