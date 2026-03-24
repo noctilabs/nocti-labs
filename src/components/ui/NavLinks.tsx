@@ -14,7 +14,7 @@ const links = [
   { href: '/blog', label: 'BLOG', width: 'w-[4.4375rem]' },
 ] as const;
 
-const linkBase = "flex flex-col items-center justify-center shrink-0 text-center no-underline whitespace-nowrap text-[0.875rem] font-mono font-medium not-italic leading-[1] tracking-[0] antialiased text-crisp transition-colors duration-[400ms] ease-in-out";
+const linkBase = "flex flex-col items-center justify-center shrink-0 text-center no-underline whitespace-nowrap text-[0.875rem] font-mono font-medium not-italic leading-[1] tracking-[0] antialiased text-crisp transition-colors duration-[400ms] ease-in-out hover:opacity-75";
 
 export default function NavLinks({ theme = 'light' }: NavLinksProps) {
   const isDark = theme === 'dark';
@@ -33,7 +33,7 @@ export default function NavLinks({ theme = 'light' }: NavLinksProps) {
             href={href}
             className={`${linkBase} ${width} ${textClass}`}
           >
-            <span className={isActive(href) ? 'border-b-2 border-current' : ''}>{label}</span>
+            <span className={`transition-all duration-[400ms] ease-in-out ${isActive(href) ? 'border-b-2 border-current' : 'border-b-2 border-transparent hover:border-current'}`}>{label}</span>
           </Link>
         ))}
       </div>
