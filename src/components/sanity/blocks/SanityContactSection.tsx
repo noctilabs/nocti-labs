@@ -44,9 +44,9 @@ export default function SanityContactSection({
             </h2>
           )}
           {email && (
-            <p className="font-body font-medium text-[2.4rem] leading-[2.5rem] m-0 text-white">
+            <a href={`mailto:${email}`} className="font-body font-medium text-[2.4rem] leading-[2.5rem] m-0 text-white email-link">
               {email}
-            </p>
+            </a>
           )}
         </div>
 
@@ -95,7 +95,7 @@ export default function SanityContactSection({
           <div className="flex flex-col gap-[12.5625rem]">
             <div className="flex flex-col gap-[1.3125rem]">
               {heading && <h2 className={`${contactTitle} m-0`}>{heading}</h2>}
-              {email && <p className={`${contactCta} m-0 text-white`}>{email}</p>}
+              {email && <a href={`mailto:${email}`} className={`${contactCta} m-0 text-white email-link w-fit`}>{email}</a>}
             </div>
             <div className="flex flex-col gap-[2.1875rem]">
               <h3 className={`${contactTitle} m-0`}>Our Offices</h3>

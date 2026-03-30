@@ -12,9 +12,10 @@ type Block = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
 
 interface PageBuilderProps {
   blocks?: Block[] | null
+  pageSlug?: string
 }
 
-export default function PageBuilder({ blocks }: PageBuilderProps) {
+export default function PageBuilder({ blocks, pageSlug }: PageBuilderProps) {
   if (!Array.isArray(blocks)) return null
 
   return (
@@ -27,7 +28,7 @@ export default function PageBuilder({ blocks }: PageBuilderProps) {
           case 'introSection':
             return <SanityIntroSection key={_key} {...block} />
           case 'servicesShowcase':
-            return <SanityServicesShowcase key={_key} {...block} />
+            return <SanityServicesShowcase key={_key} {...block} pageSlug={pageSlug} />
           case 'projectsShowcase':
             return <SanityProjectsShowcase key={_key} {...block} />
           case 'insightsGrid':
