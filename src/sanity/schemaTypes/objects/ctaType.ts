@@ -10,7 +10,6 @@ export const ctaType = defineType({
     defineField({
       name: 'label',
       type: 'string',
-      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'linkType',

@@ -7,6 +7,7 @@ interface SanityCtaProps {
   internalLink?: string
   externalUrl?: string
   className?: string
+  showArrow?: boolean
 }
 
 export default function SanityCta({
@@ -15,8 +16,10 @@ export default function SanityCta({
   internalLink,
   externalUrl,
   className = '',
+  showArrow = true,
 }: SanityCtaProps) {
-  if (!label) return null
+  const cleanLabel = label ? stegaClean(label).trim() : ''
+  if (!cleanLabel) return null
 
   const cleanLinkType = stegaClean(linkType)
   const href =
@@ -32,7 +35,7 @@ export default function SanityCta({
       className={`hover:opacity-70 transition inline-flex items-center gap-2 font-body font-[inherit] leading-[inherit] ${className}`}
       {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
     >
-      {label} <span aria-hidden="true">&rarr;</span>
+      {cleanLabel} {showArrow && <span aria-hidden="true">&rarr;</span>}
     </Link>
   )
 }

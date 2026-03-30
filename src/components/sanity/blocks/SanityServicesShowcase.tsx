@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, startTransition } from "react";
 import SanityCta from "@/components/sanity/shared/SanityCta";
 import { bodyMedium } from "@/lib/typography";
 import type { PAGE_QUERYResult } from "../../../../sanity.types";
@@ -13,6 +13,7 @@ type SanityServicesShowcaseProps = Extract<
   { _type: "servicesShowcase" }
 > & {
   tagline?: string;
+  pageSlug?: string;
 };
 
 function ChevronIcon({ className }: { className?: string }) {
@@ -46,8 +47,25 @@ export default function SanityServicesShowcase({
   tagline,
   services,
   cta,
+  pageSlug,
 }: SanityServicesShowcaseProps) {
+  const isHome = pageSlug === "home";
   const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  const expandedRef = useRef<HTMLDivElement | null>(null);
+  const didScrollRef = useRef(false);
+
+  useEffect(() => {
+    if (isHome) return;
+    const hash = window.location.hash.slice(1);
+    if (hash) startTransition(() => setExpandedId(hash));
+  }, [isHome]);
+
+  useEffect(() => {
+    if (!expandedId || !expandedRef.current || didScrollRef.current) return;
+    didScrollRef.current = true;
+    expandedRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [expandedId]);
 
   const toggleService = (id: string) => {
     setExpandedId(expandedId === id ? null : id);
@@ -83,9 +101,18 @@ export default function SanityServicesShowcase({
             <div className="border-t-2 border-white" />
             {services.map((service) => (
               <div key={service._id}>
-                <div className="font-body font-medium text-[3.2rem] leading-[3.7rem] py-[2.25rem]">
-                  {service.title}
-                </div>
+                {isHome ? (
+                  <a
+                    href={`/services#${service._id}`}
+                    className="font-body font-medium text-[3.2rem] leading-[3.7rem] py-[2.25rem] block hover:opacity-70 transition-opacity"
+                  >
+                    {service.title}
+                  </a>
+                ) : (
+                  <div className="font-body font-medium text-[3.2rem] leading-[3.7rem] py-[2.25rem]">
+                    {service.title}
+                  </div>
+                )}
                 <div className="border-t-2 border-white" />
               </div>
             ))}
@@ -117,42 +144,47 @@ export default function SanityServicesShowcase({
           )}
         </div>
 
-        {/* Services Accordion */}
+        {/* Services List */}
         {services && services.length > 0 && (
           <div className="flex flex-col">
             {services.map((service, index) => {
-              const isExpanded = expandedId === service._id;
               const isFirst = index === 0;
+              const rowClass = `font-body font-medium text-[3rem] leading-[3.125rem] py-[1.1rem] flex justify-between items-center border-b-2 border-white ${isFirst ? 'border-t' : ''}`;
 
+              if (isHome) {
+                return (
+                  <div key={service._id}>
+                    <a
+                      href={`/services#${service._id}`}
+                      className={`${rowClass} hover:opacity-70 transition-opacity duration-300`}
+                    >
+                      <span>{service.title}</span>
+                    </a>
+                  </div>
+                );
+              }
+
+              const isExpanded = expandedId === service._id;
               return (
-                <div key={service._id}>
+                <div key={service._id} ref={isExpanded ? expandedRef : null}>
                   <div
                     onClick={() => toggleService(service._id)}
-                    className={`font-body font-medium text-[3rem] leading-[3.125rem] py-[1.1rem] cursor-pointer flex justify-between items-center transition-opacity duration-300 ease-in-out select-none border-b-2 border-white hover:opacity-70 ${isFirst ? 'border-t' : ''}`}
+                    className={`${rowClass} cursor-pointer transition-opacity duration-300 ease-in-out select-none hover:opacity-70`}
                   >
                     <span>{service.title}</span>
-                    <span
-                      className={`mr-[7.8rem] transition-transform duration-300 ease-in-out flex items-center ${isExpanded ? 'rotate-180' : 'rotate-0'}`}
-                    >
+                    <span className={`mr-[7.8rem] transition-transform duration-300 ease-in-out flex items-center ${isExpanded ? 'rotate-180' : 'rotate-0'}`}>
                       <ChevronIcon />
                     </span>
                   </div>
-
                   {isExpanded && (
                     <div className="grid grid-cols-[41fr_59fr] gap-[9.6rem] pt-[2.6rem] pb-[3rem] border-b-2 border-white animate-[slideDown_0.3s_ease]">
-                      <div className={bodyMedium}>
-                        {service.description}
-                      </div>
+                      <div className={bodyMedium}>{service.description}</div>
                       <div className={`${bodyMedium} flex flex-col gap-8 pr-[7.8rem]`}>
-                        {service.items &&
-                          service.items.map((item) => (
-                            <div key={item._key}>
-                              <SanityCta
-                                {...item}
-                                className="text-white w-full flex justify-between"
-                              />
-                            </div>
-                          ))}
+                        {service.items && service.items.map((item) => (
+                          <div key={item._key}>
+                            <SanityCta {...item} className="text-white w-full flex justify-between" />
+                          </div>
+                        ))}
                       </div>
                     </div>
                   )}

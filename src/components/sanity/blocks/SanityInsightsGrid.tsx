@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
 import { heading as headingCls, subheading, caption } from '@/lib/typography'
 import type { PAGE_QUERYResult } from '../../../../sanity.types'
+import BlogComingSoon from '@/components/blog/BlogComingSoon'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
 type SanityInsightsGridProps = Extract<PageBlock, { _type: 'insightsGrid' }>
@@ -11,6 +12,22 @@ export default function SanityInsightsGrid({
   heading,
   featuredPosts,
 }: SanityInsightsGridProps) {
+  const isEmpty = !featuredPosts || featuredPosts.length === 0
+
+  if (isEmpty) {
+    return (
+      <section data-nav-theme="dark" className="bg-black text-white" style={{ paddingBottom: '18.5rem' }}>
+        <div className="hidden md:block pt-[2.34rem] mx-section-x">
+          {heading && <h2 className={`${headingCls} pt-0 pb-[7.11rem]`}>{heading}</h2>}
+        </div>
+        <div className="md:hidden pt-[4.5rem] px-[1.4rem]">
+          {heading && <h2 className="font-body font-medium text-[4.4rem] leading-[5rem] m-0 mb-[3.8rem]">{heading}</h2>}
+        </div>
+        <BlogComingSoon hideWrapper />
+      </section>
+    )
+  }
+
   return (
     <section
       data-nav-theme="dark"
