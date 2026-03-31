@@ -165,11 +165,12 @@ export default function SanityServicesShowcase({
               }
 
               const isExpanded = expandedId === service._id;
+              const expandedRowClass = isExpanded ? rowClass.replace('border-b-2', '') : rowClass;
               return (
                 <div key={service._id} ref={isExpanded ? expandedRef : null}>
                   <div
                     onClick={() => toggleService(service._id)}
-                    className={`${rowClass} cursor-pointer transition-opacity duration-300 ease-in-out select-none hover:opacity-70`}
+                    className={`${expandedRowClass} cursor-pointer transition-opacity duration-300 ease-in-out select-none hover:opacity-70`}
                   >
                     <span>{service.title}</span>
                     <span className={`mr-[7.8rem] transition-transform duration-300 ease-in-out flex items-center ${isExpanded ? 'rotate-180' : 'rotate-0'}`}>
@@ -177,15 +178,17 @@ export default function SanityServicesShowcase({
                     </span>
                   </div>
                   {isExpanded && (
-                    <div className="grid grid-cols-[41fr_59fr] gap-[9.6rem] pt-[2.6rem] pb-[3rem] border-b-2 border-white animate-[slideDown_0.3s_ease]">
-                      <div className={bodyMedium}>{service.description}</div>
-                      <div className={`${bodyMedium} flex flex-col gap-8 pr-[7.8rem]`}>
-                        {service.items && service.items.map((item) => (
-                          <div key={item._key}>
-                            {/* Sub-services displayed as plain text without links */}
-                            <span className="text-white">{item.label}</span>
-                          </div>
-                        ))}
+                    <div className="pb-[3rem] border-b-2 border-white animate-[slideDown_0.3s_ease]">
+                      <div className="grid grid-cols-[41fr_59fr] gap-[9.6rem]">
+                        <div className="font-body font-normal text-[1.5rem] leading-[1.208] tracking-[0] text-white pt-[2.6rem]">{service.description}</div>
+                        <div className={`${bodyMedium} flex flex-col pt-[2.6rem]`}>
+                          {service.items && service.items.map((item, i) => (
+                            <div key={item._key} className={`border-b-2 border-white pb-[0.35rem] ${i === 0 ? 'pt-0' : 'pt-[1.2rem]'}`}>
+                              {/* Sub-services displayed as plain text without links */}
+                              <span className="text-white pl-[1rem] font-body font-normal text-[1.5rem] leading-[1.208] tracking-[0]">{item.label}</span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   )}
