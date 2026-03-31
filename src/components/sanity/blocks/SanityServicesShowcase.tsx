@@ -182,7 +182,8 @@ export default function SanityServicesShowcase({
                       <div className={`${bodyMedium} flex flex-col gap-8 pr-[7.8rem]`}>
                         {service.items && service.items.map((item) => (
                           <div key={item._key}>
-                            <SanityCta {...item} className="text-white w-full flex justify-between" />
+                            {/* Sub-services displayed as plain text without links */}
+                            <span className="text-white">{item.label}</span>
                           </div>
                         ))}
                       </div>
