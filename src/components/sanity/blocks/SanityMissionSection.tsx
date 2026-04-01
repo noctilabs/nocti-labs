@@ -43,7 +43,7 @@ export default function SanityMissionSection({
                   className="flex flex-col gap-[0.9rem] w-full items-start"
                 >
                   {principle.icon?.asset?._ref ? (
-                    <div className="w-full h-[10.14rem] relative mb-[0.9rem] flex items-center justify-center">
+                    <div className="w-full h-[13.41522rem] relative mb-[0.9rem] flex items-center justify-center">
                       <Image
                         src={urlFor(principle.icon).width(500).height(500).url()}
                         alt=""
@@ -53,7 +53,7 @@ export default function SanityMissionSection({
                       />
                     </div>
                   ) : (
-                    <div className="w-[10.14rem] h-[10.14rem] rounded-full mb-[0.9rem] bg-[radial-gradient(circle,rgba(0,100,200,1)_0%,rgba(0,150,255,0.8)_100%)]" />
+                    <div className="w-[13.41522rem] h-[13.41522rem] rounded-full mb-[0.9rem] bg-[radial-gradient(circle,rgba(0,100,200,1)_0%,rgba(0,150,255,0.8)_100%)]" />
                   )}
                   {principle.title && (
                     <h3 className={`${subheading} m-0`}>{principle.title}</h3>
