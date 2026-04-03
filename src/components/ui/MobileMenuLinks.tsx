@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { Link, usePathname } from '@/i18n/navigation';
 
 interface MobileMenuLinksProps {
   theme: 'light' | 'dark';
@@ -9,22 +9,26 @@ interface MobileMenuLinksProps {
 }
 
 const links = [
-  { href: '/work', label: 'WORK' },
-  { href: '/services', label: 'SERVICES' },
-  { href: '/about', label: 'ABOUT' },
-  { href: '/blog', label: 'BLOG' },
-  { href: '/contact', label: 'CONTACT US' },
+  { href: '/work', messageKey: 'work' },
+  { href: '/services', messageKey: 'services' },
+  { href: '/about', messageKey: 'about' },
+  { href: '/blog', messageKey: 'blog' },
+  { href: '/contact', messageKey: 'contact' as const },
 ] as const;
 
 export default function MobileMenuLinks({ theme, onLinkClick }: MobileMenuLinksProps) {
+  const tNav = useTranslations('nav');
+  const tLink = useTranslations('nav.link');
   const isDark = theme === 'dark';
   const textClass = isDark ? 'text-white' : 'text-[#1e1e1e]';
   const pathname = usePathname();
 
   return (
     <div className="flex flex-col items-center">
-      {links.map(({ href, label }) => {
+      {links.map(({ href, messageKey }) => {
         const isActive = pathname === href || pathname.startsWith(href + '/');
+        const label =
+          messageKey === 'contact' ? tNav('contact').toUpperCase() : tLink(messageKey);
         return (
           <Link
             key={href}

@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { SanityLive } from "@/sanity/lib/live";
-import NavWrapper from "@/components/layout/NavWrapper";
-import ScrollToTop from "@/components/layout/ScrollToTop";
 import { displayFont, bodyFont, monoFont } from "./fonts";
 
 export const metadata: Metadata = {
@@ -17,13 +14,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}>
-      <body>
-        <ScrollToTop />
-        <NavWrapper />
-        {children}
-        <SanityLive />
-      </body>
+    <html className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

@@ -1,0 +1,56 @@
+{
+  "nav": {
+    "brandName": "Nocti Labs",
+    "contact": "Contáctenos",
+    "link": {
+      "work": "TRABAJO",
+      "services": "SERVICIOS",
+      "about": "NOSOTROS",
+      "blog": "BLOG"
+    },
+    "aria": {
+      "closeMenu": "Cerrar menú",
+      "openMenu": "Abrir menú"
+    }
+  },
+  "form": {
+    "label": {
+      "firstName": "Nombre *",
+      "lastName": "Apellido *",
+      "workEmail": "Correo profesional *",
+      "companyName": "Nombre de la empresa *",
+      "currentPlatform": "Plataforma de E-Commerce actual",
+      "countryRegion": "País / Región *",
+      "phoneNumber": "Número de teléfono",
+      "hearAboutUs": "¿Cómo nos conociste?",
+      "projectDescription": "Descripción del proyecto"
+    },
+    "button": {
+      "submit": "Enviar",
+      "submitting": "..."
+    },
+    "message": {
+      "success": "¡Gracias! Nos pondremos en contacto pronto."
+    },
+    "error": {
+      "submitFailed": "Algo salió mal. Por favor intenta de nuevo."
+    }
+  },
+  "errors": {
+    "404": {
+      "code": "404",
+      "title": "Esta página no existe.",
+      "description": "Te perdiste. O nosotros. De cualquier forma, aquí no hay nada—pero el resto del sitio sigue ahí.",
+      "backLink": "Volver al inicio"
+    }
+  },
+  "blog": {
+    "comingSoon": {
+      "title": "Próximamente",
+      "subtitle": "Nuestro redactor todavía tiene la página en blanco. Le tenemos fe."
+    },
+    "post": {
+      "tableOfContents": "Índice / Contenido"
+    }
+  }
+}

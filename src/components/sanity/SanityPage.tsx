@@ -5,12 +5,13 @@ import PageNotFound from "@/components/ui/PageNotFound";
 
 type SanityPageProps = {
   slug: string;
+  locale: string;
 };
 
-export default async function SanityPage({ slug }: SanityPageProps) {
+export default async function SanityPage({ slug, locale }: SanityPageProps) {
   const { data: page } = await sanityFetch({
     query: PAGE_QUERY,
-    params: { slug },
+    params: { slug, locale },
   });
 
   if (!page) {

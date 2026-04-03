@@ -34,6 +34,7 @@ export default function SanityProjectsShowcase({
 
   return (
     <section
+      data-nav-theme={navTheme}
       className="text-black flex flex-col relative pb-0"
       style={{ backgroundColor: backgroundColor || '#ffffff' }}
       suppressHydrationWarning
