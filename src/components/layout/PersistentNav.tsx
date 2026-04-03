@@ -1,13 +1,14 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { Link, usePathname } from '@/i18n/navigation';
 import NavLogo from '../ui/NavLogo';
 import NavLinks from '../ui/NavLinks';
 import NavContactButton from '../ui/NavContactButton';
 import MobileMenuLinks from '../ui/MobileMenuLinks';
 import HamburgerIcon from '../ui/HamburgerIcon';
+import LocaleSwitcher from '../ui/LocaleSwitcher';
 
 interface MobilePillProps {
   theme: 'light' | 'dark';
@@ -17,6 +18,7 @@ interface MobilePillProps {
 }
 
 function MobilePill({ theme, menuOpen, onToggleMenu, onCloseMenu }: MobilePillProps) {
+  const t = useTranslations('nav');
   const pathname = usePathname();
   const isDark = theme === 'dark';
   const bg = isDark ? 'bg-black' : 'bg-white';
@@ -28,7 +30,7 @@ function MobilePill({ theme, menuOpen, onToggleMenu, onCloseMenu }: MobilePillPr
       <div className="flex items-center h-[49px] px-[15px]">
         <button
           onClick={onToggleMenu}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-label={menuOpen ? t('aria.closeMenu') : t('aria.openMenu')}
           aria-expanded={menuOpen}
           aria-controls={`mobile-menu-${theme}`}
           className="flex items-center justify-center shrink-0 pointer-events-auto bg-transparent border-none cursor-pointer p-0"
@@ -46,7 +48,7 @@ function MobilePill({ theme, menuOpen, onToggleMenu, onCloseMenu }: MobilePillPr
             }}
             className={`text-[18px] font-display font-medium not-italic leading-[1] ${textColor} antialiased text-crisp transition-colors duration-[400ms] ease-in-out no-underline`}
           >
-            Nocti Labs
+            {t('brandName')}
           </Link>
         </div>
         <div className="w-[1.0625rem] shrink-0" />
@@ -71,6 +73,8 @@ export default function PersistentNav(): React.ReactElement {
   const lightNavRef = useRef<HTMLElement>(null);
   const darkMobileRef = useRef<HTMLDivElement>(null);
   const lightMobileRef = useRef<HTMLDivElement>(null);
+  const darkLocaleRef = useRef<HTMLDivElement>(null);
+  const lightLocaleRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -145,6 +149,71 @@ export default function PersistentNav(): React.ReactElement {
 
       if (lightMobileRef.current) lightMobileRef.current.style.clipPath = lightClip;
       if (darkMobileRef.current) darkMobileRef.current.style.clipPath = darkClip;
+
+      // Locale: bottom-fixed; optional data-locale-chrome overrides data-nav-theme for the toggle only.
+      const resolveLocaleCap = (el: HTMLElement): 'white' | 'darkBubble' => {
+        const chrome = el.getAttribute('data-locale-chrome');
+        if (chrome === 'light') return 'white';
+        if (chrome === 'dark') return 'darkBubble';
+        const nav = el.getAttribute('data-nav-theme');
+        if (nav === 'dark') return 'white';
+        if (nav === 'light') return 'darkBubble';
+        return 'darkBubble';
+      };
+      const localeCandidates = document.querySelectorAll<HTMLElement>(
+        '[data-nav-theme]:not([data-nav-layout-root]), [data-locale-chrome]',
+      );
+      const localeDarkEl = darkLocaleRef.current;
+      const localeLightEl = lightLocaleRef.current;
+      if (localeDarkEl && localeLightEl) {
+        const lr = localeDarkEl.getBoundingClientRect();
+        const lTop = lr.top;
+        const lBottom = lr.bottom;
+        const lHeight = lr.height;
+        if (lHeight > 0) {
+          let whiteTop = lBottom;
+          let whiteBottom = lTop;
+          let bubbleTop = lBottom;
+          let bubbleBottom = lTop;
+          localeCandidates.forEach((section) => {
+            const rect = section.getBoundingClientRect();
+            const intTop = Math.max(lTop, rect.top);
+            const intBottom = Math.min(lBottom, rect.bottom);
+            if (intBottom <= intTop) return;
+            const cap = resolveLocaleCap(section);
+            if (cap === 'white') {
+              whiteTop = Math.min(whiteTop, intTop);
+              whiteBottom = Math.max(whiteBottom, intBottom);
+            } else {
+              bubbleTop = Math.min(bubbleTop, intTop);
+              bubbleBottom = Math.max(bubbleBottom, intBottom);
+            }
+          });
+          const lHasWhite = whiteBottom > whiteTop;
+          const lHasBubble = bubbleBottom > bubbleTop;
+          let localeDarkClip: string;
+          let localeLightClip: string;
+          if (lHasWhite && !lHasBubble) {
+            localeDarkClip = 'inset(0 0 0 0)';
+            localeLightClip = 'inset(0 0 100% 0)';
+          } else if (lHasBubble && !lHasWhite) {
+            localeLightClip = 'inset(0 0 0 0)';
+            localeDarkClip = 'inset(0 0 100% 0)';
+          } else if (lHasWhite && lHasBubble) {
+            const wTopPct = ((whiteTop - lTop) / lHeight) * 100;
+            const wBotPct = ((lBottom - whiteBottom) / lHeight) * 100;
+            localeDarkClip = `inset(${Math.max(0, wTopPct).toFixed(2)}% 0 ${Math.max(0, wBotPct).toFixed(2)}% 0)`;
+            const bTopPct = ((bubbleTop - lTop) / lHeight) * 100;
+            const bBotPct = ((lBottom - bubbleBottom) / lHeight) * 100;
+            localeLightClip = `inset(${Math.max(0, bTopPct).toFixed(2)}% 0 ${Math.max(0, bBotPct).toFixed(2)}% 0)`;
+          } else {
+            localeLightClip = 'inset(0 0 0 0)';
+            localeDarkClip = 'inset(0 0 100% 0)';
+          }
+          localeLightEl.style.clipPath = localeLightClip;
+          localeDarkEl.style.clipPath = localeDarkClip;
+        }
+      }
     };
 
     const closeMenu = (): void => setMenuOpen(false);
@@ -200,6 +269,16 @@ export default function PersistentNav(): React.ReactElement {
       {/* Mobile: Dark pill */}
       <div ref={darkMobileRef} className={mobileNavClass}>
         <MobilePill theme="dark" menuOpen={menuOpen} onToggleMenu={toggleMenu} onCloseMenu={closeMenu} />
+      </div>
+
+      {/* Locale switcher — light version */}
+      <div ref={lightLocaleRef} className="fixed bottom-[2rem] right-[2rem] z-[1001] pointer-events-auto" style={{ clipPath: 'inset(0 0 100% 0)' }}>
+        <LocaleSwitcher theme="light" />
+      </div>
+
+      {/* Locale switcher — dark version */}
+      <div ref={darkLocaleRef} className="fixed bottom-[2rem] right-[2rem] z-[1001] pointer-events-auto">
+        <LocaleSwitcher theme="dark" />
       </div>
     </div>
   );

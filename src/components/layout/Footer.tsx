@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { sanityFetch } from '@/sanity/lib/live';
 import { SITE_SETTINGS_QUERY } from '@/sanity/lib/queries';
 import type { SITE_SETTINGS_QUERYResult } from '../../../sanity.types';
@@ -6,6 +6,17 @@ import type { SITE_SETTINGS_QUERYResult } from '../../../sanity.types';
 type FooterColumn = NonNullable<NonNullable<SITE_SETTINGS_QUERYResult>['footerColumns']>[number]
 
 const colClass = "text-[0.875rem] font-mono leading-[1.643] tracking-[0] uppercase text-black";
+
+function resolveFooterHref(href?: string | null, heading?: string | null): string {
+  if (href && href.trim()) {
+    return href;
+  }
+
+  if (heading === 'BLOG') return '/blog';
+  if (heading === 'ABOUT') return '/about';
+
+  return '#';
+}
 
 export default async function Footer() {
   const { data: settings } = await sanityFetch({ query: SITE_SETTINGS_QUERY });
@@ -22,7 +33,7 @@ export default async function Footer() {
             <h3 className={`${colClass} font-bold`}>{col.heading}</h3>
           ) : (
             <Link
-              href={col.heading === 'BLOG' ? '/blog' : col.heading === 'ABOUT' ? '/about' : '#'}
+              href={resolveFooterHref(undefined, col.heading)}
               className={`${colClass} font-bold hover:opacity-70 transition block`}
             >
               {col.heading}
@@ -33,7 +44,7 @@ export default async function Footer() {
           <ul className={`${colClass} font-normal list-none m-0 p-0`}>
             {col.links.map((link) => (
               <li key={link._key}>
-                <Link href={link.href ?? '#'} className="hover:opacity-70 transition">
+                <Link href={resolveFooterHref(link.href, link.label)} className="hover:opacity-70 transition">
                   {link.label}
                 </Link>
               </li>

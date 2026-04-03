@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { Link, usePathname } from '@/i18n/navigation';
 
 interface NavLogoProps {
   className?: string;
@@ -9,6 +9,7 @@ interface NavLogoProps {
 }
 
 export default function NavLogo({ className = '', theme = 'light' }: NavLogoProps) {
+  const t = useTranslations('nav');
   const pathname = usePathname();
   const isDark = theme === 'dark';
 
@@ -27,7 +28,7 @@ export default function NavLogo({ className = '', theme = 'light' }: NavLogoProp
       <div
         className={`relative z-[1] text-center flex items-center justify-center text-[1.4375rem] font-display font-medium not-italic leading-[1] tracking-[0] antialiased text-crisp transition-colors duration-[400ms] ease-in-out whitespace-nowrap ${isDark ? 'text-white' : 'text-[#1e1e1e]'}`}
       >
-        Nocti Labs
+        {t('brandName')}
       </div>
     </Link>
   );

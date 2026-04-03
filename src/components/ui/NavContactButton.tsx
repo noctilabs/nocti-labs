@@ -1,4 +1,7 @@
-import Link from 'next/link';
+'use client';
+
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 
 interface NavContactButtonProps {
   className?: string;
@@ -6,6 +9,7 @@ interface NavContactButtonProps {
 }
 
 export default function NavContactButton({ className = '', theme = 'light' }: NavContactButtonProps) {
+  const t = useTranslations('nav');
   const isDark = theme === 'dark';
   const arrowColor = isDark ? 'white' : '#1e1e1e';
   const isFooter = className?.includes('footer');
@@ -18,7 +22,7 @@ export default function NavContactButton({ className = '', theme = 'light' }: Na
       <div
         className="flex items-center justify-center leading-[1] text-[0.875rem] font-mono font-medium not-italic tracking-[0] antialiased text-crisp shrink-0 whitespace-nowrap"
       >
-        Contact Us
+        {t('contact')}
       </div>
       <svg
         width="0.9rem"

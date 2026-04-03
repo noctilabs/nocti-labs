@@ -53,9 +53,12 @@ export default function SanityHero({
     backgroundPosition: 'center',
   }
 
+  // Only explicit "light" (white) hero uses dark nav; blue and other dark treatments use light nav + locale.
+  const navTheme: 'light' | 'dark' = cleanTheme === 'light' ? 'light' : 'dark'
+
   return (
     <section
-      data-nav-theme="dark"
+      data-nav-theme={navTheme}
       className="w-full h-screen relative overflow-hidden mt-[calc(-1*var(--nav-offset))]"
       style={bgStyle}
     >

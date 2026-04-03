@@ -15,8 +15,17 @@ export const pageType = defineType({
     defineField({
       name: 'slug',
       type: 'slug',
-      options: { source: 'title' },
+      options: {
+        source: 'title',
+        isUnique: () => true,
+      },
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
     }),
     defineField({
       name: 'pageBuilder',

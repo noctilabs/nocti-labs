@@ -1,10 +1,11 @@
 import { defineQuery } from 'next-sanity'
 
 export const PAGE_QUERY = defineQuery(/* groq */ `
-  *[_type == "page" && slug.current == $slug][0]{
+  *[_type == "page" && slug.current == $slug && language == $locale][0]{
     _id,
     title,
     slug,
+    language,
     seo,
     pageBuilder[]{
       ...,
@@ -54,10 +55,11 @@ export const PAGE_QUERY = defineQuery(/* groq */ `
 `)
 
 export const BLOG_POST_QUERY = defineQuery(/* groq */ `
-  *[_type == "blogPost" && slug.current == $slug][0]{
+  *[_type == "blogPost" && slug.current == $slug && language == $locale][0]{
     _id,
     title,
     slug,
+    language,
     coverImage,
     excerpt,
     body[]{

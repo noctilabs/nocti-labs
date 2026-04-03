@@ -13,6 +13,12 @@ export const serviceType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: 'category',
       type: 'string',
       options: {
