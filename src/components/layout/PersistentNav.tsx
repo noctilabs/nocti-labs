@@ -75,9 +75,150 @@ export default function PersistentNav(): React.ReactElement {
   const lightMobileRef = useRef<HTMLDivElement>(null);
   const darkLocaleRef = useRef<HTMLDivElement>(null);
   const lightLocaleRef = useRef<HTMLDivElement>(null);
+  // Logo has independent clip logic: white text on dark bg, dark text on light bg
+  const logoDarkRef = useRef<HTMLDivElement>(null);  // white text — shown on dark backgrounds
+  const logoLightRef = useRef<HTMLDivElement>(null); // dark text — shown on light backgrounds
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Hide-on-scroll: track accumulated offset with refs to avoid re-renders
+  const lastScrollY = useRef(0);
+  const navOffset = useRef(0); // current translateY in px (0 = visible, negative = hidden)
+  const scrollDebt = useRef(0); // accumulated px in current direction before nav starts moving
+  const wasAtBottom = useRef(false); // whether we were in the bottom-zone on the last frame
+  /** 1 = scroll down, -1 = scroll up; kept when delta is 0 for sticky footer behavior. */
+  const scrollDirectionRef = useRef(1);
+
   useEffect(() => {
+    const SHOW_THRESHOLD = 80;  // don't start hiding until scrolled past this px
+    const DELAY_PX = 40;        // px of scroll in one direction before the nav starts to follow
+
+    const updateVisibility = (): void => {
+      const currentY = window.scrollY;
+      const delta = currentY - lastScrollY.current;
+      lastScrollY.current = currentY;
+      if (delta > 0) {
+        scrollDirectionRef.current = 1;
+      } else if (delta < 0) {
+        scrollDirectionRef.current = -1;
+      }
+      const scrollingUp = scrollDirectionRef.current < 0;
+
+      /** Max upward shift when hiding the nav on scroll (separate from page-end detection). */
+      const NAV_HIDE_CLEARANCE = 200;
+      /** Only treat as "footer at bottom" when this close to the document end (avoids showing nav hundreds of px early). */
+      const AT_PAGE_END_PX = 24;
+      /** After visiting the true bottom, keep nav visible until this far from the end (hysteresis; must be > AT_PAGE_END_PX). */
+      const FOOTER_STICKY_EXIT_PX = AT_PAGE_END_PX + 360;
+      /** Reveal span in px; motion is eased so the bar slows into place instead of a linear “drop.” */
+      const FOOTER_REVEAL_PX = NAV_HIDE_CLEARANCE;
+      const easeInOutCubic = (t: number): number => {
+        const x = Math.min(1, Math.max(0, t));
+        return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+      };
+      const footerRevealTranslateY = (gapPx: number): number => {
+        const g = Math.min(Math.max(gapPx, 0), FOOTER_REVEAL_PX);
+        const linearT = 1 - g / FOOTER_REVEAL_PX;
+        const eased = easeInOutCubic(linearT);
+        return -FOOTER_REVEAL_PX * (1 - eased);
+      };
+      const documentDistanceFromBottom = Math.max(
+        0,
+        document.documentElement.scrollHeight - (currentY + window.innerHeight),
+      );
+      const footerRevealEl = document.querySelector<HTMLElement>('[data-nav-footer-reveal]');
+      /** Pixels the footer bottom still sits below the viewport bottom (0 = footer flush with viewport bottom). */
+      const footerBottomGap =
+        footerRevealEl != null
+          ? Math.max(0, footerRevealEl.getBoundingClientRect().bottom - window.innerHeight)
+          : documentDistanceFromBottom;
+      /** Prefer footer geometry so reveal tracks the footer block, not only raw document scroll. */
+      const endGap = footerRevealEl != null ? footerBottomGap : documentDistanceFromBottom;
+
+      const applyNavY = (y: number): void => {
+        navOffset.current = y;
+        [lightNavRef, darkNavRef, logoLightRef, logoDarkRef, lightMobileRef, darkMobileRef].forEach((ref) => {
+          if (ref.current) {
+            ref.current.style.transition = 'none';
+            ref.current.style.transform = `translateY(${y}px)`;
+          }
+        });
+      };
+
+      const atTruePageEnd = documentDistanceFromBottom <= AT_PAGE_END_PX;
+      if (atTruePageEnd) {
+        wasAtBottom.current = true;
+        scrollDebt.current = 0;
+        applyNavY(0);
+        return;
+      }
+
+      const inFooterStickyScrollUp =
+        wasAtBottom.current &&
+        scrollingUp &&
+        endGap <= FOOTER_STICKY_EXIT_PX &&
+        documentDistanceFromBottom > AT_PAGE_END_PX &&
+        currentY > SHOW_THRESHOLD;
+      if (inFooterStickyScrollUp) {
+        scrollDebt.current = 0;
+        applyNavY(0);
+        return;
+      }
+
+      if (endGap <= FOOTER_REVEAL_PX) {
+        scrollDebt.current = 0;
+        applyNavY(footerRevealTranslateY(endGap));
+        return;
+      }
+
+      if (wasAtBottom.current) {
+        if (endGap <= FOOTER_STICKY_EXIT_PX && currentY > SHOW_THRESHOLD) {
+          scrollDebt.current = 0;
+          applyNavY(footerRevealTranslateY(endGap));
+          return;
+        }
+        wasAtBottom.current = false;
+        scrollDebt.current = 0;
+      }
+
+      if (currentY <= SHOW_THRESHOLD) {
+        // Near top — always fully visible
+        wasAtBottom.current = false;
+        navOffset.current = 0;
+        scrollDebt.current = 0;
+        [lightNavRef, darkNavRef, logoLightRef, logoDarkRef, lightMobileRef, darkMobileRef].forEach((ref) => {
+          if (ref.current) {
+            ref.current.style.transition = 'none';
+            ref.current.style.transform = 'translateY(0)';
+          }
+        });
+        return;
+      }
+
+      const navEls = [
+        lightNavRef.current,
+        darkNavRef.current,
+        logoLightRef.current,
+        logoDarkRef.current,
+        lightMobileRef.current,
+        darkMobileRef.current,
+      ].filter(Boolean) as HTMLElement[];
+
+      // Accumulate debt; reset if direction changes
+      if (Math.sign(delta) !== Math.sign(scrollDebt.current) && delta !== 0) {
+        scrollDebt.current = 0;
+      }
+      scrollDebt.current += delta;
+
+      // Don't move until the user has scrolled DELAY_PX in one direction
+      if (Math.abs(scrollDebt.current) < DELAY_PX) return;
+
+      navOffset.current = Math.min(0, Math.max(-NAV_HIDE_CLEARANCE, navOffset.current - delta));
+      navEls.forEach((el) => {
+        el.style.transition = 'none';
+        el.style.transform = `translateY(${navOffset.current}px)`;
+      });
+    };
+
     const updateClip = (): void => {
       const darkNav = darkNavRef.current;
       const lightNav = lightNavRef.current;
@@ -150,6 +291,63 @@ export default function PersistentNav(): React.ReactElement {
       if (lightMobileRef.current) lightMobileRef.current.style.clipPath = lightClip;
       if (darkMobileRef.current) darkMobileRef.current.style.clipPath = darkClip;
 
+      // Logo independent clip: uses data-nav-theme but NOT the layout root wrapper,
+      // so it correctly reads the actual section background colour.
+      // dark bg → white logo (logoDarkRef), light bg → dark logo (logoLightRef).
+      const logoEl = logoDarkRef.current ?? logoLightRef.current;
+      if (logoEl && logoDarkRef.current && logoLightRef.current) {
+        const lr = logoEl.getBoundingClientRect();
+        const lTop = lr.top;
+        const lBottom = lr.bottom;
+        const lHeight = lr.height;
+        if (lHeight > 0) {
+          const logoSections = document.querySelectorAll<HTMLElement>(
+            '[data-nav-theme]:not([data-nav-layout-root])',
+          );
+          let ldTop = lBottom, ldBottom = lTop; // dark-bg overlap
+          let llTop = lBottom, llBottom = lTop; // light-bg overlap
+          logoSections.forEach((section) => {
+            const rect = section.getBoundingClientRect();
+            const iTop = Math.max(lTop, rect.top);
+            const iBottom = Math.min(lBottom, rect.bottom);
+            if (iBottom <= iTop) return;
+            // data-nav-logo-theme overrides data-nav-theme for the logo only
+            const logoTheme = section.getAttribute('data-nav-logo-theme') ?? section.getAttribute('data-nav-theme');
+            if (logoTheme === 'dark') {
+              ldTop = Math.min(ldTop, iTop);
+              ldBottom = Math.max(ldBottom, iBottom);
+            } else {
+              llTop = Math.min(llTop, iTop);
+              llBottom = Math.max(llBottom, iBottom);
+            }
+          });
+          const hasDark = ldBottom > ldTop;
+          const hasLight = llBottom > llTop;
+          let logoDarkClip: string;
+          let logoLightClip: string;
+          if (hasDark && !hasLight) {
+            logoDarkClip = 'inset(0 0 0 0)';
+            logoLightClip = 'inset(0 0 100% 0)';
+          } else if (hasLight && !hasDark) {
+            logoDarkClip = 'inset(0 0 100% 0)';
+            logoLightClip = 'inset(0 0 0 0)';
+          } else if (hasDark && hasLight) {
+            const dTopPct = ((ldTop - lTop) / lHeight) * 100;
+            const dBotPct = ((lBottom - ldBottom) / lHeight) * 100;
+            logoDarkClip = `inset(${Math.max(0, dTopPct).toFixed(2)}% 0 ${Math.max(0, dBotPct).toFixed(2)}% 0)`;
+            const lTopPct = ((llTop - lTop) / lHeight) * 100;
+            const lBotPct = ((lBottom - llBottom) / lHeight) * 100;
+            logoLightClip = `inset(${Math.max(0, lTopPct).toFixed(2)}% 0 ${Math.max(0, lBotPct).toFixed(2)}% 0)`;
+          } else {
+            // No explicit section — default to light bg (dark text), e.g. hero with blue bg
+            logoDarkClip = 'inset(0 0 100% 0)';
+            logoLightClip = 'inset(0 0 0 0)';
+          }
+          logoDarkRef.current.style.clipPath = logoDarkClip;
+          logoLightRef.current.style.clipPath = logoLightClip;
+        }
+      }
+
       // Locale: bottom-fixed; optional data-locale-chrome overrides data-nav-theme for the toggle only.
       const resolveLocaleCap = (el: HTMLElement): 'white' | 'darkBubble' => {
         const chrome = el.getAttribute('data-locale-chrome');
@@ -220,6 +418,7 @@ export default function PersistentNav(): React.ReactElement {
     const onFrame = (): void => { requestAnimationFrame(updateClip); };
     const onScroll = (): void => {
       closeMenu();
+      updateVisibility();
       requestAnimationFrame(updateClip);
     };
 
@@ -245,7 +444,10 @@ export default function PersistentNav(): React.ReactElement {
     <div className="fixed inset-x-0 top-0 z-[1000] pointer-events-none h-screen">
       {/* Desktop: Light nav */}
       <nav ref={lightNavRef} className={desktopNavClass} style={{ clipPath: 'inset(0 0 100% 0)' }}>
-        <NavLogo className="justify-self-start" theme="light" />
+        {/* Logo placeholder — keeps grid layout; actual logo rendered independently below */}
+        <div className="justify-self-start opacity-0 pointer-events-none" aria-hidden="true">
+          <NavLogo theme="light" />
+        </div>
         <div className="flex justify-center">
           <NavLinks theme="light" />
         </div>
@@ -254,12 +456,31 @@ export default function PersistentNav(): React.ReactElement {
 
       {/* Desktop: Dark nav */}
       <nav ref={darkNavRef} className={desktopNavClass}>
-        <NavLogo className="justify-self-start" theme="dark" />
+        {/* Logo placeholder — keeps grid layout; actual logo rendered independently below */}
+        <div className="justify-self-start opacity-0 pointer-events-none" aria-hidden="true">
+          <NavLogo theme="dark" />
+        </div>
         <div className="flex justify-center">
           <NavLinks theme="dark" />
         </div>
         <NavContactButton className="justify-self-end" theme="dark" />
       </nav>
+
+      {/* Desktop: Logo — independent clip logic, not tied to the nav clip system */}
+      <div
+        ref={logoLightRef}
+        className="fixed top-[2.5rem] left-section-x z-[1001] pointer-events-auto hidden md:flex items-center"
+        style={{ clipPath: 'inset(0 0 0 0)' }}
+      >
+        <NavLogo theme="light" />
+      </div>
+      <div
+        ref={logoDarkRef}
+        className="fixed top-[2.5rem] left-section-x z-[1001] pointer-events-auto hidden md:flex items-center"
+        style={{ clipPath: 'inset(0 0 100% 0)' }}
+      >
+        <NavLogo theme="dark" />
+      </div>
 
       {/* Mobile: Light pill */}
       <div ref={lightMobileRef} className={mobileNavClass} style={{ clipPath: 'inset(0 0 100% 0)' }}>

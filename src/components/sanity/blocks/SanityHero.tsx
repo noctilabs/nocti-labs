@@ -55,10 +55,13 @@ export default function SanityHero({
 
   // Only explicit "light" (white) hero uses dark nav; blue and other dark treatments use light nav + locale.
   const navTheme: 'light' | 'dark' = cleanTheme === 'light' ? 'light' : 'dark'
+  // Blue hero has a mid-tone bg — logo stays dark (black) even though the rest of the nav is light-on-dark
+  const navLogoTheme: 'light' | 'dark' | undefined = cleanTheme === 'blue' ? 'light' : undefined
 
   return (
     <section
       data-nav-theme={navTheme}
+      {...(navLogoTheme ? { 'data-nav-logo-theme': navLogoTheme } : {})}
       className="w-full h-screen relative overflow-hidden mt-[calc(-1*var(--nav-offset))]"
       style={bgStyle}
     >

@@ -57,6 +57,7 @@ export default async function Footer() {
 
   return (
     <footer
+      data-nav-footer-reveal
       data-nav-theme="light"
       className="text-black relative w-full bg-footer h-screen overflow-hidden px-section-x flex flex-col"
     >
