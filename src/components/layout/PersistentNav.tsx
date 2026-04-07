@@ -339,9 +339,19 @@ export default function PersistentNav(): React.ReactElement {
             const lBotPct = ((lBottom - llBottom) / lHeight) * 100;
             logoLightClip = `inset(${Math.max(0, lTopPct).toFixed(2)}% 0 ${Math.max(0, lBotPct).toFixed(2)}% 0)`;
           } else {
-            // No explicit section — default to light bg (dark text), e.g. hero with blue bg
-            logoDarkClip = 'inset(0 0 100% 0)';
-            logoLightClip = 'inset(0 0 0 0)';
+            // No section intersects the logo (e.g. first block starts below pt-[nav-offset]).
+            // Fall back to the layout shell theme so the logo matches body/wrapper intent.
+            const layoutRoot = document.querySelector<HTMLElement>(
+              '[data-nav-layout-root][data-nav-theme]',
+            );
+            const rootTheme = layoutRoot?.getAttribute('data-nav-theme');
+            if (rootTheme === 'dark') {
+              logoDarkClip = 'inset(0 0 0 0)';
+              logoLightClip = 'inset(0 0 100% 0)';
+            } else {
+              logoDarkClip = 'inset(0 0 100% 0)';
+              logoLightClip = 'inset(0 0 0 0)';
+            }
           }
           logoDarkRef.current.style.clipPath = logoDarkClip;
           logoLightRef.current.style.clipPath = logoLightClip;

@@ -85,13 +85,10 @@ function FloatingField({
   );
 }
 
-// Figma: items at 14px/16px line-height, panel padding 0.625rem top/bottom
-// Red dot: 8px, positioned left-[3px], vertically centered on active item row
-// Item height = 1rem (16px line-height), py-[0.625rem] = 10px top padding
-// dot center offset = 0.625rem + (itemIndex * 1rem) + 0.5rem (half item height)
-function getRedDotTop(index: number): string {
-  // 0.625rem top padding + index * 1rem line-height + 0.25rem (center of 0.5rem dot)
-  return `calc(0.625rem + ${index} * 1rem + 0.25rem)`;
+// Figma: items at 14px/24px line-height, panel padding ~10px
+// Blue dot: 8px, positioned left, vertically centered on active item row
+function getDotTop(index: number): string {
+  return `calc(0.625rem + ${index} * 1.5rem + 0.4375rem)`;
 }
 
 function FloatingSelect({
@@ -131,18 +128,18 @@ function FloatingSelect({
 
       {open && (
         <div
-          className={`absolute left-0 top-full z-50 bg-[#d9d9d9] ${panelWidth}`}
+          className={`absolute left-0 top-full z-50 bg-black border border-white rounded-[0.625rem] ${panelWidth}`}
           onMouseLeave={() => setHovered(null)}
         >
-          {/* Red dot — tracks hovered item, falls back to selected item */}
+          {/* Blue dot — tracks hovered item, falls back to selected item */}
           {activeIndex >= 0 && (
             <span
-              className="absolute left-[0.1875rem] w-[0.5rem] h-[0.5rem] rounded-full bg-red-500 transition-all duration-100"
-              style={{ top: getRedDotTop(activeIndex) }}
+              className="absolute left-[0.625rem] w-[0.5rem] h-[0.5rem] rounded-full bg-[#0000FF] transition-all duration-100"
+              style={{ top: getDotTop(activeIndex) }}
             />
           )}
           {/* Options list */}
-          <div className="flex flex-col pl-[0.9375rem] py-[0.625rem] md:py-[0.625rem]">
+          <div className="flex flex-col pl-[1.75rem] py-[0.625rem]">
             {options.map((opt) => (
               <button
                 key={opt}
@@ -153,7 +150,7 @@ function FloatingSelect({
                   onToggle();
                   setHovered(null);
                 }}
-                className={`w-full text-left text-black text-[1.125rem] leading-none py-[0.75rem] md:text-[0.875rem] md:leading-[1rem] md:py-0`}
+                className="w-full text-left text-white text-[1.125rem] leading-[1.75rem] md:text-[0.875rem] md:leading-[1.5rem] font-body font-normal"
               >
                 {opt}
               </button>
