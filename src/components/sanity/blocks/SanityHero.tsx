@@ -70,7 +70,7 @@ export default function SanityHero({
         style={innerBgStyle}
       >
         <p
-          className={`${textColor} text-[32px] leading-[37px] md:text-[3rem] md:leading-[3.125rem] font-body font-medium not-italic tracking-[0] text-center antialiased text-crisp m-0 p-0 w-[calc(100%-2rem)] md:w-[74.5%]`}
+          className={`${textColor} text-[32px] leading-[37px] md:text-[3rem] md:leading-[3.125rem] font-body font-medium not-italic tracking-[0] text-center antialiased text-crisp m-0 p-0 w-[calc(100%-2rem)] md:w-[74.5%] whitespace-pre-line`}
         >
           {heading || 'Commerce and Technology Studio for the AI era'}
         </p>

@@ -1,5 +1,22 @@
-import { defineType, defineField, defineArrayMember } from 'sanity'
+import { defineType, defineField, defineArrayMember, SlugIsUniqueValidator } from 'sanity'
 import { DocumentIcon } from '@sanity/icons'
+
+const isUniqueAcrossLanguages: SlugIsUniqueValidator = async (slug, context) => {
+  const { document, getClient } = context
+  const client = getClient({ apiVersion: '2024-01-01' })
+  if (!document) return true
+  const language = (document as { language?: string }).language
+  // If no language set, skip custom validation and allow
+  if (!language) return true
+  const id = document._id.replace(/^drafts\./, '')
+  const params = { draft: `drafts.${id}`, published: id, slug, language }
+  const query = `!defined(*[
+    !(_id in [$draft, $published]) &&
+    slug.current == $slug &&
+    language == $language
+  ][0]._id)`
+  return client.fetch(query, params)
+}
 
 export const pageType = defineType({
   name: 'page',
@@ -17,7 +34,7 @@ export const pageType = defineType({
       type: 'slug',
       options: {
         source: 'title',
-        isUnique: () => true,
+        isUnique: isUniqueAcrossLanguages,
       },
       validation: (rule) => rule.required(),
     }),
