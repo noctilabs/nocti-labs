@@ -9,7 +9,8 @@ export const heroType = defineType({
   fields: [
     defineField({
       name: 'heading',
-      type: 'string',
+      type: 'text',
+      rows: 3,
       validation: (rule) => rule.required(),
     }),
     defineField({
