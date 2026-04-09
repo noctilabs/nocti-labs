@@ -39,7 +39,7 @@ export default function PageBuilder({ blocks, pageSlug }: PageBuilderProps) {
       default:
         return (
           <div className="py-10 text-center text-muted font-mono text-sm">
-            Unknown block type: {block._type}
+            Unknown block type: {(block as { _type: string })._type}
           </div>
         )
     }
