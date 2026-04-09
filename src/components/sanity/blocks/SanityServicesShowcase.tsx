@@ -74,7 +74,7 @@ export default function SanityServicesShowcase({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white flex flex-col relative"
+      className="bg-black text-white flex flex-col relative min-h-screen"
       suppressHydrationWarning
     >
       {/* ── MOBILE LAYOUT ── */}

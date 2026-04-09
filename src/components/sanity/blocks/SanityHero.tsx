@@ -55,8 +55,8 @@ export default function SanityHero({
 
   // Only explicit "light" (white) hero uses dark nav; blue and other dark treatments use light nav + locale.
   const navTheme: 'light' | 'dark' = cleanTheme === 'light' ? 'light' : 'dark'
-  // Blue hero has a mid-tone bg — logo stays dark (black) even though the rest of the nav is light-on-dark
-  const navLogoTheme: 'light' | 'dark' | undefined = cleanTheme === 'blue' ? 'light' : undefined
+  // Blue hero — logo is white (dark theme) to contrast against the blue background
+  const navLogoTheme: 'light' | 'dark' | undefined = cleanTheme === 'blue' ? 'dark' : undefined
 
   return (
     <section

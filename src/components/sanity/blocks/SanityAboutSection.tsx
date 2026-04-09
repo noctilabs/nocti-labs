@@ -13,7 +13,7 @@ export default function SanityAboutSection({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white relative"
+      className="bg-black text-white relative min-h-screen"
     >
       <div className="px-[2.38vw] md:px-section-x pt-[7vw] md:pt-[4.74rem]">
         {/* Heading — mobile: 11.43vw (48px at 420px frame), desktop: 3.32rem */}

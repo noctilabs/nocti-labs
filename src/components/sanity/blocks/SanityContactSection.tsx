@@ -32,7 +32,7 @@ export default function SanityContactSection({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white scroll-mt-[7rem]"
+      className="bg-black text-white scroll-mt-[7rem] min-h-screen"
     >
       {/* ── MOBILE LAYOUT ── */}
       <div className="md:hidden px-[1.4rem] pt-[4.5rem] pb-[3.4rem] flex flex-col">

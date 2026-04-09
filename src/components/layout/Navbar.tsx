@@ -37,9 +37,10 @@ export default function Navbar({ theme = 'dark' }: NavbarProps) {
       {/* CTA Button */}
       <Link
         href="/contact"
-        className={`hidden md:block md:justify-self-end ${pillBgColor} ${pillTextColor} px-6 py-2 rounded-full font-mono uppercase text-[14px] font-bold whitespace-nowrap hover:opacity-80 transition`}
+        className={`hidden md:flex md:justify-self-end items-center justify-between gap-4 ${pillBgColor} ${pillTextColor} pl-[1.5rem] pr-[0.625rem] py-[0.625rem] rounded-full font-mono uppercase text-[14px] font-medium whitespace-nowrap hover:opacity-80 transition`}
       >
-        Contact Us →
+        Contact Us
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0"><path d="M8.08243 1.88383L-0.000118643 9.94319L1.3238 11.2709L9.40635 3.21156L9.39568 10.6362L11.2684 10.6223L11.2837 0.0157L0.677075 0.000466406L0.657813 1.87317L8.08243 1.88383Z" fill="currentColor"/></svg>
       </Link>
 
       {/* Mobile Menu Button */}
@@ -59,9 +60,10 @@ export default function Navbar({ theme = 'dark' }: NavbarProps) {
           <Link href="/blog" className={`${navTextColor} font-mono uppercase text-sm`}>Blog</Link>
           <Link
             href="/contact"
-            className={`${pillBgColor} ${pillTextColor} px-6 py-2 rounded-full font-mono uppercase text-sm font-bold text-center`}
+            className={`flex items-center justify-between gap-4 ${pillBgColor} ${pillTextColor} pl-[1.5rem] pr-[0.625rem] py-[0.625rem] rounded-full font-mono uppercase text-sm font-medium`}
           >
-            Contact Us →
+            Contact Us
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0"><path d="M8.08243 1.88383L-0.000118643 9.94319L1.3238 11.2709L9.40635 3.21156L9.39568 10.6362L11.2684 10.6223L11.2837 0.0157L0.677075 0.000466406L0.657813 1.87317L8.08243 1.88383Z" fill="currentColor"/></svg>
           </Link>
         </div>
       )}

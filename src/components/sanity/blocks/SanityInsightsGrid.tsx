@@ -31,7 +31,7 @@ export default function SanityInsightsGrid({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white"
+      className="bg-black text-white min-h-screen"
     >
       {/* ── MOBILE LAYOUT ── */}
       <div className="md:hidden pt-[4.5rem] pb-[3.4rem]">

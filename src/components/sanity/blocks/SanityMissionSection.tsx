@@ -21,7 +21,7 @@ export default function SanityMissionSection({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white flex flex-col relative"
+      className="bg-black text-white flex flex-col relative min-h-screen"
       suppressHydrationWarning
     >
       <div className="w-full relative px-[2.38vw] md:px-section-x pt-[2.37rem] max-md:pb-[5.535rem] md:pb-[11.07rem] flex flex-col">
