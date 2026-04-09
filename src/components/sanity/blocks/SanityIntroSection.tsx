@@ -60,8 +60,8 @@ export default function SanityIntroSection({
         )}
       </div>
 
-      {/* Image - always reserves space; shown when asset is set */}
-      <div className="w-full flex-1 min-h-0" style={{ aspectRatio: '1365/534' }}>
+      {/* Image - grows to fill remaining space between heading and bottom content */}
+      <div className="w-full flex-1 min-h-0">
         {image?.asset?._ref && (
           <Image
             src={urlFor(image).width(1400).url()}
