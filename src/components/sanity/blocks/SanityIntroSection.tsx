@@ -61,7 +61,7 @@ export default function SanityIntroSection({
       </div>
 
       {/* Image - always reserves space; shown when asset is set */}
-      <div className="w-full" style={{ aspectRatio: '1365/534' }}>
+      <div className="w-full flex-1 min-h-0" style={{ aspectRatio: '1365/534' }}>
         {image?.asset?._ref && (
           <Image
             src={urlFor(image).width(1400).url()}
@@ -74,7 +74,7 @@ export default function SanityIntroSection({
       </div>
 
       {/* Bottom: Description + CTA */}
-      <div className="mt-auto pt-[2.625rem] pb-[9.5rem] flex flex-row items-start justify-between">
+      <div className="pt-[2.625rem] pb-[2.5rem] flex flex-row items-start justify-between">
         {description && (
           <div className={`font-body font-medium m-0
                            text-[3.2rem] leading-[3.7rem]
