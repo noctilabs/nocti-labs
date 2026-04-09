@@ -3,10 +3,10 @@
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { subheading, caption } from "@/lib/typography";
-import type { PAGE_QUERYResult } from "../../../../sanity.types";
+import type { PAGE_QUERY_RESULT } from "../../../../sanity.types";
 
 type PageBlock = NonNullable<
-  NonNullable<PAGE_QUERYResult>["pageBuilder"]
+  NonNullable<PAGE_QUERY_RESULT>["pageBuilder"]
 >[number];
 type SanityMissionSectionProps = Extract<
   PageBlock,

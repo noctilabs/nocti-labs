@@ -1,8 +1,8 @@
 import { stegaClean } from 'next-sanity'
 import { urlFor } from '@/sanity/lib/image'
-import type { PAGE_QUERYResult } from '../../../../sanity.types'
+import type { PAGE_QUERY_RESULT } from '../../../../sanity.types'
 
-type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
+type PageBlock = NonNullable<NonNullable<PAGE_QUERY_RESULT>['pageBuilder']>[number]
 type SanityHeroProps = Extract<PageBlock, { _type: 'hero' }>
 
 export default function SanityHero({

@@ -1,9 +1,9 @@
 import { Link } from '@/i18n/navigation';
 import { sanityFetch } from '@/sanity/lib/live';
 import { SITE_SETTINGS_QUERY } from '@/sanity/lib/queries';
-import type { SITE_SETTINGS_QUERYResult } from '../../../sanity.types';
+import type { SITE_SETTINGS_QUERY_RESULT } from '../../../sanity.types';
 
-type FooterColumn = NonNullable<NonNullable<SITE_SETTINGS_QUERYResult>['footerColumns']>[number]
+type FooterColumn = NonNullable<NonNullable<SITE_SETTINGS_QUERY_RESULT>['footerColumns']>[number]
 
 const colClass = "text-[0.875rem] font-mono leading-[1.643] tracking-[0] uppercase text-black";
 

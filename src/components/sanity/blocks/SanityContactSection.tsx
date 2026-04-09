@@ -1,8 +1,8 @@
 import ContactForm from './ContactForm'
 import { contactTitle, contactCta } from '@/lib/typography'
-import type { PAGE_QUERYResult } from '../../../../sanity.types'
+import type { PAGE_QUERY_RESULT } from '../../../../sanity.types'
 
-type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
+type PageBlock = NonNullable<NonNullable<PAGE_QUERY_RESULT>['pageBuilder']>[number]
 type SanityContactSectionProps = Extract<PageBlock, { _type: 'contactSection' }>
 
 export default function SanityContactSection({

@@ -4,9 +4,9 @@ import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
 import { getNavTheme } from '@/lib/colorUtils'
 import { heading as headingCls } from '@/lib/typography'
-import type { PAGE_QUERYResult } from '../../../../sanity.types'
+import type { PAGE_QUERY_RESULT } from '../../../../sanity.types'
 
-type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
+type PageBlock = NonNullable<NonNullable<PAGE_QUERY_RESULT>['pageBuilder']>[number]
 type BaseProjectsShowcase = Extract<PageBlock, { _type: 'projectsShowcase' }>
 type SanityProjectsShowcaseProps = BaseProjectsShowcase & {
   backgroundColor?: string

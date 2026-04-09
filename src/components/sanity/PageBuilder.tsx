@@ -6,9 +6,9 @@ import SanityInsightsGrid from './blocks/SanityInsightsGrid'
 import SanityContactSection from './blocks/SanityContactSection'
 import SanityMissionSection from './blocks/SanityMissionSection'
 import SanityAboutSection from './blocks/SanityAboutSection'
-import type { PAGE_QUERYResult } from '../../../sanity.types'
+import type { PAGE_QUERY_RESULT } from '../../../sanity.types'
 
-type Block = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
+type Block = NonNullable<NonNullable<PAGE_QUERY_RESULT>['pageBuilder']>[number]
 
 interface PageBuilderProps {
   blocks?: Block[] | null

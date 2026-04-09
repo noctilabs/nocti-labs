@@ -4,9 +4,9 @@ import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
 import SanityCta from '@/components/sanity/shared/SanityCta'
 import { heading as headingCls, bodyLarge } from '@/lib/typography'
-import type { PAGE_QUERYResult } from '../../../../sanity.types'
+import type { PAGE_QUERY_RESULT } from '../../../../sanity.types'
 
-type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
+type PageBlock = NonNullable<NonNullable<PAGE_QUERY_RESULT>['pageBuilder']>[number]
 type SanityIntroSectionProps = Extract<PageBlock, { _type: 'introSection' }>
 
 export default function SanityIntroSection({
