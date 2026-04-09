@@ -1,8 +1,8 @@
 import ContactForm from './ContactForm'
 import { contactTitle, contactCta } from '@/lib/typography'
-import type { PAGE_QUERYResult } from '../../../../sanity.types'
+import type { PAGE_QUERY_RESULT } from '../../../../sanity.types'
 
-type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
+type PageBlock = NonNullable<NonNullable<PAGE_QUERY_RESULT>['pageBuilder']>[number]
 type SanityContactSectionProps = Extract<PageBlock, { _type: 'contactSection' }>
 
 export default function SanityContactSection({
@@ -32,7 +32,7 @@ export default function SanityContactSection({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white scroll-mt-[7rem]"
+      className="bg-black text-white scroll-mt-[7rem] min-h-screen"
     >
       {/* ── MOBILE LAYOUT ── */}
       <div className="md:hidden px-[1.4rem] pt-[4.5rem] pb-[3.4rem] flex flex-col">

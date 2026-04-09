@@ -3,10 +3,10 @@
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { subheading, caption } from "@/lib/typography";
-import type { PAGE_QUERYResult } from "../../../../sanity.types";
+import type { PAGE_QUERY_RESULT } from "../../../../sanity.types";
 
 type PageBlock = NonNullable<
-  NonNullable<PAGE_QUERYResult>["pageBuilder"]
+  NonNullable<PAGE_QUERY_RESULT>["pageBuilder"]
 >[number];
 type SanityMissionSectionProps = Extract<
   PageBlock,
@@ -21,7 +21,7 @@ export default function SanityMissionSection({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white flex flex-col relative"
+      className="bg-black text-white flex flex-col relative min-h-screen"
       suppressHydrationWarning
     >
       <div className="w-full relative px-[2.38vw] md:px-section-x pt-[2.37rem] max-md:pb-[5.535rem] md:pb-[11.07rem] flex flex-col">

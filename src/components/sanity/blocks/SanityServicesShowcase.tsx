@@ -3,10 +3,10 @@
 import { useState, useEffect, useRef, startTransition } from "react";
 import SanityCta from "@/components/sanity/shared/SanityCta";
 import { bodyMedium } from "@/lib/typography";
-import type { PAGE_QUERYResult } from "../../../../sanity.types";
+import type { PAGE_QUERY_RESULT } from "../../../../sanity.types";
 
 type PageBlock = NonNullable<
-  NonNullable<PAGE_QUERYResult>["pageBuilder"]
+  NonNullable<PAGE_QUERY_RESULT>["pageBuilder"]
 >[number];
 type SanityServicesShowcaseProps = Extract<
   PageBlock,
@@ -74,7 +74,7 @@ export default function SanityServicesShowcase({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white flex flex-col relative"
+      className="bg-black text-white flex flex-col relative min-h-screen"
       suppressHydrationWarning
     >
       {/* ── MOBILE LAYOUT ── */}

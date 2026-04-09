@@ -22,14 +22,13 @@ export default function NavLogo({ className = '', theme = 'light' }: NavLogoProp
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       }}
-      className={`w-[8.25rem] h-[3.75rem] relative flex items-center justify-center rounded-[3px] shrink-0 min-w-0 px-[0.8125rem] no-underline ${className}`}
+      className={`flex items-center justify-center shrink-0 min-w-0 no-underline ${className}`}
     >
-      <div className={`absolute inset-0 rounded-[3px] z-0 transition-[background-color] duration-[400ms] ease-in-out ${isDark ? 'bg-black' : 'bg-white'}`} />
-      <div
-        className={`relative z-[1] text-center flex items-center justify-center text-[1.4375rem] font-display font-medium not-italic leading-[1] tracking-[0] antialiased text-crisp transition-colors duration-[400ms] ease-in-out whitespace-nowrap ${isDark ? 'text-white' : 'text-[#1e1e1e]'}`}
+      <span
+        className={`flex items-center justify-center text-center text-[1.892rem] font-display font-medium not-italic leading-[1] tracking-[0] antialiased text-crisp transition-colors duration-[400ms] ease-in-out whitespace-nowrap w-[8.964rem] h-[3.125rem] ${isDark ? 'text-white' : 'text-[#1e1e1e]'}`}
       >
         {t('brandName')}
-      </div>
+      </span>
     </Link>
   );
 }

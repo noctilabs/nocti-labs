@@ -4,9 +4,9 @@ import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
 import { getNavTheme } from '@/lib/colorUtils'
 import { heading as headingCls } from '@/lib/typography'
-import type { PAGE_QUERYResult } from '../../../../sanity.types'
+import type { PAGE_QUERY_RESULT } from '../../../../sanity.types'
 
-type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
+type PageBlock = NonNullable<NonNullable<PAGE_QUERY_RESULT>['pageBuilder']>[number]
 type BaseProjectsShowcase = Extract<PageBlock, { _type: 'projectsShowcase' }>
 type SanityProjectsShowcaseProps = BaseProjectsShowcase & {
   backgroundColor?: string
@@ -35,8 +35,8 @@ export default function SanityProjectsShowcase({
   return (
     <section
       data-nav-theme={navTheme}
-      className="text-black flex flex-col relative pb-0"
-      style={{ backgroundColor: backgroundColor || '#ffffff' }}
+      className="text-white flex flex-col relative pb-0 min-h-screen"
+      style={{ backgroundColor: backgroundColor || '#000000' }}
       suppressHydrationWarning
     >
       {/* ── MOBILE LAYOUT ── */}
@@ -91,7 +91,7 @@ export default function SanityProjectsShowcase({
           <div className="px-section-x pt-[2.84rem] pb-[0.97rem]">
             <h2
               className={headingCls}
-              style={{ color: headingColor || '#000000' }}
+              style={{ color: headingColor || '#ffffff' }}
             >
               {heading}
             </h2>

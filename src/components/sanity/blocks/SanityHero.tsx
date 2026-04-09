@@ -1,8 +1,8 @@
 import { stegaClean } from 'next-sanity'
 import { urlFor } from '@/sanity/lib/image'
-import type { PAGE_QUERYResult } from '../../../../sanity.types'
+import type { PAGE_QUERY_RESULT } from '../../../../sanity.types'
 
-type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
+type PageBlock = NonNullable<NonNullable<PAGE_QUERY_RESULT>['pageBuilder']>[number]
 type SanityHeroProps = Extract<PageBlock, { _type: 'hero' }>
 
 export default function SanityHero({
@@ -55,10 +55,13 @@ export default function SanityHero({
 
   // Only explicit "light" (white) hero uses dark nav; blue and other dark treatments use light nav + locale.
   const navTheme: 'light' | 'dark' = cleanTheme === 'light' ? 'light' : 'dark'
+  // Blue hero — logo is white (dark theme) to contrast against the blue background
+  const navLogoTheme: 'light' | 'dark' | undefined = cleanTheme === 'blue' ? 'dark' : undefined
 
   return (
     <section
       data-nav-theme={navTheme}
+      {...(navLogoTheme ? { 'data-nav-logo-theme': navLogoTheme } : {})}
       className="w-full h-screen relative overflow-hidden mt-[calc(-1*var(--nav-offset))]"
       style={bgStyle}
     >

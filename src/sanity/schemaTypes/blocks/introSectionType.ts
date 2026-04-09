@@ -9,7 +9,15 @@ export const introSectionType = defineType({
   fields: [
     defineField({
       name: 'heading',
-      type: 'string',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+          styles: [{ title: 'Normal', value: 'normal' }],
+          lists: [],
+          marks: { decorators: [], annotations: [] },
+        },
+      ],
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -19,8 +27,15 @@ export const introSectionType = defineType({
     }),
     defineField({
       name: 'description',
-      type: 'text',
-      rows: 4,
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+          styles: [{ title: 'Normal', value: 'normal' }],
+          lists: [],
+          marks: { decorators: [], annotations: [] },
+        },
+      ],
     }),
     defineField({
       name: 'badge',
@@ -36,8 +51,11 @@ export const introSectionType = defineType({
     }),
   ],
   preview: {
-    select: { title: 'heading' },
-    prepare({ title }) {
+    select: { heading: 'heading' },
+    prepare({ heading }) {
+      const title = Array.isArray(heading)
+        ? heading.map((b: { children?: Array<{ text?: string }> }) => b.children?.map((c) => c.text).join('')).join(' ')
+        : heading
       return {
         title: title || 'Untitled Intro',
         subtitle: 'Intro Section',

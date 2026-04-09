@@ -2,10 +2,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
 import { heading as headingCls, subheading, caption } from '@/lib/typography'
-import type { PAGE_QUERYResult } from '../../../../sanity.types'
+import type { PAGE_QUERY_RESULT } from '../../../../sanity.types'
 import BlogComingSoon from '@/components/blog/BlogComingSoon'
 
-type PageBlock = NonNullable<NonNullable<PAGE_QUERYResult>['pageBuilder']>[number]
+type PageBlock = NonNullable<NonNullable<PAGE_QUERY_RESULT>['pageBuilder']>[number]
 type SanityInsightsGridProps = Extract<PageBlock, { _type: 'insightsGrid' }>
 
 export default function SanityInsightsGrid({
@@ -31,7 +31,7 @@ export default function SanityInsightsGrid({
   return (
     <section
       data-nav-theme="dark"
-      className="bg-black text-white"
+      className="bg-black text-white min-h-screen"
     >
       {/* ── MOBILE LAYOUT ── */}
       <div className="md:hidden pt-[4.5rem] pb-[3.4rem]">
