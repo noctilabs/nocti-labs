@@ -32,7 +32,12 @@ export default function SanityIntroSection({
                             text-[4.4rem] leading-[4.6rem]
                             md:text-[3.32rem] md:leading-[1.042]`}>
               {Array.isArray(heading)
-                ? heading.map((block) => block.children?.map((c) => c.text).join('') ?? '').join('\n')
+                ? heading.map((block, i) => (
+                    <span key={block._key}>
+                      {i > 0 && <br />}
+                      {block.children?.map((c) => c.text).join('') ?? ''}
+                    </span>
+                  ))
                 : heading}
             </h2>
           </div>
