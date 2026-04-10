@@ -71,10 +71,14 @@ export default function SanityServicesShowcase({
     setExpandedId(expandedId === id ? null : id);
   };
 
+  const sectionBg = isHome ? "bg-white text-black" : "bg-black text-white";
+  const borderColor = isHome ? "border-black" : "border-white";
+  const ctaTextColor = isHome ? "text-black" : "text-white";
+
   return (
     <section
-      data-nav-theme="dark"
-      className="bg-black text-white flex flex-col relative min-h-screen"
+      data-nav-theme={isHome ? "light" : "dark"}
+      className={`${sectionBg} flex flex-col relative min-h-screen`}
       suppressHydrationWarning
     >
       {/* ── MOBILE LAYOUT ── */}
@@ -98,7 +102,7 @@ export default function SanityServicesShowcase({
         {/* Services — plain list with dividers, no accordion */}
         {services && services.length > 0 && (
           <div className="flex flex-col">
-            <div className="border-t-2 border-white" />
+            <div className={`border-t-2 ${borderColor}`} />
             {services.map((service) => (
               <div key={service._id}>
                 {isHome ? (
@@ -113,7 +117,7 @@ export default function SanityServicesShowcase({
                     {service.title}
                   </div>
                 )}
-                <div className="border-t-2 border-white" />
+                <div className={`border-t-2 ${borderColor}`} />
               </div>
             ))}
           </div>
@@ -122,7 +126,7 @@ export default function SanityServicesShowcase({
         {/* CTA */}
         {cta && (
           <div className="mt-[3rem]">
-            <SanityCta {...cta} className="text-white font-body font-medium text-[2.4rem] leading-[2.5rem]" />
+            <SanityCta {...cta} className={`${ctaTextColor} font-body font-medium text-[2.4rem] leading-[2.5rem]`} />
           </div>
         )}
       </div>
@@ -137,7 +141,7 @@ export default function SanityServicesShowcase({
             </h2>
           )}
           {tagline && (
-            <div className="font-body text-[2rem] leading-[2.3125rem] not-italic text-white font-[500] flex-1">
+            <div className={`font-body text-[2rem] leading-[2.3125rem] not-italic font-[500] flex-1 ${isHome ? 'pl-[2.5rem]' : ''}`}>
               <p className="mb-0">{tagline.split('\n')[0]}</p>
               <p>{tagline.split('\n')[1]}</p>
             </div>
@@ -149,7 +153,7 @@ export default function SanityServicesShowcase({
           <div className="flex flex-col">
             {services.map((service, index) => {
               const isFirst = index === 0;
-              const rowClass = `font-body font-medium text-[3rem] leading-[3.125rem] py-[1.1rem] flex justify-between items-center border-b-2 border-white ${isFirst ? 'border-t' : ''}`;
+              const rowClass = `font-body font-medium text-[3rem] leading-[3.125rem] py-[1.5625rem] flex justify-between items-center border-b-2 ${borderColor} ${isFirst ? 'border-t' : ''}`;
 
               if (isHome) {
                 return (
@@ -178,14 +182,13 @@ export default function SanityServicesShowcase({
                     </span>
                   </div>
                   {isExpanded && (
-                    <div className="pb-[3rem] border-b-2 border-white animate-[slideDown_0.3s_ease]">
+                    <div className={`pb-[3rem] border-b-2 ${borderColor} animate-[slideDown_0.3s_ease]`}>
                       <div className="grid grid-cols-[41fr_59fr] gap-[9.6rem]">
-                        <div className="font-body font-normal text-[1.5rem] leading-[1.208] tracking-[0] text-white pt-[2.6rem]">{service.description}</div>
+                        <div className="font-body font-normal text-[1.5rem] leading-[1.208] tracking-[0] pt-[2.6rem]">{service.description}</div>
                         <div className={`${bodyMedium} flex flex-col pt-[2.6rem]`}>
                           {service.items && service.items.map((item, i) => (
-                            <div key={item._key} className={`border-b-2 border-white pb-[0.35rem] ${i === 0 ? 'pt-0' : 'pt-[1.2rem]'}`}>
-                              {/* Sub-services displayed as plain text without links */}
-                              <span className="text-white pl-[1rem] font-body font-normal text-[1.5rem] leading-[1.208] tracking-[0]">{item.label}</span>
+                            <div key={item._key} className={`border-b-2 ${borderColor} pb-[0.35rem] ${i === 0 ? 'pt-0' : 'pt-[1.2rem]'}`}>
+                              <span className="pl-[1rem] font-body font-normal text-[1.5rem] leading-[1.208] tracking-[0]">{item.label}</span>
                             </div>
                           ))}
                         </div>
@@ -201,7 +204,7 @@ export default function SanityServicesShowcase({
         {/* CTA */}
         {cta && (
           <div className="mt-[3.75rem]">
-            <SanityCta {...cta} className="text-white font-body font-medium text-[1.5rem] leading-[1.5625rem] tracking-[0]" />
+            <SanityCta {...cta} className={`${ctaTextColor} font-body font-medium text-[1.5rem] leading-[1.5625rem] tracking-[0]`} />
           </div>
         )}
       </div>
