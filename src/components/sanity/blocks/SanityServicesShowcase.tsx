@@ -134,16 +134,17 @@ export default function SanityServicesShowcase({
       {/* ── DESKTOP LAYOUT ── */}
       <div className="hidden md:block w-full relative px-section-x pt-[2.375rem] pb-[2rem]">
         {/* Heading and Tagline */}
-        <div className="flex items-start mb-[2rem]">
+        <div className="flex items-start mb-[5rem]">
           {heading && (
-            <h2 className="font-body font-medium text-[3rem] leading-[3.125rem] w-[54.8%] shrink-0">
+            <h2 className="font-body font-medium text-[3rem] leading-[3.125rem] w-1/2 shrink-0">
               {heading}
             </h2>
           )}
           {tagline && (
-            <div className={`font-body text-[2rem] leading-[2.3125rem] not-italic font-[500] flex-1 ${isHome ? 'pl-[2.5rem]' : ''}`}>
-              <p className="mb-0">{tagline.split('\n')[0]}</p>
-              <p>{tagline.split('\n')[1]}</p>
+            <div className="font-body text-[2rem] leading-[2.3125rem] not-italic font-[500] w-[42rem]">
+              {tagline.split('\n').filter(Boolean).map((line, i) => (
+                <p key={i} className="m-0">{line}</p>
+              ))}
             </div>
           )}
         </div>
@@ -153,7 +154,7 @@ export default function SanityServicesShowcase({
           <div className="flex flex-col">
             {services.map((service, index) => {
               const isFirst = index === 0;
-              const rowClass = `font-body font-medium text-[3rem] leading-[3.125rem] py-[1.5625rem] flex justify-between items-center border-b-2 ${borderColor} ${isFirst ? 'border-t' : ''}`;
+              const rowClass = `font-body font-medium text-[3rem] leading-[3.125rem] py-[1.5625rem] flex justify-between items-center border-b-[4px] ${borderColor} ${isFirst ? 'border-t-[4px]' : ''}`;
 
               if (isHome) {
                 return (
@@ -169,7 +170,7 @@ export default function SanityServicesShowcase({
               }
 
               const isExpanded = expandedId === service._id;
-              const expandedRowClass = isExpanded ? rowClass.replace('border-b-2', '') : rowClass;
+              const expandedRowClass = isExpanded ? rowClass.replace('border-b-[4px]', '') : rowClass;
               return (
                 <div key={service._id} ref={isExpanded ? expandedRef : null}>
                   <div
@@ -182,7 +183,7 @@ export default function SanityServicesShowcase({
                     </span>
                   </div>
                   {isExpanded && (
-                    <div className={`pb-[3rem] border-b-2 ${borderColor} animate-[slideDown_0.3s_ease]`}>
+                    <div className={`pb-[3rem] border-b-[4px] ${borderColor} animate-[slideDown_0.3s_ease]`}>
                       <div className="grid grid-cols-[41fr_59fr] gap-[9.6rem]">
                         <div className="font-body font-normal text-[1.5rem] leading-[1.208] tracking-[0] pt-[2.6rem]">{service.description}</div>
                         <div className={`${bodyMedium} flex flex-col pt-[2.6rem]`}>
@@ -203,7 +204,7 @@ export default function SanityServicesShowcase({
 
         {/* CTA */}
         {cta && (
-          <div className="mt-[3.75rem]">
+          <div className="mt-[9rem]">
             <SanityCta {...cta} className={`${ctaTextColor} font-body font-medium text-[1.5rem] leading-[1.5625rem] tracking-[0]`} />
           </div>
         )}
