@@ -50,6 +50,7 @@ export default function SanityServicesShowcase({
   pageSlug,
 }: SanityServicesShowcaseProps) {
   const isHome = pageSlug === "home";
+  const hasLightTheme = isHome || pageSlug === "services";
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const expandedRef = useRef<HTMLDivElement | null>(null);
@@ -71,18 +72,18 @@ export default function SanityServicesShowcase({
     setExpandedId(expandedId === id ? null : id);
   };
 
-  const sectionBg = isHome ? "bg-white text-black" : "bg-black text-white";
-  const borderColor = isHome ? "border-black" : "border-white";
-  const ctaTextColor = isHome ? "text-black" : "text-white";
+  const sectionBg = hasLightTheme ? "bg-white text-black" : "bg-black text-white";
+  const borderColor = hasLightTheme ? "border-black" : "border-white";
+  const ctaTextColor = hasLightTheme ? "text-black" : "text-white";
 
   return (
     <section
-      data-nav-theme={isHome ? "light" : "dark"}
-      className={`${sectionBg} flex flex-col relative min-h-screen`}
+      data-nav-theme={hasLightTheme ? "light" : "dark"}
+      className={`${sectionBg} flex flex-col relative min-h-screen${pageSlug === "services" ? " mt-[calc(-1*var(--nav-offset))]" : ""}`}
       suppressHydrationWarning
     >
       {/* ── MOBILE LAYOUT ── */}
-      <div className="md:hidden px-[1.4rem] pt-[4.5rem] pb-[3.4rem] flex flex-col">
+      <div className={`md:hidden px-[1.4rem] pb-[3.4rem] flex flex-col${pageSlug === "services" ? " pt-[calc(var(--nav-offset)+4.5rem)]" : " pt-[4.5rem]"}`}>
         {/* Heading */}
         {heading && (
           <h2 className="font-body font-medium text-[4.4rem] leading-[5rem] m-0 mb-[4rem]">
@@ -132,7 +133,7 @@ export default function SanityServicesShowcase({
       </div>
 
       {/* ── DESKTOP LAYOUT ── */}
-      <div className="hidden md:block w-full relative px-section-x pt-[2.375rem] pb-[2rem]">
+      <div className={`hidden md:block w-full relative px-section-x pb-[2rem]${pageSlug === "services" ? " pt-[calc(var(--nav-offset)+2.375rem)]" : " pt-[2.375rem]"}`}>
         {/* Heading and Tagline */}
         <div className="flex items-start mb-[5rem]">
           {heading && (

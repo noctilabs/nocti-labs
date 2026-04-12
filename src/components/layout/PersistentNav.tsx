@@ -79,6 +79,18 @@ export default function PersistentNav(): React.ReactElement {
   const logoDarkRef = useRef<HTMLDivElement>(null);  // white text — shown on dark backgrounds
   const logoLightRef = useRef<HTMLDivElement>(null); // dark text — shown on light backgrounds
   const [menuOpen, setMenuOpen] = useState(false);
+  const updateClipRef = useRef<() => void>(() => {});
+  const pathname = usePathname();
+
+  // Re-run clip update on client-side navigation (layout never remounts).
+  // Double RAF ensures Next.js has finished painting the new page DOM before we read section rects.
+  useEffect(() => {
+    let rafId: number;
+    const outer = requestAnimationFrame(() => {
+      rafId = requestAnimationFrame(() => updateClipRef.current());
+    });
+    return () => { cancelAnimationFrame(outer); cancelAnimationFrame(rafId); };
+  }, [pathname]);
 
   // Hide-on-scroll: track accumulated offset with refs to avoid re-renders
   const lastScrollY = useRef(0);
@@ -432,6 +444,7 @@ export default function PersistentNav(): React.ReactElement {
       requestAnimationFrame(updateClip);
     };
 
+    updateClipRef.current = updateClip;
     updateClip();
     const rafId = requestAnimationFrame(updateClip);
     window.addEventListener('scroll', onScroll, { passive: true });

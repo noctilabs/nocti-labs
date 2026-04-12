@@ -7,7 +7,9 @@ import { heading as headingCls, bodyLarge } from '@/lib/typography'
 import type { PAGE_QUERY_RESULT } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERY_RESULT>['pageBuilder']>[number]
-type SanityIntroSectionProps = Extract<PageBlock, { _type: 'introSection' }>
+type SanityIntroSectionProps = Extract<PageBlock, { _type: 'introSection' }> & {
+  pageSlug?: string;
+}
 
 export default function SanityIntroSection({
   heading,
@@ -15,13 +17,16 @@ export default function SanityIntroSection({
   description,
   badge,
   cta,
+  pageSlug,
 }: SanityIntroSectionProps) {
+  const hasLightTheme = pageSlug === "services";
+  const sectionBg = hasLightTheme ? "bg-white text-black" : "bg-black text-white";
+  const navTheme = hasLightTheme ? "light" : "dark";
+
   return (
     <section
-      data-nav-theme="dark"
-      className="bg-black text-white relative flex flex-col min-h-screen
-                 px-[1rem]
-                 md:px-section-x"
+      data-nav-theme={navTheme}
+      className={`${sectionBg} relative flex flex-col min-h-screen px-[1rem] md:px-section-x`}
     >
       {/* Top: Heading + Badge */}
       <div className="flex flex-col md:block">

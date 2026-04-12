@@ -23,7 +23,7 @@ export default function PageBuilder({ blocks, pageSlug }: PageBuilderProps) {
       case 'hero':
         return <SanityHero {...block} />
       case 'introSection':
-        return <SanityIntroSection {...block} />
+        return <SanityIntroSection {...block} pageSlug={pageSlug} />
       case 'servicesShowcase':
         return <SanityServicesShowcase {...block} pageSlug={pageSlug} />
       case 'projectsShowcase':
