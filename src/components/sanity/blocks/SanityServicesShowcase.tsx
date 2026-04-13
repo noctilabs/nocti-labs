@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, startTransition } from "react";
 import Image from "next/image";
+import { Link } from "@/i18n/navigation";
 import SanityCta from "@/components/sanity/shared/SanityCta";
 import type { PAGE_QUERY_RESULT } from "../../../../sanity.types";
 
@@ -53,6 +54,11 @@ export default function SanityServicesShowcase({
     if (!expandedId || !expandedRef.current || didScrollRef.current) return;
     didScrollRef.current = true;
     expandedRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    // After smooth scroll settles, fire a custom event so PersistentNav hides itself
+    const timer = setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('nav-hide'));
+    }, 700);
+    return () => clearTimeout(timer);
   }, [expandedId]);
 
   const toggleService = (id: string) => {
@@ -94,12 +100,12 @@ export default function SanityServicesShowcase({
             {services.map((service) => (
               <div key={service._id}>
                 {isHome ? (
-                  <a
+                  <Link
                     href={`/services#${service._id}`}
                     className="font-body font-medium text-[3.2rem] leading-[3.7rem] py-[2.25rem] block hover:opacity-70 transition-opacity"
                   >
                     {service.title}
-                  </a>
+                  </Link>
                 ) : (
                   <div className="font-body font-medium text-[3.2rem] leading-[3.7rem] py-[2.25rem]">
                     {service.title}
@@ -148,13 +154,13 @@ export default function SanityServicesShowcase({
               if (isHome) {
                 return (
                   <div key={service._id}>
-                    <a
+                    <Link
                       href={`/services#${service._id}`}
                       className={`${rowClass} hover:opacity-70 transition-opacity duration-300`}
                     >
                       <span className="w-[38rem] shrink-0">{service.title}</span>
                       <ArrowIcon invert={!hasLightTheme} />
-                    </a>
+                    </Link>
                   </div>
                 );
               }

@@ -443,16 +443,29 @@ export default function PersistentNav(): React.ReactElement {
       updateVisibility();
       requestAnimationFrame(updateClip);
     };
+    const onNavHide = (): void => {
+      const NAV_HIDE_PX = -200;
+      navOffset.current = NAV_HIDE_PX;
+      scrollDebt.current = 0;
+      [lightNavRef, darkNavRef, logoLightRef, logoDarkRef, lightMobileRef, darkMobileRef].forEach((ref) => {
+        if (ref.current) {
+          ref.current.style.transition = 'transform 0.3s ease';
+          ref.current.style.transform = `translateY(${NAV_HIDE_PX}px)`;
+        }
+      });
+    };
 
     updateClipRef.current = updateClip;
     updateClip();
     const rafId = requestAnimationFrame(updateClip);
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onFrame);
+    window.addEventListener('nav-hide', onNavHide);
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onFrame);
+      window.removeEventListener('nav-hide', onNavHide);
     };
   }, []);
 
