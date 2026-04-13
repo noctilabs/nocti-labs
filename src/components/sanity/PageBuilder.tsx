@@ -23,7 +23,7 @@ export default function PageBuilder({ blocks, pageSlug }: PageBuilderProps) {
       case 'hero':
         return <SanityHero {...block} />
       case 'introSection':
-        return <SanityIntroSection {...block} />
+        return <SanityIntroSection {...block} pageSlug={pageSlug} />
       case 'servicesShowcase':
         return <SanityServicesShowcase {...block} pageSlug={pageSlug} />
       case 'projectsShowcase':
@@ -47,11 +47,14 @@ export default function PageBuilder({ blocks, pageSlug }: PageBuilderProps) {
 
   return (
     <main>
-      {blocks.map((block, i) => (
-        <div key={block._key} className="sticky top-0" style={{ zIndex: i + 1 }}>
-          {renderBlock(block, pageSlug)}
-        </div>
-      ))}
+      {blocks.map((block, i) => {
+        const noSticky = block._type === 'aboutSection' || block._type === 'missionSection'
+        return (
+          <div key={block._key} className={noSticky ? 'relative' : 'sticky top-0'} style={{ zIndex: i + 1 }}>
+            {renderBlock(block, pageSlug)}
+          </div>
+        )
+      })}
     </main>
   )
 }

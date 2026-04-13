@@ -49,13 +49,13 @@ export default function SanityProjectsShowcase({
             {heading}
           </h2>
         )}
-        <div className="relative mx-[2.1rem] rounded-[3px] overflow-hidden aspect-[377/731] max-h-[73.1rem]">
+        <div className="relative mx-[2.1rem] rounded-[16px] overflow-hidden aspect-[377/731] max-h-[73.1rem]">
           {firstProject ? (
             <>
               {firstProject.coverVideoUrl ? (
                 <video
                   src={firstProject.coverVideoUrl}
-                  className="w-full h-full object-cover rounded-[3px]"
+                  className="w-full h-full object-cover rounded-[16px]"
                   autoPlay
                   muted
                   loop
@@ -66,13 +66,13 @@ export default function SanityProjectsShowcase({
                   src={urlFor(firstProject.coverImage).width(377).url()}
                   alt={firstProject.title || ''}
                   fill
-                  className="object-cover rounded-[3px]"
+                  className="object-cover rounded-[16px]"
                 />
               ) : (
-                <div className="bg-[#00FF17] w-full h-full rounded-[3px]" />
+                <div className="bg-[#00FF17] w-full h-full rounded-[16px]" />
               )}
               {/* Caption — overlaid at bottom inside the media, matching Figma */}
-              <div className="absolute bottom-[2.5rem] left-1/2 -translate-x-1/2 z-10 bg-white rounded-[3px] px-[1rem] py-[0.8rem] w-[91.5%] flex items-center justify-center">
+              <div className="absolute bottom-[2.5rem] left-1/2 -translate-x-1/2 z-10 bg-white rounded-[16px] px-[1rem] py-[0.8rem] w-[91.5%] flex items-center justify-center">
                 <p className="font-mono text-[1.4rem] leading-[2.3rem] text-center text-black m-0">
                   {firstProject.client && `${firstProject.client}, `}
                   {firstProject.title}
@@ -80,7 +80,7 @@ export default function SanityProjectsShowcase({
               </div>
             </>
           ) : (
-            <div className="bg-[#00FF17] w-full h-full rounded-[3px]" />
+            <div className="bg-[#00FF17] w-full h-full rounded-[16px]" />
           )}
         </div>
       </div>
@@ -88,7 +88,7 @@ export default function SanityProjectsShowcase({
       {/* ── DESKTOP LAYOUT ── */}
       <div className="hidden md:block" data-nav-theme={navTheme}>
         {heading && (
-          <div className="px-section-x pt-[2.84rem] pb-[0.97rem]">
+          <div className="px-section-x pt-[2.84rem] pb-[1.94rem]">
             <h2
               className={headingCls}
               style={{ color: headingColor || '#ffffff' }}
@@ -100,13 +100,13 @@ export default function SanityProjectsShowcase({
         <div
           className={`w-full flex items-start justify-center relative px-section-x pb-[10rem] ${heading ? 'pt-0' : 'pt-[3rem] min-h-screen'}`}
         >
-          <div className="relative w-full aspect-[1200/667] rounded-[3px]">
+          <div className="relative w-full aspect-[1200/667] rounded-[16px]">
             {firstProject ? (
               <>
                 {firstProject.coverVideoUrl ? (
                   <video
                     src={firstProject.coverVideoUrl}
-                    className="w-full h-full object-cover rounded-[3px]"
+                    className="w-full h-full object-cover rounded-[16px]"
                     autoPlay
                     muted
                     loop
@@ -118,10 +118,10 @@ export default function SanityProjectsShowcase({
                     alt={firstProject.title || ''}
                     width={1200}
                     height={667}
-                    className="w-full h-full object-cover rounded-[3px]"
+                    className="w-full h-full object-cover rounded-[16px]"
                   />
                 ) : (
-                  <div className="bg-[#00FF17] w-full h-full rounded-[3px] flex items-center justify-center px-section-x">
+                  <div className="bg-[#00FF17] w-full h-full rounded-[16px] flex items-center justify-center px-section-x">
                     <div className="w-full max-w-[614px] flex flex-col gap-8">
                       <div className="text-center">
                         <p className="font-mono uppercase font-bold text-[#FF0000] italic text-[4rem] leading-[6rem] break-words">
@@ -131,7 +131,7 @@ export default function SanityProjectsShowcase({
                     </div>
                   </div>
                 )}
-                <div className="absolute bg-white bottom-[6.99rem] left-1/2 -translate-x-1/2 z-10 h-[4.15rem] w-[41.87rem] rounded-[3px] px-[0.76rem] flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.15),0_2px_4px_rgba(0,0,0,0.1)]">
+                <div className="absolute bg-white bottom-[6.99rem] left-1/2 -translate-x-1/2 z-10 h-[4.15rem] w-[41.87rem] rounded-[16px] px-[0.76rem] flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.15),0_2px_4px_rgba(0,0,0,0.1)]">
                   <p className="text-[0.97rem] font-mono font-normal not-italic leading-[1.286] tracking-[0] text-center text-black">
                     {firstProject.client && `${firstProject.client}, `}
                     {firstProject.title}
@@ -139,7 +139,7 @@ export default function SanityProjectsShowcase({
                 </div>
               </>
             ) : (
-              <div className="bg-[#00FF17] w-full h-full rounded-[3px] flex items-center justify-center px-section-x">
+              <div className="bg-[#00FF17] w-full h-full rounded-[16px] flex items-center justify-center px-section-x">
                 <div className="w-full max-w-[614px] flex flex-col gap-8">
                   <div className="text-center">
                     <p className="font-mono uppercase font-bold text-[#FF0000] italic text-[4rem] leading-[6rem] break-words">

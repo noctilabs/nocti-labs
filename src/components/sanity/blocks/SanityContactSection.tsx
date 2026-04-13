@@ -88,33 +88,31 @@ export default function SanityContactSection({
       </div>
 
       {/* ── DESKTOP LAYOUT ── */}
-      <div className="hidden md:block pt-[2.34rem] pb-[8.34rem] pl-section-x pr-[10.73rem]">
-        <div className="grid grid-cols-1 lg:grid-cols-[673fr_442fr] gap-[9.34rem]">
+      <div className="hidden md:grid grid-cols-2 pt-[2.34rem] pb-[8.34rem] px-section-x gap-[4rem]">
 
-          {/* LEFT COLUMN */}
-          <div className="flex flex-col gap-[12.5625rem]">
-            <div className="flex flex-col gap-[1.3125rem]">
-              {heading && <h2 className={`${contactTitle} m-0`}>{heading}</h2>}
-              {email && <a href={`mailto:${email}`} className={`${contactCta} m-0 text-white email-link w-fit`}>{email}</a>}
-            </div>
-            <div className="flex flex-col gap-[2.1875rem]">
-              <h3 className={`${contactTitle} m-0`}>Our Offices</h3>
-              <div className="max-w-[20.5rem]">{officeList}</div>
-            </div>
+        {/* LEFT COLUMN */}
+        <div className="flex flex-col justify-between">
+          <div className="flex flex-col gap-[3rem]">
+            {heading && <h2 className={`${contactTitle} m-0`}>{heading}</h2>}
+            {email && <a href={`mailto:${email}`} className={`${contactCta} m-0 text-white email-link w-fit`}>{email}</a>}
           </div>
-
-          {/* RIGHT COLUMN — form */}
-          <div>
-            {formHeading && (
-              <h2 className={`${contactTitle} pb-[1.25rem]`}>{formHeading}</h2>
-            )}
-            <ContactForm
-              platformOptions={ecommercePlatforms ?? undefined}
-              hearAboutUsOptions={hearAboutUsOptions ?? undefined}
-            />
+          <div className="flex flex-col gap-[3rem]">
+            <h3 className={`${contactTitle} m-0`}>Our Offices</h3>
+            <div>{officeList}</div>
           </div>
-
         </div>
+
+        {/* RIGHT COLUMN — form */}
+        <div className="flex flex-col gap-[2rem]">
+          {formHeading && (
+            <h2 className={`${contactTitle} m-0`}>{formHeading}</h2>
+          )}
+          <ContactForm
+            platformOptions={ecommercePlatforms ?? undefined}
+            hearAboutUsOptions={hearAboutUsOptions ?? undefined}
+          />
+        </div>
+
       </div>
     </section>
   )

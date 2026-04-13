@@ -79,6 +79,18 @@ export default function PersistentNav(): React.ReactElement {
   const logoDarkRef = useRef<HTMLDivElement>(null);  // white text — shown on dark backgrounds
   const logoLightRef = useRef<HTMLDivElement>(null); // dark text — shown on light backgrounds
   const [menuOpen, setMenuOpen] = useState(false);
+  const updateClipRef = useRef<() => void>(() => {});
+  const pathname = usePathname();
+
+  // Re-run clip update on client-side navigation (layout never remounts).
+  // Double RAF ensures Next.js has finished painting the new page DOM before we read section rects.
+  useEffect(() => {
+    let rafId: number;
+    const outer = requestAnimationFrame(() => {
+      rafId = requestAnimationFrame(() => updateClipRef.current());
+    });
+    return () => { cancelAnimationFrame(outer); cancelAnimationFrame(rafId); };
+  }, [pathname]);
 
   // Hide-on-scroll: track accumulated offset with refs to avoid re-renders
   const lastScrollY = useRef(0);
@@ -431,15 +443,29 @@ export default function PersistentNav(): React.ReactElement {
       updateVisibility();
       requestAnimationFrame(updateClip);
     };
+    const onNavHide = (): void => {
+      const NAV_HIDE_PX = -200;
+      navOffset.current = NAV_HIDE_PX;
+      scrollDebt.current = 0;
+      [lightNavRef, darkNavRef, logoLightRef, logoDarkRef, lightMobileRef, darkMobileRef].forEach((ref) => {
+        if (ref.current) {
+          ref.current.style.transition = 'transform 0.3s ease';
+          ref.current.style.transform = `translateY(${NAV_HIDE_PX}px)`;
+        }
+      });
+    };
 
+    updateClipRef.current = updateClip;
     updateClip();
     const rafId = requestAnimationFrame(updateClip);
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onFrame);
+    window.addEventListener('nav-hide', onNavHide);
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onFrame);
+      window.removeEventListener('nav-hide', onNavHide);
     };
   }, []);
 
