@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect, useRef, startTransition } from "react";
 import Image from "next/image";
 import SanityCta from "@/components/sanity/shared/SanityCta";
 import type { PAGE_QUERY_RESULT } from "../../../../sanity.types";
@@ -20,8 +21,8 @@ function ArrowIcon({ className, invert }: { className?: string; invert?: boolean
     <Image
       src="/servicesArrowIcon.svg"
       alt=""
-      width={36}
-      height={36}
+      width={29}
+      height={29}
       className={`${className ?? ""}${invert ? " invert" : ""}`}
       aria-hidden
     />
@@ -38,6 +39,25 @@ export default function SanityServicesShowcase({
   const isHome = pageSlug === "home";
   const isServices = pageSlug === "services";
   const hasLightTheme = isHome || isServices;
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const expandedRef = useRef<HTMLDivElement | null>(null);
+  const didScrollRef = useRef(false);
+
+  useEffect(() => {
+    if (isHome) return;
+    const hash = window.location.hash.slice(1);
+    if (hash) startTransition(() => setExpandedId(hash));
+  }, [isHome]);
+
+  useEffect(() => {
+    if (!expandedId || !expandedRef.current || didScrollRef.current) return;
+    didScrollRef.current = true;
+    expandedRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [expandedId]);
+
+  const toggleService = (id: string) => {
+    setExpandedId(expandedId === id ? null : id);
+  };
 
   const sectionBg = hasLightTheme ? "bg-white text-black" : "bg-black text-white";
   const borderColor = hasLightTheme ? "border-black" : "border-white";
@@ -122,20 +142,61 @@ export default function SanityServicesShowcase({
           <div className="flex flex-col">
             {services.map((service, index) => {
               const isFirst = index === 0;
+              const isExpanded = expandedId === service._id;
               const rowClass = `font-body font-medium text-[3rem] leading-[3.125rem] py-[1.5625rem] flex items-center border-b-[4px] ${borderColor} ${isFirst ? 'border-t-[4px]' : ''}`;
 
-              const href = isServices
-                ? `#${service._id}`
-                : `/services#${service._id}`;
+              if (isHome) {
+                return (
+                  <div key={service._id}>
+                    <a
+                      href={`/services#${service._id}`}
+                      className={`${rowClass} hover:opacity-70 transition-opacity duration-300`}
+                    >
+                      <span className="w-[38rem] shrink-0">{service.title}</span>
+                      <ArrowIcon invert={!hasLightTheme} />
+                    </a>
+                  </div>
+                );
+              }
+
+              const expandedRowClass = isExpanded ? rowClass.replace('border-b-[4px]', '') : rowClass;
               return (
-                <div key={service._id}>
-                  <a
-                    href={href}
-                    className={`${rowClass} hover:opacity-70 transition-opacity duration-300`}
+                <div key={service._id} ref={isExpanded ? expandedRef : null}>
+                  <button
+                    onClick={() => toggleService(service._id)}
+                    className={`w-full text-left ${expandedRowClass} cursor-pointer select-none hover:opacity-70 transition-opacity duration-300 ${isExpanded ? '!items-start' : ''}`}
                   >
-                    <span className="w-[38rem] shrink-0">{service.title}</span>
-                    <ArrowIcon invert={!hasLightTheme} />
-                  </a>
+                    <span className={`w-[38rem] shrink-0${isExpanded ? ' pt-[1.5625rem]' : ''}`}>{service.title}</span>
+                    <ArrowIcon
+                      invert={!hasLightTheme}
+                      className={`shrink-0 transition-transform duration-300 ease-in-out${isExpanded ? ' rotate-45 mt-[1.5625rem]' : ''}`}
+                    />
+                    {isExpanded && service.description && (
+                      <p className="font-body font-normal text-[2rem] leading-[2.3125rem] tracking-[0] ml-[2.5rem] pt-[1.5625rem] pb-[1.5625rem]">
+                        {service.description}
+                      </p>
+                    )}
+                  </button>
+                  {isExpanded && (
+                    <div className={`border-b-[4px] ${borderColor} animate-[slideDown_0.3s_ease]`}>
+                      {/* Sub-service items — horizontal marquee ticker */}
+
+                      {service.items && service.items.length > 0 && (
+                        <div className="overflow-hidden py-[1.25rem]">
+                          <div className="flex animate-marquee whitespace-nowrap w-max">
+                            {[...service.items, ...service.items].map((item, i) => (
+                              <span
+                                key={i}
+                                className="font-body font-medium text-[2rem] leading-[2.3125rem] pr-[3rem]"
+                              >
+                                {item.label}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               );
             })}
