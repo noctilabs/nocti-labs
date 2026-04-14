@@ -245,32 +245,50 @@ export default function PersistentNav(): React.ReactElement {
       const navHeight = navRect.height;
       if (navHeight === 0) return;
 
-      const darkSections = document.querySelectorAll<HTMLElement>('[data-nav-theme="dark"]');
-      const lightSections = document.querySelectorAll<HTMLElement>('[data-nav-theme="light"]');
+      // Sample the theme along the nav's vertical range using elementFromPoint, so
+      // the sticky card-stack's visible foreground wins over sections that are merely
+      // still in the DOM behind a later sibling with higher z-index. Sampling at x=2
+      // keeps us outside every nav child (logo, pill, CTA, locale, mobile pill).
+      const SAMPLES = 24;
+      const sampleX = 2;
+      const sampleYs: number[] = [];
+      const sampleThemes: Array<'dark' | 'light' | null> = [];
+      for (let i = 0; i < SAMPLES; i++) {
+        const y = navBarTop + ((i + 0.5) / SAMPLES) * navHeight;
+        sampleYs.push(y);
+        const hit = document.elementFromPoint(sampleX, y);
+        const themed = hit?.closest<HTMLElement>(
+          '[data-nav-theme]:not([data-nav-layout-root])',
+        );
+        const theme = themed?.getAttribute('data-nav-theme');
+        sampleThemes.push(theme === 'dark' || theme === 'light' ? theme : null);
+      }
+
+      // Fall back to the layout-root theme for any sample that didn't hit a block
+      // (e.g., the tiny gap above the first block's top edge on initial paint).
+      const layoutRootTheme = document
+        .querySelector<HTMLElement>('[data-nav-layout-root][data-nav-theme]')
+        ?.getAttribute('data-nav-theme');
+      const fallbackTheme: 'dark' | 'light' =
+        layoutRootTheme === 'light' ? 'light' : 'dark';
+      for (let i = 0; i < SAMPLES; i++) {
+        if (sampleThemes[i] == null) sampleThemes[i] = fallbackTheme;
+      }
 
       let darkOverlapTop = navBarBottom;
       let darkOverlapBottom = navBarTop;
-      darkSections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        const intTop = Math.max(navBarTop, rect.top);
-        const intBottom = Math.min(navBarBottom, rect.bottom);
-        if (intBottom > intTop) {
-          darkOverlapTop = Math.min(darkOverlapTop, intTop);
-          darkOverlapBottom = Math.max(darkOverlapBottom, intBottom);
-        }
-      });
-
       let lightOverlapTop = navBarBottom;
       let lightOverlapBottom = navBarTop;
-      lightSections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        const intTop = Math.max(navBarTop, rect.top);
-        const intBottom = Math.min(navBarBottom, rect.bottom);
-        if (intBottom > intTop) {
-          lightOverlapTop = Math.min(lightOverlapTop, intTop);
-          lightOverlapBottom = Math.max(lightOverlapBottom, intBottom);
+      for (let i = 0; i < SAMPLES; i++) {
+        const y = sampleYs[i];
+        if (sampleThemes[i] === 'dark') {
+          darkOverlapTop = Math.min(darkOverlapTop, y);
+          darkOverlapBottom = Math.max(darkOverlapBottom, y);
+        } else if (sampleThemes[i] === 'light') {
+          lightOverlapTop = Math.min(lightOverlapTop, y);
+          lightOverlapBottom = Math.max(lightOverlapBottom, y);
         }
-      });
+      }
 
       const hasDarkOverlap = darkOverlapBottom > darkOverlapTop;
       const hasLightOverlap = lightOverlapBottom > lightOverlapTop;
@@ -303,36 +321,49 @@ export default function PersistentNav(): React.ReactElement {
       if (lightMobileRef.current) lightMobileRef.current.style.clipPath = lightClip;
       if (darkMobileRef.current) darkMobileRef.current.style.clipPath = darkClip;
 
-      // Logo independent clip: uses data-nav-theme but NOT the layout root wrapper,
-      // so it correctly reads the actual section background colour.
-      // dark bg → white logo (logoDarkRef), light bg → dark logo (logoLightRef).
-      const logoEl = logoDarkRef.current ?? logoLightRef.current;
-      if (logoEl && logoDarkRef.current && logoLightRef.current) {
-        const lr = logoEl.getBoundingClientRect();
-        const lTop = lr.top;
-        const lBottom = lr.bottom;
-        const lHeight = lr.height;
-        if (lHeight > 0) {
-          const logoSections = document.querySelectorAll<HTMLElement>(
+      // Sample the foreground theme along an arbitrary element's vertical range using
+      // elementFromPoint at a sample x that misses every fixed nav child. Walks up to
+      // the nearest [data-nav-theme] section (skipping the layout root) and resolves
+      // the theme via the supplied attribute resolver, so the sticky card-stack winner
+      // is always respected — not whichever section happens to be earlier in the DOM.
+      const sampleThemeRange = (
+        rect: DOMRect,
+        x: number,
+        getTheme: (section: HTMLElement) => 'a' | 'b' | null,
+      ): { aTop: number; aBottom: number; bTop: number; bBottom: number } => {
+        const SAMPLES = 24;
+        let aTop = rect.bottom;
+        let aBottom = rect.top;
+        let bTop = rect.bottom;
+        let bBottom = rect.top;
+        for (let i = 0; i < SAMPLES; i++) {
+          const y = rect.top + ((i + 0.5) / SAMPLES) * rect.height;
+          const hit = document.elementFromPoint(x, y);
+          const themed = hit?.closest<HTMLElement>(
             '[data-nav-theme]:not([data-nav-layout-root])',
           );
-          let ldTop = lBottom, ldBottom = lTop; // dark-bg overlap
-          let llTop = lBottom, llBottom = lTop; // light-bg overlap
-          logoSections.forEach((section) => {
-            const rect = section.getBoundingClientRect();
-            const iTop = Math.max(lTop, rect.top);
-            const iBottom = Math.min(lBottom, rect.bottom);
-            if (iBottom <= iTop) return;
-            // data-nav-logo-theme overrides data-nav-theme for the logo only
-            const logoTheme = section.getAttribute('data-nav-logo-theme') ?? section.getAttribute('data-nav-theme');
-            if (logoTheme === 'dark') {
-              ldTop = Math.min(ldTop, iTop);
-              ldBottom = Math.max(ldBottom, iBottom);
-            } else {
-              llTop = Math.min(llTop, iTop);
-              llBottom = Math.max(llBottom, iBottom);
-            }
-          });
+          const theme = themed ? getTheme(themed) : null;
+          if (theme === 'a') {
+            aTop = Math.min(aTop, y);
+            aBottom = Math.max(aBottom, y);
+          } else if (theme === 'b') {
+            bTop = Math.min(bTop, y);
+            bBottom = Math.max(bBottom, y);
+          }
+        }
+        return { aTop, aBottom, bTop, bBottom };
+      };
+
+      // Logo independent clip: dark bg → white logo (logoDarkRef), light bg → dark logo.
+      // data-nav-logo-theme overrides data-nav-theme for the logo only.
+      if (logoDarkRef.current && logoLightRef.current) {
+        const lr = (logoDarkRef.current ?? logoLightRef.current).getBoundingClientRect();
+        if (lr.height > 0) {
+          const { aTop: ldTop, aBottom: ldBottom, bTop: llTop, bBottom: llBottom } =
+            sampleThemeRange(lr, 2, (section) => {
+              const t = section.getAttribute('data-nav-logo-theme') ?? section.getAttribute('data-nav-theme');
+              return t === 'dark' ? 'a' : t === 'light' ? 'b' : null;
+            });
           const hasDark = ldBottom > ldTop;
           const hasLight = llBottom > llTop;
           let logoDarkClip: string;
@@ -344,19 +375,17 @@ export default function PersistentNav(): React.ReactElement {
             logoDarkClip = 'inset(0 0 100% 0)';
             logoLightClip = 'inset(0 0 0 0)';
           } else if (hasDark && hasLight) {
-            const dTopPct = ((ldTop - lTop) / lHeight) * 100;
-            const dBotPct = ((lBottom - ldBottom) / lHeight) * 100;
+            const dTopPct = ((ldTop - lr.top) / lr.height) * 100;
+            const dBotPct = ((lr.bottom - ldBottom) / lr.height) * 100;
             logoDarkClip = `inset(${Math.max(0, dTopPct).toFixed(2)}% 0 ${Math.max(0, dBotPct).toFixed(2)}% 0)`;
-            const lTopPct = ((llTop - lTop) / lHeight) * 100;
-            const lBotPct = ((lBottom - llBottom) / lHeight) * 100;
+            const lTopPct = ((llTop - lr.top) / lr.height) * 100;
+            const lBotPct = ((lr.bottom - llBottom) / lr.height) * 100;
             logoLightClip = `inset(${Math.max(0, lTopPct).toFixed(2)}% 0 ${Math.max(0, lBotPct).toFixed(2)}% 0)`;
           } else {
-            // No section intersects the logo (e.g. first block starts below pt-[nav-offset]).
-            // Fall back to the layout shell theme so the logo matches body/wrapper intent.
-            const layoutRoot = document.querySelector<HTMLElement>(
-              '[data-nav-layout-root][data-nav-theme]',
-            );
-            const rootTheme = layoutRoot?.getAttribute('data-nav-theme');
+            // No section sampled — fall back to the layout shell theme.
+            const rootTheme = document
+              .querySelector<HTMLElement>('[data-nav-layout-root][data-nav-theme]')
+              ?.getAttribute('data-nav-theme');
             if (rootTheme === 'dark') {
               logoDarkClip = 'inset(0 0 0 0)';
               logoLightClip = 'inset(0 0 100% 0)';
@@ -370,45 +399,23 @@ export default function PersistentNav(): React.ReactElement {
         }
       }
 
-      // Locale: bottom-fixed; optional data-locale-chrome overrides data-nav-theme for the toggle only.
-      const resolveLocaleCap = (el: HTMLElement): 'white' | 'darkBubble' => {
-        const chrome = el.getAttribute('data-locale-chrome');
-        if (chrome === 'light') return 'white';
-        if (chrome === 'dark') return 'darkBubble';
-        const nav = el.getAttribute('data-nav-theme');
-        if (nav === 'dark') return 'white';
-        if (nav === 'light') return 'darkBubble';
-        return 'darkBubble';
-      };
-      const localeCandidates = document.querySelectorAll<HTMLElement>(
-        '[data-nav-theme]:not([data-nav-layout-root]), [data-locale-chrome]',
-      );
+      // Locale: bottom-fixed. data-locale-chrome overrides data-nav-theme for the toggle only.
+      // 'white' cap = white text on dark bg; 'darkBubble' cap = dark text on light bg.
       const localeDarkEl = darkLocaleRef.current;
       const localeLightEl = lightLocaleRef.current;
       if (localeDarkEl && localeLightEl) {
         const lr = localeDarkEl.getBoundingClientRect();
-        const lTop = lr.top;
-        const lBottom = lr.bottom;
-        const lHeight = lr.height;
-        if (lHeight > 0) {
-          let whiteTop = lBottom;
-          let whiteBottom = lTop;
-          let bubbleTop = lBottom;
-          let bubbleBottom = lTop;
-          localeCandidates.forEach((section) => {
-            const rect = section.getBoundingClientRect();
-            const intTop = Math.max(lTop, rect.top);
-            const intBottom = Math.min(lBottom, rect.bottom);
-            if (intBottom <= intTop) return;
-            const cap = resolveLocaleCap(section);
-            if (cap === 'white') {
-              whiteTop = Math.min(whiteTop, intTop);
-              whiteBottom = Math.max(whiteBottom, intBottom);
-            } else {
-              bubbleTop = Math.min(bubbleTop, intTop);
-              bubbleBottom = Math.max(bubbleBottom, intBottom);
-            }
-          });
+        if (lr.height > 0) {
+          const { aTop: whiteTop, aBottom: whiteBottom, bTop: bubbleTop, bBottom: bubbleBottom } =
+            sampleThemeRange(lr, 2, (section) => {
+              const chrome = section.getAttribute('data-locale-chrome');
+              if (chrome === 'light') return 'a';
+              if (chrome === 'dark') return 'b';
+              const nav = section.getAttribute('data-nav-theme');
+              if (nav === 'dark') return 'a';
+              if (nav === 'light') return 'b';
+              return null;
+            });
           const lHasWhite = whiteBottom > whiteTop;
           const lHasBubble = bubbleBottom > bubbleTop;
           let localeDarkClip: string;
@@ -420,11 +427,11 @@ export default function PersistentNav(): React.ReactElement {
             localeLightClip = 'inset(0 0 0 0)';
             localeDarkClip = 'inset(0 0 100% 0)';
           } else if (lHasWhite && lHasBubble) {
-            const wTopPct = ((whiteTop - lTop) / lHeight) * 100;
-            const wBotPct = ((lBottom - whiteBottom) / lHeight) * 100;
+            const wTopPct = ((whiteTop - lr.top) / lr.height) * 100;
+            const wBotPct = ((lr.bottom - whiteBottom) / lr.height) * 100;
             localeDarkClip = `inset(${Math.max(0, wTopPct).toFixed(2)}% 0 ${Math.max(0, wBotPct).toFixed(2)}% 0)`;
-            const bTopPct = ((bubbleTop - lTop) / lHeight) * 100;
-            const bBotPct = ((lBottom - bubbleBottom) / lHeight) * 100;
+            const bTopPct = ((bubbleTop - lr.top) / lr.height) * 100;
+            const bBotPct = ((lr.bottom - bubbleBottom) / lr.height) * 100;
             localeLightClip = `inset(${Math.max(0, bTopPct).toFixed(2)}% 0 ${Math.max(0, bBotPct).toFixed(2)}% 0)`;
           } else {
             localeLightClip = 'inset(0 0 0 0)';
