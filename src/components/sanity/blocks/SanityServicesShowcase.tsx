@@ -118,7 +118,7 @@ export default function SanityServicesShowcase({
         )}
 
         {/* CTA */}
-        {cta && (
+        {cta && isHome && (
           <div className="mt-[3rem]">
             <SanityCta {...cta} className={`${ctaTextColor} font-body font-medium text-[2.4rem] leading-[2.5rem]`} />
           </div>
@@ -210,7 +210,7 @@ export default function SanityServicesShowcase({
         )}
 
         {/* CTA */}
-        {cta && (
+        {cta && isHome && (
           <div className="mt-[9rem]">
             <SanityCta {...cta} className={`${ctaTextColor} font-body font-medium text-[1.5rem] leading-[1.5625rem] tracking-[0]`} />
           </div>
