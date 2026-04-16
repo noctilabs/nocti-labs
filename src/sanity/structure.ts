@@ -1,8 +1,8 @@
 import type { StructureResolver } from 'sanity/structure'
 import { CogIcon, DocumentIcon, BulbOutlineIcon, CaseIcon, DocumentTextIcon, EnvelopeIcon } from '@sanity/icons'
 
-const SINGLETONS = ['siteSettings']
-const TRANSLATED_TYPES = ['page', 'service', 'project', 'blogPost']
+const SINGLETONS: string[] = []
+const TRANSLATED_TYPES = ['page', 'service', 'project', 'blogPost', 'siteSettings']
 const LOCALES = [
   { id: 'en', title: 'English', flag: '🇬🇧' },
   { id: 'es', title: 'Spanish', flag: '🇪🇸' },
@@ -39,20 +39,8 @@ export const structure: StructureResolver = (S) =>
   S.list()
     .title('Content')
     .items([
-      // Singleton: Site Settings
-      S.listItem()
-        .title('Site Settings')
-        .icon(CogIcon)
-        .child(
-          S.document()
-            .schemaType('siteSettings')
-            .documentId('siteSettings')
-            .title('Site Settings')
-        ),
-
-      S.divider(),
-
       // Translated document types — grouped by language
+      translatedTypeList(S, 'siteSettings', 'Site Settings', CogIcon),
       translatedTypeList(S, 'page', 'Pages', DocumentIcon),
       translatedTypeList(S, 'service', 'Services', BulbOutlineIcon),
       translatedTypeList(S, 'project', 'Projects', CaseIcon),

@@ -15,7 +15,6 @@ export const serviceType = defineType({
     defineField({
       name: 'language',
       type: 'string',
-      readOnly: true,
       hidden: true,
     }),
     defineField({

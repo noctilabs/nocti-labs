@@ -69,7 +69,7 @@ export default function SanityProjectsShowcase({
                   className="object-cover rounded-[16px]"
                 />
               ) : (
-                <div className="bg-[#00FF17] w-full h-full rounded-[16px]" />
+                <div className="bg-[#1500ff] w-full h-full rounded-[16px]" />
               )}
               {/* Caption — overlaid at bottom inside the media, matching Figma */}
               <div className="absolute bottom-[2.5rem] left-1/2 -translate-x-1/2 z-10 bg-white rounded-[16px] px-[1rem] py-[0.8rem] w-[91.5%] flex items-center justify-center">
@@ -80,7 +80,7 @@ export default function SanityProjectsShowcase({
               </div>
             </>
           ) : (
-            <div className="bg-[#00FF17] w-full h-full rounded-[16px]" />
+            <div className="bg-[#1500ff] w-full h-full rounded-[16px]" />
           )}
         </div>
       </div>
@@ -88,7 +88,7 @@ export default function SanityProjectsShowcase({
       {/* ── DESKTOP LAYOUT ── */}
       <div className="hidden md:block" data-nav-theme={navTheme}>
         {heading && (
-          <div className="px-section-x pt-[2.84rem] pb-[1.94rem]">
+          <div className="px-section-x pt-[2.34rem] pb-[1.94rem]">
             <h2
               className={headingCls}
               style={{ color: headingColor || '#ffffff' }}
@@ -121,36 +121,17 @@ export default function SanityProjectsShowcase({
                     className="w-full h-full object-cover rounded-[16px]"
                   />
                 ) : (
-                  <div className="bg-[#00FF17] w-full h-full rounded-[16px] flex items-center justify-center px-section-x">
-                    <div className="w-full max-w-[614px] flex flex-col gap-8">
-                      <div className="text-center">
-                        <p className="font-mono uppercase font-bold text-[#FF0000] italic text-[4rem] leading-[6rem] break-words">
-                          PROJECTS SHOWCASE
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                  <div className="bg-[#1500ff] w-full h-full rounded-[16px]" />
                 )}
-                <div className="absolute bg-white bottom-[6.99rem] left-1/2 -translate-x-1/2 z-10 h-[4.15rem] w-[41.87rem] rounded-[16px] px-[0.76rem] flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.15),0_2px_4px_rgba(0,0,0,0.1)]">
-                  <p className="text-[0.97rem] font-mono font-normal not-italic leading-[1.286] tracking-[0] text-center text-black">
+                <div className="absolute bg-white bottom-[2.5rem] left-1/2 -translate-x-1/2 z-10 h-[3.75rem] w-[37.8rem] rounded-[0.2rem] flex items-center justify-center">
+                  <p className="text-[0.875rem] font-mono font-normal not-italic leading-[1.4375rem] tracking-[0] text-center text-black">
                     {firstProject.client && `${firstProject.client}, `}
                     {firstProject.title}
                   </p>
                 </div>
               </>
             ) : (
-              <div className="bg-[#00FF17] w-full h-full rounded-[16px] flex items-center justify-center px-section-x">
-                <div className="w-full max-w-[614px] flex flex-col gap-8">
-                  <div className="text-center">
-                    <p className="font-mono uppercase font-bold text-[#FF0000] italic text-[4rem] leading-[6rem] break-words">
-                      PROJECTS FULL SCREEN
-                    </p>
-                    <p className="font-mono uppercase font-bold text-[#FF0000] italic text-[4rem] leading-[6rem] break-words">
-                      ANIMATION / VIDEO
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <div className="bg-[#1500ff] w-full h-full rounded-[16px]" />
             )}
           </div>
         </div>

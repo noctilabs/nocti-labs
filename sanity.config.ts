@@ -32,7 +32,7 @@ export default defineConfig({
     visionTool({defaultApiVersion: apiVersion}),
     documentInternationalization({
       supportedLanguages: i18nConfig.supportedLanguages,
-      schemaTypes: ['page', 'blogPost', 'service', 'project'],
+      schemaTypes: ['page', 'blogPost', 'service', 'project', 'siteSettings'],
     }),
   ],
 })

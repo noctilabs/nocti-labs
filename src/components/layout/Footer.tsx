@@ -1,5 +1,5 @@
 import { Link } from '@/i18n/navigation';
-import { sanityFetch } from '@/sanity/lib/live';
+import { client } from '@/sanity/lib/client';
 import { SITE_SETTINGS_QUERY } from '@/sanity/lib/queries';
 import type { SITE_SETTINGS_QUERY_RESULT } from '../../../sanity.types';
 
@@ -18,8 +18,8 @@ function resolveFooterHref(href?: string | null, heading?: string | null): strin
   return '#';
 }
 
-export default async function Footer() {
-  const { data: settings } = await sanityFetch({ query: SITE_SETTINGS_QUERY });
+export default async function Footer({ locale }: { locale: string }) {
+  const settings = await client.fetch<SITE_SETTINGS_QUERY_RESULT>(SITE_SETTINGS_QUERY, { locale }, { next: { revalidate: 60 } });
 
   const footerColumns: FooterColumn[] = settings?.footerColumns ?? [];
   const companyName: string = settings?.companyName ?? 'Nocti Labs';

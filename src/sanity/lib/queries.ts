@@ -11,13 +11,7 @@ export const PAGE_QUERY = defineQuery(/* groq */ `
       ...,
       _type == "servicesShowcase" => {
         ...,
-        services[]->{
-          _id,
-          title,
-          category,
-          description,
-          items
-        }
+        "services": services[]->{ _id, language, title, category, description, items }
       },
       _type == "projectsShowcase" => {
         ...,
@@ -47,6 +41,20 @@ export const PAGE_QUERY = defineQuery(/* groq */ `
       },
       _type == "contactSection" => {
         ...,
+        officesSectionHeading,
+        "formLabels": formLabels {
+          namePlaceholder,
+          companyPlaceholder,
+          emailPlaceholder,
+          phonePlaceholder,
+          platformLabel,
+          countryPlaceholder,
+          hearAboutUsLabel,
+          projectDescriptionLabel,
+          submitLabel,
+          successMessage,
+          errorMessage
+        },
         ecommercePlatforms,
         hearAboutUsOptions
       }
@@ -76,12 +84,22 @@ export const BLOG_POST_QUERY = defineQuery(/* groq */ `
 `)
 
 export const SITE_SETTINGS_QUERY = defineQuery(/* groq */ `
-  *[_type == "siteSettings"][0]{
-    _id,
-    companyName,
-    email,
-    offices,
-    socialLinks,
-    footerColumns
-  }
+  coalesce(
+    *[_type == "siteSettings" && language == $locale][0]{
+      _id,
+      companyName,
+      email,
+      offices,
+      socialLinks,
+      footerColumns
+    },
+    *[_type == "siteSettings" && language == "en"][0]{
+      _id,
+      companyName,
+      email,
+      offices,
+      socialLinks,
+      footerColumns
+    }
+  )
 `)

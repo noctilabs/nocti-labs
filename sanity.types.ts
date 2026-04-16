@@ -620,7 +620,7 @@ export type AllSanitySchemaTypes =
 
 // Source: src/sanity/lib/queries.ts
 // Variable: PAGE_QUERY
-// Query: *[_type == "page" && slug.current == $slug && language == $locale][0]{    _id,    title,    slug,    language,    seo,    pageBuilder[]{      ...,      _type == "servicesShowcase" => {        ...,        services[]->{          _id,          title,          category,          description,          items        }      },      _type == "projectsShowcase" => {        ...,        projects[]->{          _id,          title,          slug,          client,          description,          coverImage,          "coverVideoUrl": coverVideo.asset->url,          tags,          url        }      },      _type == "insightsGrid" => {        ...,        featuredPosts[]->{          _id,          title,          slug,          coverImage,          excerpt,          author,          publishedAt        }      },      _type == "contactSection" => {        ...,        ecommercePlatforms,        hearAboutUsOptions      }    }  }
+// Query: *[_type == "page" && slug.current == $slug && language == $locale][0]{    _id,    title,    slug,    language,    seo,    pageBuilder[]{      ...,      _type == "servicesShowcase" => {        ...,        "services": services[]->{ _id, language, title, category, description, items }      },      _type == "projectsShowcase" => {        ...,        projects[]->{          _id,          title,          slug,          client,          description,          coverImage,          "coverVideoUrl": coverVideo.asset->url,          tags,          url        }      },      _type == "insightsGrid" => {        ...,        featuredPosts[]->{          _id,          title,          slug,          coverImage,          excerpt,          author,          publishedAt        }      },      _type == "contactSection" => {        ...,        officesSectionHeading,        "formLabels": formLabels {          namePlaceholder,          companyPlaceholder,          emailPlaceholder,          phonePlaceholder,          platformLabel,          countryPlaceholder,          hearAboutUsLabel,          projectDescriptionLabel,          submitLabel,          successMessage,          errorMessage        },        ecommercePlatforms,        hearAboutUsOptions      }    }  }
 export type PAGE_QUERY_RESULT = {
   _id: string;
   title: string;
@@ -657,6 +657,8 @@ export type PAGE_QUERY_RESULT = {
         formHeading?: string;
         ecommercePlatforms: Array<string> | null;
         hearAboutUsOptions: Array<string> | null;
+        officesSectionHeading: null;
+        formLabels: null;
       }
     | {
         _key: string;
@@ -788,6 +790,7 @@ export type PAGE_QUERY_RESULT = {
         tagline?: string;
         services: Array<{
           _id: string;
+          language: string | null;
           title: string;
           category: "design" | "technology";
           description: string | null;
@@ -888,7 +891,7 @@ export type BLOG_POST_QUERY_RESULT = {
 
 // Source: src/sanity/lib/queries.ts
 // Variable: SITE_SETTINGS_QUERY
-// Query: *[_type == "siteSettings"][0]{    _id,    companyName,    email,    offices,    socialLinks,    footerColumns  }
+// Query: coalesce(    *[_type == "siteSettings" && language == $locale][0]{      _id,      companyName,      email,      offices,      socialLinks,      footerColumns    },    *[_type == "siteSettings" && language == "en"][0]{      _id,      companyName,      email,      offices,      socialLinks,      footerColumns    }  )
 export type SITE_SETTINGS_QUERY_RESULT = {
   _id: string;
   companyName: string;
@@ -918,8 +921,8 @@ export type SITE_SETTINGS_QUERY_RESULT = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "page" && slug.current == $slug && language == $locale][0]{\n    _id,\n    title,\n    slug,\n    language,\n    seo,\n    pageBuilder[]{\n      ...,\n      _type == "servicesShowcase" => {\n        ...,\n        services[]->{\n          _id,\n          title,\n          category,\n          description,\n          items\n        }\n      },\n      _type == "projectsShowcase" => {\n        ...,\n        projects[]->{\n          _id,\n          title,\n          slug,\n          client,\n          description,\n          coverImage,\n          "coverVideoUrl": coverVideo.asset->url,\n          tags,\n          url\n        }\n      },\n      _type == "insightsGrid" => {\n        ...,\n        featuredPosts[]->{\n          _id,\n          title,\n          slug,\n          coverImage,\n          excerpt,\n          author,\n          publishedAt\n        }\n      },\n      _type == "contactSection" => {\n        ...,\n        ecommercePlatforms,\n        hearAboutUsOptions\n      }\n    }\n  }\n': PAGE_QUERY_RESULT;
+    '\n  *[_type == "page" && slug.current == $slug && language == $locale][0]{\n    _id,\n    title,\n    slug,\n    language,\n    seo,\n    pageBuilder[]{\n      ...,\n      _type == "servicesShowcase" => {\n        ...,\n        "services": services[]->{ _id, language, title, category, description, items }\n      },\n      _type == "projectsShowcase" => {\n        ...,\n        projects[]->{\n          _id,\n          title,\n          slug,\n          client,\n          description,\n          coverImage,\n          "coverVideoUrl": coverVideo.asset->url,\n          tags,\n          url\n        }\n      },\n      _type == "insightsGrid" => {\n        ...,\n        featuredPosts[]->{\n          _id,\n          title,\n          slug,\n          coverImage,\n          excerpt,\n          author,\n          publishedAt\n        }\n      },\n      _type == "contactSection" => {\n        ...,\n        officesSectionHeading,\n        "formLabels": formLabels {\n          namePlaceholder,\n          companyPlaceholder,\n          emailPlaceholder,\n          phonePlaceholder,\n          platformLabel,\n          countryPlaceholder,\n          hearAboutUsLabel,\n          projectDescriptionLabel,\n          submitLabel,\n          successMessage,\n          errorMessage\n        },\n        ecommercePlatforms,\n        hearAboutUsOptions\n      }\n    }\n  }\n': PAGE_QUERY_RESULT;
     '\n  *[_type == "blogPost" && slug.current == $slug && language == $locale][0]{\n    _id,\n    title,\n    slug,\n    language,\n    coverImage,\n    excerpt,\n    body[]{\n      ...,\n      _type == "image" => {\n        ...,\n        asset->\n      }\n    },\n    author,\n    authorImage,\n    publishedAt\n  }\n': BLOG_POST_QUERY_RESULT;
-    '\n  *[_type == "siteSettings"][0]{\n    _id,\n    companyName,\n    email,\n    offices,\n    socialLinks,\n    footerColumns\n  }\n': SITE_SETTINGS_QUERY_RESULT;
+    '\n  coalesce(\n    *[_type == "siteSettings" && language == $locale][0]{\n      _id,\n      companyName,\n      email,\n      offices,\n      socialLinks,\n      footerColumns\n    },\n    *[_type == "siteSettings" && language == "en"][0]{\n      _id,\n      companyName,\n      email,\n      offices,\n      socialLinks,\n      footerColumns\n    }\n  )\n': SITE_SETTINGS_QUERY_RESULT;
   }
 }
