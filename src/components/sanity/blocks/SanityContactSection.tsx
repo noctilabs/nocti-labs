@@ -3,13 +3,31 @@ import { contactTitle, contactCta } from '@/lib/typography'
 import type { PAGE_QUERY_RESULT } from '../../../../sanity.types'
 
 type PageBlock = NonNullable<NonNullable<PAGE_QUERY_RESULT>['pageBuilder']>[number]
-type SanityContactSectionProps = Extract<PageBlock, { _type: 'contactSection' }>
+type FormLabels = {
+  namePlaceholder?: string | null
+  companyPlaceholder?: string | null
+  emailPlaceholder?: string | null
+  phonePlaceholder?: string | null
+  platformLabel?: string | null
+  countryPlaceholder?: string | null
+  hearAboutUsLabel?: string | null
+  projectDescriptionLabel?: string | null
+  submitLabel?: string | null
+  successMessage?: string | null
+  errorMessage?: string | null
+}
+type SanityContactSectionProps = Omit<Extract<PageBlock, { _type: 'contactSection' }>, 'officesSectionHeading' | 'formLabels'> & {
+  officesSectionHeading?: string | null
+  formLabels?: FormLabels | null
+}
 
 export default function SanityContactSection({
   heading,
   email,
+  officesSectionHeading,
   offices,
   formHeading,
+  formLabels,
   ecommercePlatforms,
   hearAboutUsOptions,
 }: SanityContactSectionProps) {
@@ -53,7 +71,7 @@ export default function SanityContactSection({
         {/* Our Offices */}
         <div className="mb-[8.9rem]">
           <h3 className="font-body font-medium text-[4.4rem] leading-[5rem] m-0 mb-[2.5rem]">
-            Our Offices
+            {officesSectionHeading ?? 'Our Offices'}
           </h3>
           <div>
             {offices && offices.map((office, index) => {
@@ -83,6 +101,7 @@ export default function SanityContactSection({
           <ContactForm
             platformOptions={ecommercePlatforms ?? undefined}
             hearAboutUsOptions={hearAboutUsOptions ?? undefined}
+            labels={formLabels}
           />
         </div>
       </div>
@@ -97,7 +116,7 @@ export default function SanityContactSection({
             {email && <a href={`mailto:${email}`} className={`${contactCta} m-0 text-white email-link w-fit`}>{email}</a>}
           </div>
           <div className="flex flex-col gap-[3rem]">
-            <h3 className={`${contactTitle} m-0`}>Our Offices</h3>
+            <h3 className={`${contactTitle} m-0`}>{officesSectionHeading ?? 'Our Offices'}</h3>
             <div>{officeList}</div>
           </div>
         </div>
@@ -110,6 +129,7 @@ export default function SanityContactSection({
           <ContactForm
             platformOptions={ecommercePlatforms ?? undefined}
             hearAboutUsOptions={hearAboutUsOptions ?? undefined}
+            labels={formLabels}
           />
         </div>
 

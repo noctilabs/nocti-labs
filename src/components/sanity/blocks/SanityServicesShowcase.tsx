@@ -118,7 +118,7 @@ export default function SanityServicesShowcase({
         )}
 
         {/* CTA */}
-        {cta && (
+        {cta && isHome && (
           <div className="mt-[3rem]">
             <SanityCta {...cta} className={`${ctaTextColor} font-body font-medium text-[2.4rem] leading-[2.5rem]`} />
           </div>
@@ -159,7 +159,6 @@ export default function SanityServicesShowcase({
                       className={`${rowClass} hover:opacity-70 transition-opacity duration-300`}
                     >
                       <span className="w-[38rem] shrink-0">{service.title}</span>
-                      <ArrowIcon invert={!hasLightTheme} />
                     </Link>
                   </div>
                 );
@@ -178,7 +177,7 @@ export default function SanityServicesShowcase({
                       className={`shrink-0 transition-transform duration-300 ease-in-out${isExpanded ? ' rotate-45 mt-[1.5625rem]' : ''}`}
                     />
                     {isExpanded && service.description && (
-                      <p className="font-body font-normal text-[2rem] leading-[2.3125rem] tracking-[0] ml-[2.5rem] pt-[1.5625rem] pb-[1.5625rem]">
+                      <p className="font-body font-normal text-[2rem] leading-[2.3125rem] tracking-[0] ml-[2.5rem] pt-[1.5625rem] pb-[1.5625rem] relative top-[1rem]">
                         {service.description}
                       </p>
                     )}
@@ -210,7 +209,7 @@ export default function SanityServicesShowcase({
         )}
 
         {/* CTA */}
-        {cta && (
+        {cta && isHome && (
           <div className="mt-[9rem]">
             <SanityCta {...cta} className={`${ctaTextColor} font-body font-medium text-[1.5rem] leading-[1.5625rem] tracking-[0]`} />
           </div>

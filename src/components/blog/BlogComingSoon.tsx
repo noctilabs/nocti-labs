@@ -1,8 +1,22 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { useLocale } from 'next-intl'
+
+const copy = {
+  en: {
+    heading: 'Coming Soon',
+    subheading: 'Our writer is still staring at a blank page. We believe in them.',
+  },
+  es: {
+    heading: 'Próximamente',
+    subheading: 'Nuestro escritor sigue mirando una página en blanco. Confiamos en él.',
+  },
+} as const
 
 export default function BlogComingSoon({ hideWrapper }: { hideWrapper?: boolean }) {
+  const locale = useLocale()
+  const t = copy[locale as keyof typeof copy] ?? copy.en
   const cursorRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
@@ -18,11 +32,11 @@ export default function BlogComingSoon({ hideWrapper }: { hideWrapper?: boolean 
 
   const content = (
     <>
-      <p className="font-display font-medium text-[9.6vw] leading-none tracking-[-0.02em] text-white whitespace-nowrap">
-        Coming Soon<span ref={cursorRef} className="text-white">_</span>
+      <p className="font-body font-medium text-[4.4rem] md:text-[3.32rem] leading-[1.042] text-white whitespace-nowrap">
+        {t.heading}<span ref={cursorRef} className="text-white">_</span>
       </p>
       <p className="font-body font-medium text-[1.5rem] leading-[1.5] text-[var(--color-muted)] mt-[3rem]">
-        Our writer is still staring at a blank page. We believe in them.
+        {t.subheading}
       </p>
     </>
   )

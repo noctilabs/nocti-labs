@@ -8,6 +8,11 @@ export const siteSettingsType = defineType({
   icon: CogIcon,
   fields: [
     defineField({
+      name: 'language',
+      type: 'string',
+      hidden: true,
+    }),
+    defineField({
       name: 'companyName',
       type: 'string',
       validation: (rule) => rule.required(),
