@@ -1,4 +1,5 @@
 import { stegaClean } from 'next-sanity'
+import { BackgroundGradientAnimation } from '@/components/ui/BackgroundGradientAnimation'
 import { urlFor } from '@/sanity/lib/image'
 import type { PAGE_QUERY_RESULT } from '../../../../sanity.types'
 
@@ -65,6 +66,15 @@ export default function SanityHero({
       className="w-full h-screen relative overflow-hidden mt-[calc(-1*var(--nav-offset))]"
       style={bgStyle}
     >
+      {cleanTheme === 'blue' && (
+        <div className="absolute inset-0 opacity-60" style={{ mixBlendMode: 'screen' }}>
+          <BackgroundGradientAnimation
+            className="absolute inset-0 w-full h-full"
+            interactive={true}
+          />
+        </div>
+      )}
+
       {/* Inner headline panel */}
       <div
         className="absolute flex items-center justify-center
