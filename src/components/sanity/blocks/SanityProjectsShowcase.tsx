@@ -35,7 +35,7 @@ export default function SanityProjectsShowcase({
   return (
     <section
       data-nav-theme={navTheme}
-      className="text-white flex flex-col relative pb-0 min-h-screen"
+      className="text-white flex flex-col relative pb-0 h-screen overflow-hidden"
       style={{ backgroundColor: backgroundColor || '#000000' }}
       suppressHydrationWarning
     >
@@ -86,9 +86,9 @@ export default function SanityProjectsShowcase({
       </div>
 
       {/* ── DESKTOP LAYOUT ── */}
-      <div className="hidden md:block" data-nav-theme={navTheme}>
+      <div className="hidden md:flex md:flex-col flex-1 min-h-0" data-nav-theme={navTheme}>
         {heading && (
-          <div className="px-section-x pt-[2.34rem] pb-[1.94rem]">
+          <div className="px-section-x pt-[2.34rem] pb-[1.94rem] shrink-0">
             <h2
               className={headingCls}
               style={{ color: headingColor || '#ffffff' }}
@@ -97,10 +97,8 @@ export default function SanityProjectsShowcase({
             </h2>
           </div>
         )}
-        <div
-          className={`w-full flex items-start justify-center relative px-section-x pb-[10rem] ${heading ? 'pt-0' : 'pt-[3rem] min-h-screen'}`}
-        >
-          <div className="relative w-full aspect-[1200/667] rounded-[16px]">
+        <div className="flex-1 min-h-0 w-full flex items-center justify-center px-section-x pb-[3rem]">
+          <div className="relative w-full aspect-[1200/667] max-h-full rounded-[16px]">
             {firstProject ? (
               <>
                 {firstProject.coverVideoUrl ? (
