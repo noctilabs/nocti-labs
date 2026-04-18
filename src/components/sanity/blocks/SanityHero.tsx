@@ -1,5 +1,5 @@
 import { stegaClean } from 'next-sanity'
-import { BackgroundGradientAnimation } from '@/components/ui/BackgroundGradientAnimation'
+import { BubbleBackground } from '@/components/ui/BubbleBackground'
 import { urlFor } from '@/sanity/lib/image'
 import type { PAGE_QUERY_RESULT } from '../../../../sanity.types'
 
@@ -68,7 +68,7 @@ export default function SanityHero({
     >
       {cleanTheme === 'blue' && (
         <div className="absolute inset-0 opacity-60" style={{ mixBlendMode: 'screen' }}>
-          <BackgroundGradientAnimation
+          <BubbleBackground
             className="absolute inset-0 w-full h-full"
             interactive={true}
           />
