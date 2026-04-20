@@ -174,7 +174,7 @@ export default function SanityServicesShowcase({
                     <span className={`w-[38rem] shrink-0${isExpanded ? ' pt-[1.5625rem]' : ''}`}>{service.title}</span>
                     <ArrowIcon
                       invert={!hasLightTheme}
-                      className={`shrink-0 transition-transform duration-300 ease-in-out${isExpanded ? ' rotate-45 mt-[1.5625rem]' : ''}`}
+                      className={`shrink-0 transition-transform duration-300 ease-in-out${isExpanded ? ' rotate-45 mt-[3.125rem]' : ''}`}
                     />
                     {isExpanded && service.description && (
                       <p className="font-body font-normal text-[2rem] leading-[2.3125rem] tracking-[0] ml-[2.5rem] pt-[1.5625rem] pb-[1.5625rem] relative top-[1rem]">
