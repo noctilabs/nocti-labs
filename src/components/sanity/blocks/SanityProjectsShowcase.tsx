@@ -98,13 +98,13 @@ export default function SanityProjectsShowcase({
           </div>
         )}
         <div className="flex-1 min-h-0 w-full flex items-center justify-center px-section-x pb-[3rem]">
-          <div className="relative w-full aspect-[1200/667] max-h-full rounded-[16px]">
+          <div className="relative inline-flex max-w-full max-h-full">
             {firstProject ? (
               <>
                 {firstProject.coverVideoUrl ? (
                   <video
                     src={firstProject.coverVideoUrl}
-                    className="w-full h-full object-cover rounded-[16px]"
+                    className="max-w-full max-h-full w-auto h-auto rounded-[16px] block"
                     autoPlay
                     muted
                     loop
@@ -112,11 +112,11 @@ export default function SanityProjectsShowcase({
                   />
                 ) : firstProject.coverImage?.asset?._ref ? (
                   <Image
-                    src={urlFor(firstProject.coverImage).width(1200).url()}
+                    src={urlFor(firstProject.coverImage).width(1920).url()}
                     alt={firstProject.title || ''}
-                    width={1200}
-                    height={667}
-                    className="w-full h-full object-cover rounded-[16px]"
+                    width={1920}
+                    height={1080}
+                    className="max-w-full max-h-full w-auto h-auto rounded-[16px] object-contain block"
                   />
                 ) : (
                   <div className="bg-[#1500ff] w-full h-full rounded-[16px]" />
