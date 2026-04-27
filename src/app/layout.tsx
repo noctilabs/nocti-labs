@@ -15,6 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}>
+      <head>
+        <link rel="preload" href="/noctiLabsBackgroundInnerLanding.svg" as="image" type="image/svg+xml" />
+      </head>
       <body>{children}</body>
     </html>
   );

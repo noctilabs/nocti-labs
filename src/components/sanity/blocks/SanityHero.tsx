@@ -42,16 +42,15 @@ export default function SanityHero({
 
   const textColor = cleanTheme === 'light' ? 'text-black' : 'text-white'
 
-  // Inner panel background must stay inline due to dynamic URL
-  const innerBgStyle: React.CSSProperties = {
-    backgroundImage: innerBgImageUrl
-      ? `url(${innerBgImageUrl})`
-      : !bgImageUrl && cleanTheme === 'blue'
-        ? 'url(/noctiLabsBackgroundInnerLanding.svg)'
-        : undefined,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  }
+  const innerBgStyle: React.CSSProperties = innerBgImageUrl
+    ? {
+        backgroundImage: `url(${innerBgImageUrl})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }
+    : {}
+
+  const showDefaultInnerBg = !bgImageUrl && cleanTheme === 'blue' && !innerBgImageUrl
 
   // Only explicit "light" (white) hero uses dark nav; blue and other dark treatments use light nav + locale.
   const navTheme: 'light' | 'dark' = cleanTheme === 'light' ? 'light' : 'dark'
@@ -65,21 +64,32 @@ export default function SanityHero({
       className="w-full h-screen relative overflow-hidden mt-[calc(-1*var(--nav-offset))]"
       style={bgStyle}
     >
-      {cleanTheme === 'blue' && <BubbleBackgroundFadeIn />}
-
-      {/* Inner headline panel */}
-      <FadeIn
+      {/* Inner headline panel — SVG renders immediately (no fade) so the blue establishes first */}
+      <div
         className="absolute flex items-center justify-center
           left-[14px] right-[14px] top-[243px] h-[385px]
           md:left-[18.96%] md:right-auto md:w-[62.56%] md:h-auto md:aspect-[903/385] md:top-[25.60%]"
         style={innerBgStyle}
       >
-        <p
-          className={`${textColor} text-[32px] leading-[37px] md:text-[3rem] md:leading-[3.125rem] font-body font-medium not-italic tracking-[0] text-center antialiased text-crisp m-0 p-0 w-[calc(100%-2rem)] md:w-[74.5%] whitespace-pre-line`}
-        >
-          {heading || 'Commerce and Technology Studio for the AI era'}
-        </p>
-      </FadeIn>
+        {showDefaultInnerBg && (
+          <img
+            src="/noctiLabsBackgroundInnerLanding.svg"
+            alt=""
+            aria-hidden="true"
+            fetchPriority="high"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
+        <FadeIn className="relative z-10 w-full flex items-center justify-center">
+          <p
+            className={`${textColor} text-[32px] leading-[37px] md:text-[3rem] md:leading-[3.125rem] font-body font-medium not-italic tracking-[0] text-center antialiased text-crisp m-0 p-0 w-[calc(100%-2rem)] md:w-[74.5%] whitespace-pre-line`}
+          >
+            {heading || 'Commerce and Technology Studio for the AI era'}
+          </p>
+        </FadeIn>
+      </div>
+
+      {cleanTheme === 'blue' && <BubbleBackgroundFadeIn />}
     </section>
   )
 }
