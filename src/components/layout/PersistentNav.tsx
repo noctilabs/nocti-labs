@@ -79,6 +79,7 @@ export default function PersistentNav(): React.ReactElement {
   const logoDarkRef = useRef<HTMLDivElement>(null);  // white text — shown on dark backgrounds
   const logoLightRef = useRef<HTMLDivElement>(null); // dark text — shown on light backgrounds
   const [menuOpen, setMenuOpen] = useState(false);
+  const [ready, setReady] = useState(false);
   const updateClipRef = useRef<() => void>(() => {});
   const pathname = usePathname();
 
@@ -464,6 +465,7 @@ export default function PersistentNav(): React.ReactElement {
 
     updateClipRef.current = updateClip;
     updateClip();
+    setReady(true);
     const rafId = requestAnimationFrame(updateClip);
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onFrame);
@@ -484,7 +486,10 @@ export default function PersistentNav(): React.ReactElement {
   const mobileNavClass = "fixed top-[0.75rem] left-[0.875rem] right-[0.875rem] z-[1000] pointer-events-auto md:hidden";
 
   return (
-    <div className="fixed inset-x-0 top-0 z-[1000] pointer-events-none h-screen">
+    <div
+      className="fixed inset-x-0 top-0 z-[1000] pointer-events-none h-screen transition-opacity duration-[1400ms] ease-in-out"
+      style={{ opacity: ready ? 1 : 0 }}
+    >
       {/* Desktop: Light nav */}
       <nav ref={lightNavRef} className={desktopNavClass} style={{ clipPath: 'inset(0 0 100% 0)' }}>
         {/* Logo placeholder — keeps grid layout; actual logo rendered independently below */}
