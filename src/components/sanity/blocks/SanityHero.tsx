@@ -1,5 +1,6 @@
 import { stegaClean } from 'next-sanity'
-import { BubbleBackground } from '@/components/ui/BubbleBackground'
+import { BubbleBackgroundFadeIn } from '@/components/ui/BubbleBackgroundFadeIn'
+import { FadeIn } from '@/components/ui/FadeIn'
 import { urlFor } from '@/sanity/lib/image'
 import type { PAGE_QUERY_RESULT } from '../../../../sanity.types'
 
@@ -33,9 +34,7 @@ export default function SanityHero({
       }
     : cleanTheme === 'blue'
       ? {
-          backgroundImage: 'url(/noctiLabsBackgroundLanding.svg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundColor: '#0d0a2e',
         }
       : {
           backgroundColor: cleanTheme === 'light' ? '#ffffff' : '#000000',
@@ -66,17 +65,10 @@ export default function SanityHero({
       className="w-full h-screen relative overflow-hidden mt-[calc(-1*var(--nav-offset))]"
       style={bgStyle}
     >
-      {cleanTheme === 'blue' && (
-        <div className="absolute inset-0 opacity-60" style={{ mixBlendMode: 'screen' }}>
-          <BubbleBackground
-            className="absolute inset-0 w-full h-full"
-            interactive={true}
-          />
-        </div>
-      )}
+      {cleanTheme === 'blue' && <BubbleBackgroundFadeIn />}
 
       {/* Inner headline panel */}
-      <div
+      <FadeIn
         className="absolute flex items-center justify-center
           left-[14px] right-[14px] top-[243px] h-[385px]
           md:left-[18.96%] md:right-auto md:w-[62.56%] md:h-auto md:aspect-[903/385] md:top-[25.60%]"
@@ -87,7 +79,7 @@ export default function SanityHero({
         >
           {heading || 'Commerce and Technology Studio for the AI era'}
         </p>
-      </div>
+      </FadeIn>
     </section>
   )
 }
