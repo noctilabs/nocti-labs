@@ -27,7 +27,6 @@ function makePortableTextComponents(sectionRefs: React.RefObject<Record<string, 
           {children}
         </p>
       ),
-      // Figma h2: 32px / 37px medium
       h2: ({ children, value }) => (
         <h2
           id={`section-${value._key}`}
@@ -69,7 +68,7 @@ function makePortableTextComponents(sectionRefs: React.RefObject<Record<string, 
       ),
     },
     marks: {
-      strong: ({ children }) => <strong className="font-medium">{children}</strong>,
+      strong: ({ children }) => <strong className="font-bold">{children}</strong>,
       em: ({ children }) => <em className="italic">{children}</em>,
       link: ({ value, children }) => (
         <a

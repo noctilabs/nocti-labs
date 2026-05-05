@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { getLocale } from 'next-intl/server'
 import { urlFor } from '@/sanity/lib/image'
 import { heading as headingCls, subheading, caption } from '@/lib/typography'
 import type { PAGE_QUERY_RESULT } from '../../../../sanity.types'
@@ -8,10 +9,11 @@ import BlogComingSoon from '@/components/blog/BlogComingSoon'
 type PageBlock = NonNullable<NonNullable<PAGE_QUERY_RESULT>['pageBuilder']>[number]
 type SanityInsightsGridProps = Extract<PageBlock, { _type: 'insightsGrid' }>
 
-export default function SanityInsightsGrid({
+export default async function SanityInsightsGrid({
   heading,
   featuredPosts,
 }: SanityInsightsGridProps) {
+  const locale = await getLocale()
   const isEmpty = !featuredPosts || featuredPosts.length === 0
 
   if (isEmpty) {
@@ -44,7 +46,7 @@ export default function SanityInsightsGrid({
         {featuredPosts && featuredPosts.length > 0 && (
           <div className="flex flex-col gap-[2rem] px-[3.8rem]">
             {featuredPosts.map((post) => (
-              <Link key={post._id} href={`/blog/${post.slug?.current}`} className="group flex flex-col">
+              <Link key={post._id} href={`/${locale}/blog/${post.slug?.current}`} className="group flex flex-col">
                 {/* Cover Image */}
                 {post.coverImage?.asset?._ref ? (
                   <Image
@@ -80,7 +82,7 @@ export default function SanityInsightsGrid({
         )}
 
         <Link
-          href="/blog"
+          href={`/${locale}/blog`}
           className="font-body font-medium text-[2.4rem] leading-[2.5rem] text-white hover:opacity-70 transition inline-block mt-[4rem] px-[3.8rem]"
         >
           Read our Blog →
@@ -98,7 +100,7 @@ export default function SanityInsightsGrid({
         {featuredPosts && featuredPosts.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1.42rem] pb-[3rem]">
             {featuredPosts.map((post) => (
-              <Link key={post._id} href={`/blog/${post.slug?.current}`} className="group flex flex-col">
+              <Link key={post._id} href={`/${locale}/blog/${post.slug?.current}`} className="group flex flex-col">
                 {post.coverImage?.asset?._ref ? (
                   <Image
                     src={urlFor(post.coverImage).width(652).height(442).url()}
@@ -122,7 +124,7 @@ export default function SanityInsightsGrid({
         )}
 
         <Link
-          href="/blog"
+          href={`/${locale}/blog`}
           className={`${subheading} text-white hover:opacity-70 transition inline-block pt-[2.81rem] pb-[2.59rem]`}
         >
           Read our Blog →
