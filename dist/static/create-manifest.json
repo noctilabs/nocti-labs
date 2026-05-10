@@ -1,6 +1,6 @@
 {
-  "createdAt": "2026-04-10T16:15:58.352Z",
-  "studioVersion": "5.17.1",
+  "createdAt": "2026-05-10T21:34:17.555Z",
+  "studioVersion": "5.21.0",
   "version": 3,
   "workspaces": [
     {
@@ -13,7 +13,7 @@
       },
       "name": "default",
       "projectId": "pchevj3z",
-      "schema": "db5d35ea.create-schema.json",
+      "schema": "c2b0e4fc.create-schema.json",
       "title": "Default",
       "tools": "ef87c8fe.create-tools.json"
     }
