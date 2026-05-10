@@ -1,6 +1,8 @@
 'use client';
 
+import Link from 'next/link'
 import Image from 'next/image'
+import { useLocale } from 'next-intl'
 import { urlFor } from '@/sanity/lib/image'
 import { getNavTheme } from '@/lib/colorUtils'
 import { heading as headingCls } from '@/lib/typography'
@@ -28,9 +30,12 @@ export default function SanityProjectsShowcase({
     }
     title?: string
     client?: string
+    slug?: { current?: string }
   }
   const firstProject = projects?.[0] as ProjectsShowcaseProjectWithVideo | undefined
   const navTheme = getNavTheme(backgroundColor)
+  const locale = useLocale()
+  const projectHref = firstProject?.slug?.current ? `/${locale}/work/${firstProject.slug.current}` : null
 
   return (
     <section
@@ -50,6 +55,7 @@ export default function SanityProjectsShowcase({
           </h2>
         )}
         <div className="relative mx-[2.1rem] rounded-[16px] overflow-hidden aspect-[377/731] max-h-[73.1rem]">
+          {projectHref && <Link href={projectHref} className="absolute inset-0 z-20" aria-label={firstProject?.title || 'View project'} />}
           {firstProject ? (
             <>
               {firstProject.coverVideoUrl ? (
@@ -97,14 +103,16 @@ export default function SanityProjectsShowcase({
             </h2>
           </div>
         )}
-        <div className="flex-1 min-h-0 w-full flex items-center justify-center px-section-x pb-[3rem]">
-          <div className="relative inline-flex max-w-full max-h-full">
+        <div className="flex-1 min-h-0 w-full flex items-center justify-center px-section-x pb-[3rem] pt-[1rem]">
+          <div className="relative inline-flex max-w-full max-h-full rounded-[16px] overflow-hidden" style={{ isolation: 'isolate' }}>
+            {projectHref && <Link href={projectHref} className="absolute inset-0 z-20" aria-label={firstProject?.title || 'View project'} />}
             {firstProject ? (
               <>
                 {firstProject.coverVideoUrl ? (
                   <video
                     src={firstProject.coverVideoUrl}
-                    className="max-w-full max-h-full w-auto h-auto rounded-[16px] block"
+                    className="block w-auto h-auto"
+                    style={{ maxWidth: '100%', maxHeight: 'calc(100vh - 12rem)' }}
                     autoPlay
                     muted
                     loop
@@ -116,10 +124,10 @@ export default function SanityProjectsShowcase({
                     alt={firstProject.title || ''}
                     width={1920}
                     height={1080}
-                    className="max-w-full max-h-full w-auto h-auto rounded-[16px] object-contain block"
+                    className="max-w-full max-h-full w-auto h-auto object-contain block"
                   />
                 ) : (
-                  <div className="bg-[#1500ff] w-full h-full rounded-[16px]" />
+                  <div className="bg-[#1500ff] w-full h-full" />
                 )}
                 <div className="absolute bg-white bottom-[2.5rem] left-1/2 -translate-x-1/2 z-10 h-[3.75rem] w-[37.8rem] rounded-[0.2rem] flex items-center justify-center">
                   <p className="text-[0.875rem] font-mono font-normal not-italic leading-[1.4375rem] tracking-[0] text-center text-black">
@@ -129,7 +137,7 @@ export default function SanityProjectsShowcase({
                 </div>
               </>
             ) : (
-              <div className="bg-[#1500ff] w-full h-full rounded-[16px]" />
+              <div className="bg-[#1500ff] w-full h-full" />
             )}
           </div>
         </div>

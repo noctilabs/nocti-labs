@@ -31,12 +31,24 @@ export const projectType = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'subtitle',
+      title: 'Subtitle',
+      type: 'string',
+    }),
+    defineField({
       name: 'description',
       type: 'text',
       rows: 4,
     }),
     defineField({
       name: 'coverImage',
+      type: 'image',
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: 'heroImage',
+      title: 'Hero Image (Project Page)',
+      description: 'Full-bleed image shown at the top of the project detail page. If not set, falls back to Cover Image.',
       type: 'image',
       options: { hotspot: true },
     }),
@@ -49,6 +61,31 @@ export const projectType = defineType({
       },
     }),
     defineField({
+      name: 'industry',
+      title: 'Industry',
+      type: 'string',
+    }),
+    defineField({
+      name: 'year',
+      title: 'Year',
+      type: 'string',
+    }),
+    defineField({
+      name: 'services',
+      title: 'Services',
+      type: 'string',
+    }),
+    defineField({
+      name: 'techStack',
+      title: 'Tech Stack',
+      type: 'string',
+    }),
+    defineField({
+      name: 'features',
+      title: 'Features',
+      type: 'string',
+    }),
+    defineField({
       name: 'tags',
       type: 'array',
       of: [defineArrayMember({ type: 'string' })],
@@ -59,6 +96,20 @@ export const projectType = defineType({
       title: 'Project URL',
       type: 'url',
       validation: (rule) => rule.uri({ scheme: ['http', 'https'] }),
+    }),
+    defineField({
+      name: 'descriptionTitle',
+      title: 'Description Title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'body',
+      title: 'Full Description',
+      type: 'array',
+      of: [
+        defineArrayMember({ type: 'block' }),
+        defineArrayMember({ type: 'image', options: { hotspot: true } }),
+      ],
     }),
   ],
   preview: {
