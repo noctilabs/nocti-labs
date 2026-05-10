@@ -83,6 +83,45 @@ export const BLOG_POST_QUERY = defineQuery(/* groq */ `
   }
 `)
 
+export const PROJECT_QUERY = defineQuery(/* groq */ `
+  *[_type == "project" && slug.current == $slug && (language == $locale || !defined(language))][0]{
+    _id,
+    title,
+    slug,
+    language,
+    client,
+    subtitle,
+    description,
+    coverImage,
+    heroImage,
+    "coverVideoUrl": coverVideo.asset->url,
+    industry,
+    year,
+    services,
+    techStack,
+    features,
+    tags,
+    url,
+    descriptionTitle,
+    body[]{
+      ...,
+      _type == "image" => {
+        ...,
+        asset->
+      }
+    }
+  }
+`)
+
+export const PROJECTS_QUERY = defineQuery(/* groq */ `
+  *[_type == "project" && (language == $locale || !defined(language))] | order(_createdAt asc) {
+    _id,
+    title,
+    slug,
+    language
+  }
+`)
+
 export const SITE_SETTINGS_QUERY = defineQuery(/* groq */ `
   coalesce(
     *[_type == "siteSettings" && language == $locale][0]{

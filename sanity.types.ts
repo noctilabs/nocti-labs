@@ -890,6 +890,47 @@ export type BLOG_POST_QUERY_RESULT = {
 } | null;
 
 // Source: src/sanity/lib/queries.ts
+// Variable: PROJECT_QUERY
+// Query: *[_type == "project" && slug.current == $slug && (language == $locale || !defined(language))][0]{    _id,    title,    slug,    language,    client,    subtitle,    description,    coverImage,    heroImage,    "coverVideoUrl": coverVideo.asset->url,    industry,    year,    services,    techStack,    features,    tags,    url,    descriptionTitle,    body[]{      ...,      _type == "image" => {        ...,        asset->      }    }  }
+export type PROJECT_QUERY_RESULT = {
+  _id: string;
+  title: string;
+  slug: Slug;
+  language: string | null;
+  client: string | null;
+  subtitle: null;
+  description: string | null;
+  coverImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  heroImage: null;
+  coverVideoUrl: string | null;
+  industry: null;
+  year: null;
+  services: null;
+  techStack: null;
+  features: null;
+  tags: Array<string> | null;
+  url: string | null;
+  descriptionTitle: null;
+  body: null;
+} | null;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: PROJECTS_QUERY
+// Query: *[_type == "project" && (language == $locale || !defined(language))] | order(_createdAt asc) {    _id,    title,    slug,    language  }
+export type PROJECTS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string;
+  slug: Slug;
+  language: string | null;
+}>;
+
+// Source: src/sanity/lib/queries.ts
 // Variable: SITE_SETTINGS_QUERY
 // Query: coalesce(    *[_type == "siteSettings" && language == $locale][0]{      _id,      companyName,      email,      offices,      socialLinks,      footerColumns    },    *[_type == "siteSettings" && language == "en"][0]{      _id,      companyName,      email,      offices,      socialLinks,      footerColumns    }  )
 export type SITE_SETTINGS_QUERY_RESULT = {
@@ -923,6 +964,8 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '\n  *[_type == "page" && slug.current == $slug && language == $locale][0]{\n    _id,\n    title,\n    slug,\n    language,\n    seo,\n    pageBuilder[]{\n      ...,\n      _type == "servicesShowcase" => {\n        ...,\n        "services": services[]->{ _id, language, title, category, description, items }\n      },\n      _type == "projectsShowcase" => {\n        ...,\n        projects[]->{\n          _id,\n          title,\n          slug,\n          client,\n          description,\n          coverImage,\n          "coverVideoUrl": coverVideo.asset->url,\n          tags,\n          url\n        }\n      },\n      _type == "insightsGrid" => {\n        ...,\n        featuredPosts[]->{\n          _id,\n          title,\n          slug,\n          coverImage,\n          excerpt,\n          author,\n          publishedAt\n        }\n      },\n      _type == "contactSection" => {\n        ...,\n        officesSectionHeading,\n        "formLabels": formLabels {\n          namePlaceholder,\n          companyPlaceholder,\n          emailPlaceholder,\n          phonePlaceholder,\n          platformLabel,\n          countryPlaceholder,\n          hearAboutUsLabel,\n          projectDescriptionLabel,\n          submitLabel,\n          successMessage,\n          errorMessage\n        },\n        ecommercePlatforms,\n        hearAboutUsOptions\n      }\n    }\n  }\n': PAGE_QUERY_RESULT;
     '\n  *[_type == "blogPost" && slug.current == $slug && language == $locale][0]{\n    _id,\n    title,\n    slug,\n    language,\n    coverImage,\n    excerpt,\n    body[]{\n      ...,\n      _type == "image" => {\n        ...,\n        asset->\n      }\n    },\n    author,\n    authorImage,\n    publishedAt\n  }\n': BLOG_POST_QUERY_RESULT;
+    '\n  *[_type == "project" && slug.current == $slug && (language == $locale || !defined(language))][0]{\n    _id,\n    title,\n    slug,\n    language,\n    client,\n    subtitle,\n    description,\n    coverImage,\n    heroImage,\n    "coverVideoUrl": coverVideo.asset->url,\n    industry,\n    year,\n    services,\n    techStack,\n    features,\n    tags,\n    url,\n    descriptionTitle,\n    body[]{\n      ...,\n      _type == "image" => {\n        ...,\n        asset->\n      }\n    }\n  }\n': PROJECT_QUERY_RESULT;
+    '\n  *[_type == "project" && (language == $locale || !defined(language))] | order(_createdAt asc) {\n    _id,\n    title,\n    slug,\n    language\n  }\n': PROJECTS_QUERY_RESULT;
     '\n  coalesce(\n    *[_type == "siteSettings" && language == $locale][0]{\n      _id,\n      companyName,\n      email,\n      offices,\n      socialLinks,\n      footerColumns\n    },\n    *[_type == "siteSettings" && language == "en"][0]{\n      _id,\n      companyName,\n      email,\n      offices,\n      socialLinks,\n      footerColumns\n    }\n  )\n': SITE_SETTINGS_QUERY_RESULT;
   }
 }
