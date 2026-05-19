@@ -78,13 +78,13 @@ export default async function SanityInsightsGrid({
       {/* ── DESKTOP LAYOUT ── */}
       <div className="hidden md:block pt-[2.34rem] mx-section-x mb-[3rem]">
         {heading && (
-          <h2 className={`${headingCls} pt-0 pb-[4rem]`}>
+          <h2 className={`${headingCls} pt-0 pb-[2rem]`}>
             {heading}
           </h2>
         )}
 
         {featuredPosts && featuredPosts.length > 0 && (
-          <div className="grid grid-cols-3 gap-[1.42rem] pb-[3rem]">
+          <div className="grid grid-cols-3 gap-[0.625rem] pb-[3rem]">
             {featuredPosts.map((post) => (
               <Link key={post._id} href={`/${locale}/blog/${post.slug?.current}`} className="group flex flex-col">
                 {post.coverImage?.asset?._ref ? (
@@ -97,19 +97,26 @@ export default async function SanityInsightsGrid({
                     className="w-full h-auto object-cover rounded-[1rem] group-hover:opacity-80 transition"
                   />
                 ) : (
-                  <div className="w-[90%] aspect-square bg-gray-800 rounded-[1rem] group-hover:opacity-80 transition" />
+                  <div className="w-full aspect-[395/340] bg-[#d9d9d9] rounded-[1rem] group-hover:opacity-80 transition" />
                 )}
-                <div className="flex flex-col gap-[1.38rem] mt-[1.38rem] w-[90%]">
+                <div className="flex flex-col gap-[0.75rem] mt-[0.75rem]">
                   <div className="flex items-center justify-between">
                     {post.author && (
-                      <p className="font-body font-normal text-[1.12rem] leading-[1.28rem] m-0 text-[#a8a8a8] uppercase tracking-wide">
+                      <p className="font-body font-normal text-[0.875rem] leading-[1rem] m-0 text-[#a8a8a8] uppercase">
                         {post.author}
                       </p>
                     )}
+                    {post.publishedAt && (
+                      <p className="font-body font-normal text-[0.875rem] leading-[1rem] m-0 text-[#a8a8a8] uppercase">
+                        {new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase()}
+                      </p>
+                    )}
                   </div>
-                  <h3 className="font-body font-medium text-[2.4rem] leading-[2.5rem] m-0 text-white">
-                    {post.title}
-                  </h3>
+                  {post.title && (
+                    <h3 className="font-body font-medium text-[2rem] leading-[2.3125rem] m-0 text-white">
+                      {post.title}
+                    </h3>
+                  )}
                 </div>
               </Link>
             ))}
